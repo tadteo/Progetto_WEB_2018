@@ -1,10 +1,6 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+# Progetto Finale: Sito E-commerce
+<small>Versione: 04 (24-05-2017)</small>
 
-# Progetto Finale: Sito E-commerce <small>Versione: 04 (24-05-2017)</small>
-
-<div class="container">[Features](#) [Pricing](#)</div>
-
-</nav>
 
 <div>
 
