@@ -1,3 +1,7 @@
+CREATE SCHEMA ecommercesystem;
+
+USE ecommercesystem;
+
 CREATE TABLE user (
 	id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(50),
@@ -51,7 +55,7 @@ CREATE TABLE purchase (
 	id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
     product_id INT NOT NULL,
-    date TIMESTAMP,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (product_id) REFERENCES product(id)
@@ -67,10 +71,10 @@ CREATE TABLE review (
     title VARCHAR(50),
     review_description VARCHAR(32000),
     purchase_id INT NOT NULL,
-    date TIMESTAMP,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     replied BOOL,
     reply_text VARCHAR(32000),
-    reply_date TIMESTAMP,
+    reply_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     FOREIGN KEY (purchase_id) REFERENCES purchase(id)
 );
@@ -79,9 +83,9 @@ CREATE TABLE issue_report (
 	id INT NOT NULL,
     purchase_id INT NOT NULL,
     description VARCHAR(32000),
-    issue_date TIMESTAMP,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     validator INT,
-    validation_date TIMESTAMP,
+    validation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     result BOOL,
     PRIMARY KEY(id),
     FOREIGN KEY(purchase_id) REFERENCES purchase(id)
