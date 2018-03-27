@@ -18,6 +18,11 @@
             String username = (String) session.getAttribute("username"); 
             if (username != null){
                 out.println("Welcome " + username);
+        %>
+            <form class="form-signin" action="/site/logout.do" method="POST">
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
+            </form>
+        <%
             }else{
                 %>
                     <a href="/site/login.do">Login</a>
