@@ -1,1 +1,1 @@
-<h1>Progetto Web</h1>
+<h1>Sistema di prenotazione cinema multisala</h1>
