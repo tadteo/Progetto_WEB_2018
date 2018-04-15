@@ -29,6 +29,6 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.removeAttribute("email");
-        response.sendRedirect("/cinema/JSP/homepage.jsp");
+        response.sendRedirect(request.getContextPath() + "/");
     }
 }

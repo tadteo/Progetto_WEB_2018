@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
 
-        <title>JSP Page</title>
+        <title>Cinema-Homepage</title>
     </head>
     <body>
         <br>
@@ -41,6 +41,11 @@
                         <%
                     }
                 %>
+                
+                <div id="movies">
+                    <!--Qui vanno messi i cinema disponibili
+                    prima però bisogna fare gestire i dati da una servlet-->
+                </div>
             </div>
         </div>
     </body>

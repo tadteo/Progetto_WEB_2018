@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet {
                 if(password.equals(currentUser.getPassword())){
                     session.setAttribute("email", email);
                     session.removeAttribute("errorMessage");
-                    response.sendRedirect(request.getContextPath() + "/JSP/homepage.jsp");
+                    response.sendRedirect(request.getContextPath() + "/");
                 }else{
                     session.setAttribute("errorMessage", "La combinazione email/password è sbagliata");
                     response.sendRedirect(request.getContextPath() + "/login.do");
