@@ -4,9 +4,12 @@
     Author     : domenico
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+
 <%@ page import="java.util.StringTokenizer" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,14 +40,38 @@
                 <%
                     }else{
                         %>
-                            <a href="/cinema/login.do">Login</a>
+                            <!--<a href="/cinema/login.do">Login</a>-->
+                            <form class="form-signin" action="/cinema/login.do" method="GET">
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
                         <%
                     }
                 %>
                 
+                <br/>
+                
                 <div id="movies">
-                    <!--Qui vanno messi i cinema disponibili
-                    prima però bisogna fare gestire i dati da una servlet-->
+                    <!--Qui vanno messi i cinema disponibili-->
+                    <table class="table">
+                        <tr>
+                            <th>#</th>
+                            <th></th>
+                            <th>Titolo</th> 
+                            <th>Trailer</th>
+                            <th>Durata (minuti)</th>
+                            <th>Trama</th>
+                        </tr>
+                    <c:forEach  items="${requestScope.films}" var="film">
+                        
+                            <tr>
+                                <th>${film.getId()}</th>
+                                <td><img src="images${film.getUrlLocandina()}" style="max-width:10rem"/></td>
+                                <td>${film.getTitolo()}</td> 
+                                <td><a href="${film.getUrlTrailer()}">Youtube</a></td>
+                                <td>${film.getDurata()}</td>
+                                <td style="max-width: 18rem">${fn:substring(film.getTrama(), 0, 150)} ...</td>
+                            </tr>
+                    </c:forEach>
+                    </table>
                 </div>
             </div>
         </div>

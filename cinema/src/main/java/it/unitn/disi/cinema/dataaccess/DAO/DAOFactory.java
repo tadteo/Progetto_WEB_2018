@@ -14,9 +14,9 @@ public class DAOFactory {
 //    public static GenereDAO getGenereDAO(){
 //        return new GenereDAO();
 //    }
-//    public static FilmDAO getFilmDAO(){
-//        return new FilmDAO();
-//    }
+    public static FilmDAO getFilmDAO(){
+        return new FilmDAO();
+    }
 //    public static SpettacoloDAO getSpettacoloDAO(){
 //        return new SpettacoloDAO();
 //    }
