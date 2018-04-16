@@ -11,9 +11,9 @@ public class DAOFactory {
 //    public static RuoloDAO getRuoloDAO(){
 //        return new RuoloDAO();
 //    }
-//    public static GenereDAO getGenereDAO(){
-//        return new GenereDAO();
-//    }
+    public static GenereDAO getGenereDAO(){
+        return new GenereDAO();
+    }
     public static FilmDAO getFilmDAO(){
         return new FilmDAO();
     }

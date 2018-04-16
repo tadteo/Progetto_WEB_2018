@@ -8,10 +8,7 @@ package it.unitn.disi.cinema.servlets;
 import it.unitn.disi.cinema.dataaccess.Beans.*;
 import it.unitn.disi.cinema.dataaccess.DAO.*;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,10 +26,13 @@ public class MainServlet extends HttpServlet {
         
         /*Accesso db*/    //Perchè questa soluzione non funziona? non posso leggere da homepage.jsp gli attributi di request
         FilmDAO fld = DAOFactory.getFilmDAO();
+        GenereDAO gnd = DAOFactory.getGenereDAO();
         try {
             List<Film> films = fld.getAll();
-
             request.setAttribute("films", films);
+            
+            List<Genere> generi = gnd.getAll();
+            request.setAttribute("generi", generi);
 
             request.getRequestDispatcher("JSP/homepage.jsp").forward(request, response);
         } catch (Exception ex) {

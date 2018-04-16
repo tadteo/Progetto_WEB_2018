@@ -24,28 +24,23 @@
         <br>
         <div class="container">
             <div class="jumbotron">
-                <h1 class="text-center display-1"><b>Cinema (homepage)</b></h1>
-
-                <% //Commento// Si può fare senza usare la scriplet? con jstl?
-                    String email = (String) session.getAttribute("email"); 
-                    if (email != null){  
-//                        StringTokenizer st = new StringTokenizer(searchFilter, "@");
-                        out.println("<h3>Welcome <b>" + email.split("[@]")[0] + "</b></h3><br>");
-                %>
-                    <h4>You are logged in</h4>
+                <h1 class="text-center display-1"><b>Cinema (homepage)</b></h1>               
+                
+                <c:choose>
+                    <c:when test="${sessionScope.email != null}">
+                        <c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
+                        <h3>Welcome ${emailParts[0]}</h3>
+                        <h4>You are logged in</h4>
                     
                         <form class="form-signin" action="/cinema/logout.do" method="POST">
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
-                    </form>
-                <%
-                    }else{
-                        %>
-                            <!--<a href="/cinema/login.do">Login</a>-->
-                            <form class="form-signin" action="/cinema/login.do" method="GET">
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <form class="form-signin" action="/cinema/login.do" method="GET">
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-                        <%
-                    }
-                %>
+                    </c:otherwise>      
+                </c:choose>
                 
                 <br/>
                 
@@ -56,6 +51,7 @@
                             <th>#</th>
                             <th></th>
                             <th>Titolo</th> 
+                            <th>Genere</th>
                             <th>Trailer</th>
                             <th>Durata (minuti)</th>
                             <th>Trama</th>
@@ -66,6 +62,21 @@
                                 <th>${film.getId()}</th>
                                 <td><img src="images${film.getUrlLocandina()}" style="max-width:10rem"/></td>
                                 <td>${film.getTitolo()}</td> 
+                                <td>    
+                                    <!--E' importante non accedere al db dalle views quindi, per trovare il nome del genere
+                                        facciamo un ciclo sui generi nel db che sono pochi (6)
+                                        Non so se ci sia una soluzione migliore, forse chiedere il dato ad una nuova servlet
+                                        che ha il solo scopo di interrogare il db per ottenere il genere-->
+                                     <c:forEach  items="${requestScope.generi}" var="genere">
+                                        <c:choose>
+                                            <c:when test="${genere.getId() == film.getGenereId()}">
+                                                
+                                                ${genere.getDescrizione()}
+
+                                            </c:when>     
+                                        </c:choose>
+                                     </c:forEach>
+                                </td>
                                 <td><a href="${film.getUrlTrailer()}">Youtube</a></td>
                                 <td>${film.getDurata()}</td>
                                 <td style="max-width: 18rem">${fn:substring(film.getTrama(), 0, 150)} ...</td>
