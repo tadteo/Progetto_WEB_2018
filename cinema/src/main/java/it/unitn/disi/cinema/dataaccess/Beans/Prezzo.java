@@ -15,6 +15,11 @@ public class Prezzo {
     public Prezzo() { //Il costruttore standard può essere tranquillamente vuoto
     }
 
+    public Prezzo(Integer id_prezzo, String tipo, Float prezzo) {
+        this.id_prezzo = id_prezzo;
+        this.tipo = tipo;
+        this.prezzo = prezzo;
+    }
     
     @Override
     public String toString(){

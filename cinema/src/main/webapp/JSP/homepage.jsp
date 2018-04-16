@@ -3,6 +3,8 @@
     Created on : 23-mar-2018, 16.58.41
     Author     : domenico
 --%>
+<%@page import="it.unitn.disi.cinema.dataaccess.Beans.Prezzo"%>
+<%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
@@ -14,8 +16,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
         <title>Cinema-Homepage</title>
     </head>
     <body>
@@ -24,7 +25,7 @@
         <br>
         <div class="container">
             <div class="jumbotron">
-                <h1 class="text-center display-1"><b>Cinema (homepage)</b></h1>               
+                <h1 class="text-center"><b>Cinema (homepage)</b></h1>               
                 
                 <c:choose>
                     <c:when test="${sessionScope.email != null}">
@@ -43,6 +44,54 @@
                 </c:choose>
                 
                 <br/>
+                <br/>
+                <br/>
+                
+                
+                <h2>TEST ZONE </h2>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm" >
+                            <h6>Prezzi:</h6>
+                            <table class="table" style="background-color: white; border-radius: 1rem;">
+                                <tr>
+                                    <th>Descrizione</th>
+                                    <th>Importo</th>
+                                </tr>
+                                <c:forEach items="${requestScope.prezzi}" var="prezzo">
+                                    <tr>
+                                        <td>${prezzo.getTipo()}</td>
+                                        <td>${prezzo.getPrezzo()} <b>€</b></td>
+                                    </tr>
+                                </c:forEach>
+
+
+                            </table>
+                        </div>
+                        <div class="col-sm">
+                            
+                            <h6>Generi:</h6>
+                            <table class="table" style="background-color: white; border-radius: 1rem;">
+                                <tr>
+                                    <th>Descrizione</th>
+                                </tr>
+                                <c:forEach  items="${requestScope.generi}" var="genere">
+                                    <tr>
+                                        <td>${genere.getDescrizione()}</td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </div>
+                    </div>
+                  </div>
+                
+                
+                
+                <br/>
+                <br/>
+                <br/>
+                
+                
                 
                 <div id="movies">
                     <!--Qui vanno messi i cinema disponibili-->
