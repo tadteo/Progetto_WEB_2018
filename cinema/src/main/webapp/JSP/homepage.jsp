@@ -29,7 +29,7 @@
                 <c:choose>
                     <c:when test="${sessionScope.email != null}">
                         <c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
-                        <h3>Welcome ${emailParts[0]}</h3>
+                        <h3>Welcome ${emailParts[0]} <b>(${sessionScope.ruolo})</b></h3>
                         <h4>You are logged in</h4>
                     
                         <form class="form-signin" action="/cinema/logout.do" method="POST">

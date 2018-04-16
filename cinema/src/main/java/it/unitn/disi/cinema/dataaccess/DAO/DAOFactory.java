@@ -8,9 +8,9 @@ public class DAOFactory {
     public static UtenteDAO getUtenteDAO(){
         return new UtenteDAO();
     }
-//    public static RuoloDAO getRuoloDAO(){
-//        return new RuoloDAO();
-//    }
+    public static RuoloDAO getRuoloDAO(){
+        return new RuoloDAO();
+    }
     public static GenereDAO getGenereDAO(){
         return new GenereDAO();
     }

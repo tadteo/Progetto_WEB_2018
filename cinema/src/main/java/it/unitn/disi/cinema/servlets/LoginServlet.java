@@ -45,6 +45,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         UtenteDAO utd = DAOFactory.getUtenteDAO();
+        RuoloDAO rud = DAOFactory.getRuoloDAO();
         try {
             if(utd.isUsed(email)){
                 Utente currentUser = utd.getUtenteByEmail(email);
@@ -56,6 +57,8 @@ public class LoginServlet extends HttpServlet {
                 
                 if(password.equals(currentUser.getPassword())){
                     session.setAttribute("email", email);
+                    session.setAttribute("ruolo", rud.getRuoloById(currentUser.getRuoloId()).getRuolo());
+                    
                     session.removeAttribute("errorMessage");
                     response.sendRedirect(request.getContextPath() + "/");
                 }else{
