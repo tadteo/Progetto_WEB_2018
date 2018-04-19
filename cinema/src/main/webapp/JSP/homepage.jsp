@@ -1,7 +1,7 @@
 <%-- 
     Document   : homepage
     Created on : 23-mar-2018, 16.58.41
-    Author     : domenico
+    Author     : Domenico Stefani - Matteo Tadiello
 --%>
 <%@page import="it.unitn.disi.cinema.dataaccess.Beans.Prezzo"%>
 <%@page import="java.util.List"%>
@@ -17,37 +17,39 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
+
         <title>Cinema-Homepage</title>
     </head>
     <body>
+        <div class="header container">
+            <div class="row">
+                <div class="col-6">
+                    <h1 class="text-center"><b>Cinema (homepage)</b></h1> 
+                </div>
+                <div class="col-6">
+                    <c:choose>
+						<c:when test="${sessionScope.email != null}">
+							<c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
+							<h3>Welcome ${emailParts[0]} <b>(${sessionScope.ruolo})</b></h3>
+							<h4>You are logged in</h4>
+
+							<form class="form-signin" action="/cinema/logout.do" method="POST">
+								<button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
+							</form>
+						</c:when>
+						<c:otherwise>
+							<form class="form-signin" action="/cinema/login.do" method="GET">
+								<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+						</c:otherwise>      
+					</c:choose>
+                </div>
+            </div>
+        </div>
         <br>
-        <br>
-        <br>
-        <div class="container">
-            <div class="jumbotron">
-                <h1 class="text-center"><b>Cinema (homepage)</b></h1>               
-                
-                <c:choose>
-                    <c:when test="${sessionScope.email != null}">
-                        <c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
-                        <h3>Welcome ${emailParts[0]} <b>(${sessionScope.ruolo})</b></h3>
-                        <h4>You are logged in</h4>
-                    
-                        <form class="form-signin" action="/cinema/logout.do" method="POST">
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
-                        </form>
-                    </c:when>
-                    <c:otherwise>
-                        <form class="form-signin" action="/cinema/login.do" method="GET">
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-                    </c:otherwise>      
-                </c:choose>
-                
+        <div class="container justify-content-center">
+            <div class="jumbotron">             
                 <br/>
-                <br/>
-                <br/>
-                
-                
                 <h2>TEST ZONE </h2>
                 <div class="container">
                     <div class="row">
@@ -85,53 +87,36 @@
                     </div>
                   </div>
                 
-                
-                
-                <br/>
-                <br/>
-                <br/>
-                
-                
-                
-                <div id="movies">
-                    <!--Qui vanno messi i cinema disponibili-->
-                    <table class="table">
-                        <tr>
-                            <th>#</th>
-                            <th></th>
-                            <th>Titolo</th> 
-                            <th>Genere</th>
-                            <th>Trailer</th>
-                            <th>Durata (minuti)</th>
-                            <th>Trama</th>
-                        </tr>
-                    <c:forEach  items="${requestScope.films}" var="film">
-                        
-                            <tr>
-                                <th>${film.getId()}</th>
-                                <td><img src="images${film.getUrlLocandina()}" style="max-width:10rem"/></td>
-                                <td>${film.getTitolo()}</td> 
-                                <td>    
-                                    <!--E' importante non accedere al db dalle views quindi, per trovare il nome del genere
-                                        facciamo un ciclo sui generi nel db che sono pochi (6)
-                                        Non so se ci sia una soluzione migliore, forse chiedere il dato ad una nuova servlet
-                                        che ha il solo scopo di interrogare il db per ottenere il genere-->
-                                     <c:forEach  items="${requestScope.generi}" var="genere">
-                                        <c:choose>
-                                            <c:when test="${genere.getId() == film.getGenereId()}">
-                                                
-                                                ${genere.getDescrizione()}
+					<br/>
 
-                                            </c:when>     
-                                        </c:choose>
-                                     </c:forEach>
-                                </td>
-                                <td><a href="${film.getUrlTrailer()}">Youtube</a></td>
-                                <td>${film.getDurata()}</td>
-                                <td style="max-width: 18rem">${fn:substring(film.getTrama(), 0, 150)} ...</td>
-                            </tr>
-                    </c:forEach>
-                    </table>
+
+					<div id="movies">
+						
+							<%--Qui vanno messi i cinema disponibili--%>
+							
+							<c:forEach  items="${requestScope.films}" var="film">
+								<div class="row justify-content-center films">
+									<div class="col-sm-12 col-md-4">
+										<a href="${pageContext.request.contextPath}/JSP/film.jsp?film=${film.getId()}">
+											<img class="locandina" src="images${film.getUrlLocandina()}"  style="max-width:10rem"/>
+										</a>
+									</div>
+									<div class="col-sm-12 col-md-8">
+										<h5><b>${film.getTitolo()}</b></h5>
+											<%--E' importante non accedere al db dalle views quindi, per trovare il nome del genere
+											facciamo un ciclo sui generi nel db che sono pochi (6)
+											Non so se ci sia una soluzione migliore, forse chiedere il dato ad una nuova servlet
+											che ha il solo scopo di interrogare il db per ottenere il genere--%>
+										<p>Genere: ${film.getGenere()}</p>
+										<p>Durata: ${film.getDurata()}</p>
+										<p>${film.getTrama()}..</p>
+									</div>
+								</div>
+							</c:forEach>
+							
+						</div>
+
+					</div>
                 </div>
             </div>
         </div>
