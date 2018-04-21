@@ -40,7 +40,7 @@
 						</c:when>
 						<c:otherwise>
 							<form class="form-signin" action="/cinema/login.do" method="GET">
-								<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+								<button class="btn btn-lg btn-primary btn-block" type="submit">Login/Sign up</button>
 						</c:otherwise>      
 					</c:choose>
                 </div>
@@ -99,7 +99,7 @@
 									<div class="col-sm-12 col-md-4">
 										<a href="${pageContext.request.contextPath}/JSP/film.jsp?film=${film.getId()}">
 											<img class="locandina" src="images${film.getUrlLocandina()}"  style="max-width:10rem"/>
-										</a>
+										</a>										
 									</div>
 									<div class="col-sm-12 col-md-8">
 										<h5><b>${film.getTitolo()}</b></h5>

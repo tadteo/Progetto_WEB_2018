@@ -48,8 +48,22 @@ public class MainServlet extends HttpServlet {
 			
             request.setAttribute("films", films);            
             request.setAttribute("prezzi", prezzi);
-
+			
+			
+			
+			
             request.getRequestDispatcher("JSP/homepage.jsp").forward(request, response);
+//			//Prende in input il numero del film richiesto e crea un bean con il film richiesto corrisppondente
+//			Integer idFilmRichiesto = Integer.parseInt(request.getParameter("film"));
+//				Film filmRichiesto = new Film();
+//				for( Film flm:films){
+//					if(Objects.equals(flm.getId(), idFilmRichiesto) ){
+//						filmRichiesto = flm;
+//					}
+//			}
+//			request.setAttribute("filmRichiesto", filmRichiesto);
+			
+			
         } catch (SQLException ex) {
             System.out.println("Errore, impossibile ottenere la lista dei film");
             ex.printStackTrace();
