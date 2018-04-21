@@ -15,7 +15,6 @@ public class Film {
     private String url_trailer;
     private Integer durata;
     private String trama;
-	private String genere;
 
     public Film() { //Il costruttore standard può essere tranquillamente vuoto
     }
@@ -28,7 +27,6 @@ public class Film {
         this.url_trailer = url_trailer;
         this.durata = durata;
         this.trama = trama;
-		this.genere = "";
     }
 
     @Override
@@ -133,14 +131,4 @@ public class Film {
     public void setTrama(String trama) {
         this.trama = trama;
     }
-    
-    public void setGenere(String genere) {
-		this.genere = genere;
-	}
-	
-	public String getGenere(){
-		return genere;
-	}
-
-    
 }
