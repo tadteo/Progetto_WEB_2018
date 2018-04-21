@@ -26,39 +26,40 @@
     </head>
 	
     <body>
-		<div class="header container">
-			<div class="row">
-				<div class="col-6">
-					<h1 class="text-center"><b>Cinema (homepage) ${pageContext.request.getParameter("film")}</b></h1> 
-				</div>
-				<div class="col-6">
-					<c:choose>
-						<c:when test="${sessionScope.email != null}">
-							<c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
-							<h3>Welcome ${emailParts[0]} <b>(${sessionScope.ruolo})</b></h3>
-							<h4>You are logged in</h4>
+    <div class="header container">
+        <div class="row">
+            <div class="col-6">
+                <h1 class="text-center"><b>Cinema (homepage) ${pageContext.request.getParameter("film")}</b></h1> 
+            </div>
+            <div class="col-6">
+                <c:choose>
+                    <c:when test="${sessionScope.email != null}">
+                        <c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
+                        <h3>Welcome ${emailParts[0]} <b>(${sessionScope.ruolo})</b></h3>
+                        <h4>You are logged in</h4>
 
-							<form class="form-signin" action="/cinema/logout.do" method="POST">
-								<button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
-							</form>
-						</c:when>
-						<c:otherwise>
-							<form class="form-signin" action="/cinema/login.do" method="GET">
-								<button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-						</c:otherwise>      
-					</c:choose>
-				</div>
-			</div>
-		</div>
-		
-		<div>
-			<h2><b>${filmRichiesto.getTitolo()}</b></h2>
-			<p><b>Genere:</b> ${filmRichiesto.getGenere()}</p>
-			<p><b>Durata:</b> ${filmRichiesto.getDurata()} </p>
-			<p><b>Trama:</b> ${filmRichiesto.getTrama()}</p>
-			<iframe class="trailer" src="${film.getTrailer()}">
-			</iframe>
-		</div>
+                        <form class="form-signin" action="/cinema/logout.do" method="POST">
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <form class="form-signin" action="/cinema/login.do" method="GET">
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                    </c:otherwise>      
+                </c:choose>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        Il messaggio ricevuto è "${requestScope.message}" <br/>
+        <h2><b>${filmRichiesto.getTitolo()}</b></h2>
+        <p><b>Genere:</b> ${filmRichiesto.getGenere()}</p>
+        <p><b>Durata:</b> ${filmRichiesto.getDurata()} </p>
+        <p><b>Trama:</b> ${filmRichiesto.getTrama()}</p>
+        <iframe class="trailer" src="${film.getTrailer()}">
+        </iframe>
+    </div>
 		
 
     </body>

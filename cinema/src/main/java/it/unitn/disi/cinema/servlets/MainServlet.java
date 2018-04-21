@@ -9,6 +9,7 @@ import it.unitn.disi.cinema.common.PrettyPrintFilmGenere;
 import it.unitn.disi.cinema.dataaccess.Beans.*;
 import it.unitn.disi.cinema.dataaccess.DAO.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +73,20 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setStatus(500);
+//        response.setStatus(500);
+
+//          PrintWriter out = response.getWriter();
+//          out.println("Yeah\nParameter is: " + request.getParameter("pageRequested"));
+
+
+      String pageRequested = request.getParameter("pageRequested");
+      if(pageRequested.equals("film.jsp")){
+        String id_film;
+        
+        /*Qui vanno creati i beans*/
+        request.setAttribute("message","La richiesta arriva dalla servlet");
+        request.getRequestDispatcher("JSP/film.jsp").forward(request, response);
+      }
     }
 
 }
