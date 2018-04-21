@@ -5,12 +5,13 @@
  */
 package it.unitn.disi.cinema.servlets;
 
+import it.unitn.disi.cinema.common.PrettyPrintFilmGenere;
 import it.unitn.disi.cinema.dataaccess.Beans.*;
 import it.unitn.disi.cinema.dataaccess.DAO.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,22 +32,19 @@ public class MainServlet extends HttpServlet {
         GenereDAO gnd = DAOFactory.getGenereDAO();
         PrezzoDAO prd = DAOFactory.getPrezzoDAO();
         try {
-            List<Film> films = fld.getAll(); //Riempio i bean con le istanze del database
-            List<Genere> generi = gnd.getAll();
-			List<Prezzo> prezzi = prd.getAll();
+            List<Prezzo> prezzi = prd.getAll();
 			
-            request.setAttribute("generi", generi);
             
-			//Associo ad ogni film la stringa corrispondente al suo genere
-			for( Film flm:films){
-				for(Genere gnr:generi){
-					if(Objects.equals(gnr.getId(), flm.getGenereId())){
-						flm.setGenere(gnr.getDescrizione());
-					}
-				}
-			}
-			
-            request.setAttribute("films", films);            
+            List<PrettyPrintFilmGenere> filmspp = new ArrayList<>();
+            for( Film film : fld.getAll()){
+                for(Genere genere : gnd.getAll()){
+                    if(genere.getId() == film.getGenereId()){
+                        filmspp.add(new PrettyPrintFilmGenere(film, genere));
+                    }
+                }
+            }          
+                        
+            request.setAttribute("filmspp", filmspp);            
             request.setAttribute("prezzi", prezzi);
 			
 			
