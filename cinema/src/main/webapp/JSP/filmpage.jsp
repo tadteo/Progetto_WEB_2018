@@ -29,7 +29,7 @@
     <div class="header container">
         <div class="row">
             <div class="col-6">
-                <h1 class="text-center"><b>Cinema (homepage) ${pageContext.request.getParameter("film")}</b></h1> 
+                <h1 class="text-center"><b>Film page</b></h1> 
             </div>
             <div class="col-6">
                 <c:choose>
@@ -53,6 +53,7 @@
 
     <div>
         Il messaggio ricevuto è "${requestScope.message}" <br/>
+        
         <h2><b>${filmRichiesto.getTitolo()}</b></h2>
         <p><b>Genere:</b> ${filmRichiesto.getGenere()}</p>
         <p><b>Durata:</b> ${filmRichiesto.getDurata()} </p>

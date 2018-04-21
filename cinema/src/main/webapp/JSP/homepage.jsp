@@ -96,7 +96,7 @@
               <div class="row justify-content-center films">
                 <div class="col-sm-12 col-md-4">
                   <form class="form-signin" action="/cinema/" method="POST">
-                    <input type="hidden" name="pageRequested" value="film.jsp">
+                    <input type="hidden" name="pageRequested" value="filmpage">
                     <input type="hidden" name="film" value="${filmpp.getFilm().getId()}">
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Vai alla pagina del film</button>
                   </form>

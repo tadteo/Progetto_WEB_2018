@@ -73,20 +73,25 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        response.setStatus(500);
+//      response.setStatus(500);
 
-//          PrintWriter out = response.getWriter();
-//          out.println("Yeah\nParameter is: " + request.getParameter("pageRequested"));
+//      PrintWriter out = response.getWriter();
+//      out.println("Yeah\nParameter is: " + request.getParameter("pageRequested"));
 
+        String pageRequested = request.getParameter("pageRequested");
+        if(pageRequested.equals("filmpage")){
+          String id_film;
 
-      String pageRequested = request.getParameter("pageRequested");
-      if(pageRequested.equals("film.jsp")){
-        String id_film;
-        
-        /*Qui vanno creati i beans*/
-        request.setAttribute("message","La richiesta arriva dalla servlet");
-        request.getRequestDispatcher("JSP/film.jsp").forward(request, response);
-      }
+          /*Qui vanno creati i beans*/
+          
+          /*------------------------*/
+          request.setAttribute("message","La richiesta arriva dalla servlet");
+          request.getRequestDispatcher("JSP/filmpage.jsp").forward(request, response);
+        }else if(pageRequested.equals("prenotation.jsp")){
+            /*codice prenotazione*/
+            
+          request.getRequestDispatcher("JSP/reservationpage.jsp").forward(request, response);
+        }
     }
 
 }
