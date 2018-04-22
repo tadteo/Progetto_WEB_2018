@@ -54,12 +54,13 @@
     <div>
         Il messaggio ricevuto è "${requestScope.message}" <br/>
         
-        <h2><b>${filmRichiesto.getTitolo()}</b></h2>
-        <p><b>Genere:</b> ${filmRichiesto.getGenere()}</p>
-        <p><b>Durata:</b> ${filmRichiesto.getDurata()} </p>
-        <p><b>Trama:</b> ${filmRichiesto.getTrama()}</p>
-        <iframe class="trailer" src="${film.getTrailer()}">
-        </iframe>
+        <h2><b>${filmRichiesto.getFilm().getTitolo()}</b></h2>
+        <p><b>Genere:</b> ${filmRichiesto.getGenere().getDescrizione()}</p>
+        <p><b>Durata:</b> ${filmRichiesto.getFilm().getDurata()} </p>
+        <p><b>Trama:</b> ${filmRichiesto.getFilm().getTrama()}</p>
+		<div class="videoWrapper">
+			        <iframe width="420" height="315" src="${filmRichiesto.getFilm().getUrlTrailer()}" frameborder="0" allowfullscreen></iframe>
+		</div>
     </div>
 		
 
