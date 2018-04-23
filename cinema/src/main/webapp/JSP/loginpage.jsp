@@ -19,30 +19,35 @@
         <div class="header container">
             <div class="row">
                 <div class="col-12">
-                    <h1 class="text-center"><b>Cinema (login page)</b></h1> 
+                    <h1 class="text-center"><b><a href="${pageContext.request.contextPath}/JSP/homepage.jsp">Cinema Universe</a></b></h1>
+					<h3 class="text-center">(login page)</h3>
                 </div>
             </div>
         </div>
+					<br />
         <div class="container">
             <div class="row">
-                <form class="form-signin" action="/cinema/login.do" method="POST">
-                    <h2 class="form-signin-heading">Accedi</h2>
-                    <br/>
-                    <span style="color: red">${sessionScope.errorMessage}</span>
-                    <br/><br/>
-                    <label for="email">Indirizzo e-mail</label>
-                    <input type="text" id="email" name="email" class="form-control" placeholder="Email" required autofocus>
-                    <br/>
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-                    
-                    
-                    <br/><br/>
+				<div class="col-12">
+					<form class="form-signin" action="/cinema/login.do" method="POST">
+						<h2 class="form-signin-heading">Accedi</h2>
+						<br/>
+						<span style="color: red">${sessionScope.errorMessage}</span>
+						<br/><br/>
+						<label for="email">Indirizzo e-mail</label>
+						<input type="text" id="email" name="email" class="form-control" placeholder="Email" required autofocus>
+						<br/>
+						<label for="password">Password</label>
+						<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
 
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Accedi</button>
-					
-                    <p>Non sei ancora registrato? <a href="signuppage.jsp">REGISTRATI ora!</a></p>
-                </form>
+
+						<br/><br/>
+
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Accedi</button>
+
+						<p>Non sei ancora registrato? <a href="signuppage.jsp">REGISTRATI ora!</a></p>
+					</form>
+				</div>
+                
             </div>
         </div> <!-- /container -->
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>

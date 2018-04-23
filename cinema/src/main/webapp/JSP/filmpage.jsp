@@ -51,17 +51,39 @@
         </div>
     </div>
 
-    <div>
-        Il messaggio ricevuto è "${requestScope.message}" <br/>
-        
-        <h2><b>${filmRichiesto.getFilm().getTitolo()}</b></h2>
-        <p><b>Genere:</b> ${filmRichiesto.getGenere().getDescrizione()}</p>
-        <p><b>Durata:</b> ${filmRichiesto.getFilm().getDurata()} </p>
-        <p><b>Trama:</b> ${filmRichiesto.getFilm().getTrama()}</p>
-		<div class="videoWrapper">
-			        <iframe width="420" height="315" src="${filmRichiesto.getFilm().getUrlTrailer()}" frameborder="0" allowfullscreen></iframe>
+    <div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h2><b>${filmRichiesto.getFilm().getTitolo()}</b></h2>
+				<p><b>Genere:</b> ${filmRichiesto.getGenere().getDescrizione()}</p>
+				<p><b>Durata:</b> ${filmRichiesto.getFilm().getDurata()} </p>
+				<p><b>Trama:</b> ${filmRichiesto.getFilm().getTrama()}</p>
+				<div class="videoWrapper">
+					<iframe width="420" height="315" src="${filmRichiesto.getFilm().getUrlTrailer()}" frameborder="0" allowfullscreen></iframe>
+				</div>
+			</div>	
 		</div>
+        
     </div>
+				<br />
+				<footer class="container">
+				<div class="row">
+					<div class="col-lg-6 col-md-12">
+						<p><a href="${pageContext.request.contextPath}/JSP/infopage.jsp">Info:</a></p>
+						<p><b>Telefono:</b> +39 0123 123123</p>
+						<p><b>Indirizzo:</b> Via La Vita E Tutto Quanto, 42 (UNIVERSO)</p>
+						<p><b>Partita Iva: </b>01234561001<b> – C.F. </b>01234561001</p>
+
+					</div>
+					<div class="col-lg-6 col-md-12">
+						<br />
+						<p>Posted by: Magic Group Srl</p>
+						<p>Contact information: <a href="mailto:info@magicgroup.com">info@magicgroup.com</a>.</p>
+					</div>
+						
+				</div>
+				<p class="copyright">Copyright © 2018 · Tadiello Matteo - Stefani Domenico - Martini Ivan · all rights reserved.</p>
+			</footer>
 		
 
     </body>

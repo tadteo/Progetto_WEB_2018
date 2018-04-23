@@ -15,30 +15,55 @@ and open the template in the editor.
 .films{
 	margin-bottom: 20px;
 }
-
+.login{
+	margin-top: auto;
+	margin-bottom: auto;
+}
 .locandina{
 	box-shadow: 0 0 3px rgba(0,0,0,.9);
 	border-radius: 5px;
 	display: block;
     margin: 0 auto;
 	margin-bottom: 5px;
+	max-width: 10rem;
+	
 }
 
-.trailer{
-	width: 420px; 
-	height: 345px ;
+.astext {
+	border: none;
+    background-color:inherit;
+    margin:0;
+    padding:0;
+	cursor: pointer;
 }
+
+.astext:focus{
+	outline-style: none;
+} 
 
 .videoWrapper {
+	border-radius: 5px;
+	background-color: gray;
 	position: relative;
 	padding-bottom: 56.25%; /* 16:9 */
 	padding-top: 25px;
 	height: 0;
 }
 .videoWrapper iframe {
+	border-radius: 5px;
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
+}
+
+#map {
+	width: auto;
+	min-height: 300px;
+	max-height: 400px;
+}
+
+.copyright {
+	text-align: center;
 }

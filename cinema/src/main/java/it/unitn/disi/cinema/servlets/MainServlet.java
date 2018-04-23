@@ -97,9 +97,23 @@ public class MainServlet extends HttpServlet {
 			}catch(SQLException ex) {
 				System.out.println("Errore, impossibile ottenere la lista dei film");
 				ex.printStackTrace();
-        }
-        }else if(pageRequested.equals("prenotation.jsp")){
+			}
+        }else if(pageRequested.equals("infopage")){
+			PrezzoDAO prd = DAOFactory.getPrezzoDAO();
+			try {
+				List<Prezzo> prezzi = prd.getAll();            
+				request.setAttribute("prezzi", prezzi);		
+				request.getRequestDispatcher("JSP/infopage.jsp").forward(request, response);			
+			} catch (SQLException ex) {
+				System.out.println("Errore, impossibile ottenere i prezzi");
+				ex.printStackTrace();
+			}
+		}else if(pageRequested.equals("reservationpage")){
             /*codice prenotazione*/
+			
+			
+			
+			
             
           request.getRequestDispatcher("JSP/reservationpage.jsp").forward(request, response);
         }
