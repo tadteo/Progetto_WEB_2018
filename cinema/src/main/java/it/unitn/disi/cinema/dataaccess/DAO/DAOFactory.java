@@ -17,9 +17,9 @@ public class DAOFactory {
     public static FilmDAO getFilmDAO(){
         return new FilmDAO();
     }
-//    public static SpettacoloDAO getSpettacoloDAO(){
-//        return new SpettacoloDAO();
-//    }
+    public static SpettacoloDAO getSpettacoloDAO(){
+        return new SpettacoloDAO();
+    }
 //    public static SalaDAO getSalaDAO(){
 //        return new SalaDAO();
 //    }
