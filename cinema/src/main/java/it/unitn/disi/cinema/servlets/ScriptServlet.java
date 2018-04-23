@@ -7,6 +7,7 @@ package it.unitn.disi.cinema.servlets;
 
 import it.unitn.disi.cinema.dataaccess.Beans.Film;
 import it.unitn.disi.cinema.dataaccess.DAO.DAOFactory;
+import it.unitn.disi.cinema.dataaccess.DAO.FilmDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -47,11 +48,12 @@ public class ScriptServlet extends HttpServlet {
             Calendar rightNow = Calendar.getInstance();
             
             try {
-                List<Film> films = DAOFactory.getFilmDAO().getAll();
+                FilmDAO fld = DAOFactory.getFilmDAO();
+                List<Film> films = fld.getAll();
                 for(Film film : films){
                     String tag = "";
                     String fill = "";
-                    System.out.print(film.getId() + " - ");
+                    out.println(film.getTitolo() + ":");
                     
                     int hour = rightNow.get(Calendar.HOUR_OF_DAY);
                     int minute = rightNow.get(Calendar.MINUTE);

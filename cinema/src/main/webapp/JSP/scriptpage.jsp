@@ -30,11 +30,11 @@
                 <div class="container-fluid">
                     <form  class="signin" action="/cinema/startup.do" method="POST">
                         <br>
-                        <label>Durata Programmazione(minuti)</label>
-                        <input type="number" id="durata" name="durata" class="form-control" placeholder="Durata (minuti)" required autofocus>
+                        <label>Durata Programmazione(minuti) - (1-200)</label>
+                        <input type="number" id="durata" name="durata" class="form-control" placeholder="Durata (minuti)" min="1" max="200" required autofocus>
                         <br/>
-                        <label>Numero Proiezioni per film</label>
-                        <input type="number" id="proiezioni" name="proiezioni" class="form-control" placeholder="Proiezioni (default 10)" >
+                        <label>Numero Proiezioni per film - (1-20)</label>
+                        <input type="number" id="proiezioni" name="proiezioni" class="form-control" placeholder="Proiezioni" value="10" min="1" max="20" required autofocus>
                         <br/>
                         <button class="btn btn-lg btn-primary btn-block" type="submit">Start</button>
                     </form>
