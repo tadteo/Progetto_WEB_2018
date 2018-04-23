@@ -29,8 +29,8 @@ public class DAOFactory {
     public static PrezzoDAO getPrezzoDAO(){
         return new PrezzoDAO();
     }
-//    public static PostoDAO getPostoDAO(){
-//        return new PostoDAO();
-//    }
+    public static PostoDAO getPostoDAO(){
+        return new PostoDAO();
+    }
 }
     
