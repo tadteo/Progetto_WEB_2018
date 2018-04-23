@@ -16,7 +16,7 @@
         <!-- Custom styles for this template -->
     </head>
     <body>
-		<div class="header container">
+        <div class="header container">
             <div class="row">
                 <div class="col-12">
                     <h1 class="text-center"><b>Cinema (login page)</b></h1> 
@@ -41,7 +41,7 @@
 
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Accedi</button>
 					
-					<p>Non sei ancora registrato? <a href="${pageContext.request.contextPath}/JSP/signUp.jsp">REGISTRATI ora!</a></p>
+                    <p>Non sei ancora registrato? <a href="signuppage.jsp">REGISTRATI ora!</a></p>
                 </form>
             </div>
         </div> <!-- /container -->

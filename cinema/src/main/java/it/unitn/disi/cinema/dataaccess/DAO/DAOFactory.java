@@ -17,20 +17,20 @@ public class DAOFactory {
     public static FilmDAO getFilmDAO(){
         return new FilmDAO();
     }
-//    public static SpettacoloDAO getSpettacoloDAO(){
-//        return new SpettacoloDAO();
-//    }
-//    public static SalaDAO getSalaDAO(){
-//        return new SalaDAO();
-//    }
+    public static SpettacoloDAO getSpettacoloDAO(){
+        return new SpettacoloDAO();
+    }
+    public static SalaDAO getSalaDAO(){
+        return new SalaDAO();
+    }
 //    public static PrenotazioneDAO getPrenotazioneDAO(){
 //        return new PrenotazioneDAO();
 //    }
     public static PrezzoDAO getPrezzoDAO(){
         return new PrezzoDAO();
     }
-//    public static PostoDAO getPostoDAO(){
-//        return new PostoDAO();
-//    }
+    public static PostoDAO getPostoDAO(){
+        return new PostoDAO();
+    }
 }
     

@@ -14,6 +14,11 @@ public class Sala {
     public Sala() { //Il costruttore standard può essere tranquillamente vuoto
     }
 
+    public Sala(Integer id_sala, String descrizione) {
+        this.id_sala = id_sala;
+        this.descrizione = descrizione;
+    }
+
     @Override
     public String toString(){
         return "Sala[" + getId() + "," + getDescrizione() + "]";

@@ -16,6 +16,14 @@ public class Posto {
 
     public Posto() { //Il costruttore standard può essere tranquillamente vuoto
     }
+
+    public Posto(Integer id_posto, Integer id_sala, Integer riga, Integer poltrona, Boolean esiste) {
+        this.id_posto = id_posto;
+        this.id_sala = id_sala;
+        this.riga = riga;
+        this.poltrona = poltrona;
+        this.esiste = esiste;
+    }
     
     @Override
     public String toString(){

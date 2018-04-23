@@ -40,7 +40,8 @@
               </c:when>
               <c:otherwise>
                 <form class="form-signin" action="/cinema/login.do" method="GET">
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Login/Sign up</button>
+                  <button class="btn btn-lg btn-primary btn-block" type="submit">Login/Sign up</button>
+                </form>
               </c:otherwise>      
             </c:choose>
           </div>
@@ -94,9 +95,17 @@
             <c:forEach  items="${requestScope.filmspp}" var="filmpp">
               <div class="row justify-content-center films">
                 <div class="col-sm-12 col-md-4">
-                  <a href="${pageContext.request.contextPath}/JSP/film.jsp?film=${filmpp.getFilm().getId()}"> <!--DA MODIFICARE-->
+                  <form class="form-signin" action="/cinema/" method="POST">
+                    <input type="hidden" name="pageRequested" value="filmpage">
+                    <input type="hidden" name="film" value="${filmpp.getFilm().getId()}">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Vai alla pagina del film</button>
+                  </form>
+
+
+
+
                     <img class="locandina" src="images${filmpp.getFilm().getUrlLocandina()}"  style="max-width:10rem"/>
-                  </a>										
+                  <!--</a>-->										
                 </div>
                 <div class="col-sm-12 col-md-8">
                   <h5><b>${filmpp.getFilm().getTitolo()}</b></h5>
@@ -111,7 +120,7 @@
               </div>
             </c:forEach>
 
-                  </div>
+          </div>
 
             </div>
         </div>
