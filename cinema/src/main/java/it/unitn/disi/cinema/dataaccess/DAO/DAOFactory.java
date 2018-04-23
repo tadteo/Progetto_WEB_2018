@@ -20,9 +20,9 @@ public class DAOFactory {
     public static SpettacoloDAO getSpettacoloDAO(){
         return new SpettacoloDAO();
     }
-//    public static SalaDAO getSalaDAO(){
-//        return new SalaDAO();
-//    }
+    public static SalaDAO getSalaDAO(){
+        return new SalaDAO();
+    }
 //    public static PrenotazioneDAO getPrenotazioneDAO(){
 //        return new PrenotazioneDAO();
 //    }

@@ -22,9 +22,9 @@ import java.util.List;
  * 
  getSpettacoloById(Integer id)
  getAll() //In futuro si potrebbe mettere parametro limit
- getAllAfter(Timestamp time)
- getAllForFilm(Integer idFilm)
- getAllForFIlmAfter(Integer idFilm, Timestamp time)
+ getAfter(Timestamp time)
+ getByFilm(Integer idFilm)
+ getByFIlmAfter(Integer idFilm, Timestamp time)
  * 
  * //No update
  * 
@@ -82,7 +82,7 @@ public class SpettacoloDAO {
         return result;
     }
     
-    public List<Spettacolo> getAllAfter(Timestamp time)throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
+    public List<Spettacolo> getAfter(Timestamp time)throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Spettacolo> result = new ArrayList<>();
         
         PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.dataora > ?");
@@ -95,7 +95,7 @@ public class SpettacoloDAO {
         return result;
     }
     
-    public List<Spettacolo> getAllForFilm(Integer idFilm) throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
+    public List<Spettacolo> getByFilm(Integer idFilm) throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Spettacolo> result = new ArrayList<>();
         
         PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.id_film = ?");
@@ -107,7 +107,7 @@ public class SpettacoloDAO {
         }
         return result;
     }
-    public List<Spettacolo> getAllForFIlmAfter(Integer idFilm, Timestamp time) throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
+    public List<Spettacolo> getByFIlmAfter(Integer idFilm, Timestamp time) throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Spettacolo> result = new ArrayList<>();
         
         PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.id_film = ? AND Spettacolo.dataora > ?");
