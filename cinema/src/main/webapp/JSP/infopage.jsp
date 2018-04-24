@@ -45,7 +45,7 @@
                     </c:when>
                     <c:otherwise>
                         <form class="form-signin" action="/cinema/login.do" method="GET">
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Login/Sign Up</button>
                     </c:otherwise>      
                 </c:choose>
             </div>
@@ -55,9 +55,15 @@
     <div class="container">
 		<div class="row">
 			<div class="col-lg-6 col-md-12 ">
-				<h3>Costi:</h3>
+				<h5>Costi:</h5>
+				<c:forEach items="${requestScope.prezzi}" var="prezzi">
+					<p><b>${prezzi.getTipo()}:</b> ${prezzi.getPrezzo()}</p>
+				</c:forEach>
+					<hr>
+				<h5>Informazioni:</h5>
 				<p><b>Telefono:</b> +39 0123 123123</p>
 				<p><b>Indirizzo:</b> Via La Vita E Tutto Quanto, 42 (UNIVERSO)</p>
+				<p><b>Partita Iva: </b>01234561001<b> – C.F. </b>01234561001</p>
 			</div>
 			<div class="col-lg-6 col-md-12 ">
 				<div id="map"></div>
@@ -67,13 +73,6 @@
     </div>
 	<footer class="container">
 				<div class="row">
-					<div class="col-lg-6 col-md-12">
-						<p><a href="${pageContext.request.contextPath}/JSP/infopage.jsp">Info:</a></p>
-						<p><b>Telefono:</b> +39 0123 123123</p>
-						<p><b>Indirizzo:</b> Via La Vita E Tutto Quanto, 42 (UNIVERSO)</p>
-						<p><b>Partita Iva: </b>01234561001<b> – C.F. </b>01234561001</p>
-
-					</div>
 					<div class="col-lg-6 col-md-12">
 						<br />
 						<p>Posted by: Magic Group Srl</p>

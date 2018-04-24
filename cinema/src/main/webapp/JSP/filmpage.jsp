@@ -29,7 +29,12 @@
     <div class="header container">
         <div class="row">
             <div class="col-6">
-                <h1 class="text-center"><b>Film page</b></h1> 
+                <form class="form-signin text-center" action="/cinema/" method="GET">
+					<button class="astext"><h1>Cinema Universe</h1></button>
+				</form>
+				<form class="form-signin text-center" action="/cinema/" method="POST">
+						  <button class="astext"name="pageRequested" value="infopage"><h3>Info cinema</h3></button>
+				</form>
             </div>
             <div class="col-6">
                 <c:choose>
@@ -44,7 +49,7 @@
                     </c:when>
                     <c:otherwise>
                         <form class="form-signin" action="/cinema/login.do" method="GET">
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Login/Sign Up</button>
                     </c:otherwise>      
                 </c:choose>
             </div>
@@ -52,17 +57,20 @@
     </div>
 
     <div class="container">
-		<div class="row">
-			<div class="col-12">
-				<h2><b>${filmRichiesto.getFilm().getTitolo()}</b></h2>
-				<p><b>Genere:</b> ${filmRichiesto.getGenere().getDescrizione()}</p>
-				<p><b>Durata:</b> ${filmRichiesto.getFilm().getDurata()} </p>
-				<p><b>Trama:</b> ${filmRichiesto.getFilm().getTrama()}</p>
-				<div class="videoWrapper">
-					<iframe width="420" height="315" src="${filmRichiesto.getFilm().getUrlTrailer()}" frameborder="0" allowfullscreen></iframe>
-				</div>
-			</div>	
+		<div class="jumbotron">
+			<div class="row">
+				<div class="col-12">
+					<h2><b>${filmRichiesto.getFilm().getTitolo()}</b></h2>
+					<p><b>Genere:</b> ${filmRichiesto.getGenere().getDescrizione()}</p>
+					<p><b>Durata:</b> ${filmRichiesto.getFilm().getDurata()} </p>
+					<p><b>Trama:</b> ${filmRichiesto.getFilm().getTrama()}</p>
+					<div class="videoWrapper">
+						<iframe width="420" height="315" src="${filmRichiesto.getFilm().getUrlTrailer()}" frameborder="0" allowfullscreen></iframe>
+					</div>
+				</div>	
+			</div>
 		</div>
+		
         
     </div>
 				<br />

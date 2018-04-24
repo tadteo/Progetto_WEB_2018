@@ -25,13 +25,13 @@
 		<br />
 		<div class="header container">
 			<div class="row">
-				<div class="col-6">
+				<div class="col-sm-12 col-md-6">
 					<h1 class="text-center"><b>Cinema Universe (homepage)</b></h1>
 					<form class="form-signin text-center" action="/cinema/" method="POST">
 						  <button class="astext"name="pageRequested" value="infopage"><h3>Info cinema</h3></button>
 					</form>
 				</div>
-				<div class="col-6 login">
+				<div class="col-sm-12 col-md-6 login">
 					<c:choose>
 					  <c:when test="${sessionScope.email != null}">
 						<c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
