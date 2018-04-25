@@ -11,7 +11,10 @@ import it.unitn.disi.cinema.dataaccess.DAO.FilmDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.Calendar;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import javax.servlet.ServletException;
@@ -45,52 +48,54 @@ public class ScriptServlet extends HttpServlet {
                 numeroProiezioni = Integer.parseInt(request.getParameter("proiezioni"));
             
             out.println("Richieste " + numeroProiezioni + " proiezioni per film, ognuna di durata " + durata + " minuti");
-            Calendar rightNow = Calendar.getInstance();
+            
+            Instant now = Instant.now();
+//            out.println(now); // prints 2017-03-14T06:16:32.621Z
+            Timestamp current = Timestamp.from(now);
+            out.println("Current Time:" + current); // 2017-03-14 08:16:32.
+            
+            out.println();
+
             
             try {
                 FilmDAO fld = DAOFactory.getFilmDAO();
                 List<Film> films = fld.getAll();
                 for(Film film : films){
-                    String tag = "";
-                    String fill = "";
                     out.println(film.getTitolo() + ":");
-                    
-                    int hour = rightNow.get(Calendar.HOUR_OF_DAY);
-                    int minute = rightNow.get(Calendar.MINUTE);
                     
                     Random rnd = new Random();
                     int base = rnd.nextInt(durata);
                     
-                    minute += base;
-                    while(minute > 60){
-                        minute -= 60;
-                        hour += 1;
-                    }
-                    while(hour > 24){
-                        hour -= 24;
-                        tag = " (nextdays)";
-                    }
-                    
-                    out.print(((hour < 10)?"0":"") + hour + ":" + ((minute < 10)?"0":"") + minute + tag);
-                    
+                    Timestamp timeIterator = addMinutesToTimestamp(base, current);
                     for (int i = 1; i < numeroProiezioni; i++) {
-                        minute += durata;
-                        while(minute > 60){
-                            minute -= 60;
-                            hour += 1;
-                        }
-                        while(hour > 24){
-                            hour -= 24;
-                            tag = " (nextdays)";
-                        }
-                        out.print(", " + ((hour < 10)?"0":"") + hour + ":" + ((minute < 10)?"0":"") + minute + tag);
+                        out.print(printTime(timeIterator) + " ");
+                        timeIterator = addMinutesToTimestamp(durata, timeIterator);
                     }
+
+
                     out.println();
                 }
             } catch (SQLException ex) {
                 System.out.println("Impossibile ottenere la lista dei film");
+                ex.printStackTrace();
             }
         }
+    }
+    
+    
+    private static Timestamp addMinutesToTimestamp(int minutes, Timestamp beforeTime){
+        final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
+
+        long currentMillis = beforeTime.getTime();
+        Timestamp res = new Timestamp(currentMillis + (minutes * ONE_MINUTE_IN_MILLIS));
+                
+        return res;
+    }
+    
+    private String printTime(Timestamp timestamp){
+        if((new SimpleDateFormat("dd").format(new Date(timestamp.getTime()))).equals(new SimpleDateFormat("dd").format(new Date())))
+            return new SimpleDateFormat("HH.mm").format(new Date(timestamp.getTime()));
+        return "";
     }
 
 
