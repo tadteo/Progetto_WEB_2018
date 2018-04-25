@@ -67,3 +67,10 @@ and open the template in the editor.
 .copyright {
 	text-align: center;
 }
+
+.onefilm {
+    background-color: #bdc4cc;
+    border-radius: 0.3rem;
+    padding: 1rem;
+    margin: 1rem;
+}
