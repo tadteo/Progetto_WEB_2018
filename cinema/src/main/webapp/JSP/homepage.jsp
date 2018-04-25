@@ -29,7 +29,7 @@
                     <h1 class="text-center"><b>Cinema Universe</b></h1>
                     
                     <form class="form-signin text-center" action="/cinema/" method="POST">
-                        <button class="astext" name="pageRequested" value="infopage"> <h3>Info cinema</h3></button>
+                        <h3><button class="astext" name="pageRequested" value="infopage"> Info cinema</button></h3>
                     </form>
                 </div>
                 <div class="col-sm-12 col-md-6 login">
@@ -76,7 +76,7 @@
                               <input type="hidden" name="film" value="${filmpp.getFilm().getId()}"> 
                               <h5><button class="astext" name="film" ><b>${filmpp.getFilm().getTitolo()}</b></button></h5>
                             </form>
-                            <p>Genere: ${filmpp.getGenere()}</p>
+                            <p>Genere: ${filmpp.getGenere().getDescrizione()}</p>
                             <p>Durata: ${filmpp.getFilm().getDurata()}</p>
                             <p>${fn:substring(filmpp.getFilm().getTrama(),0,200)}..</p>
                             <p><a href="${pageContext.request.contextPath}/JSP/reservationpage.jsp">prenota</a></p>

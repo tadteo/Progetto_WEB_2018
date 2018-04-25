@@ -30,10 +30,12 @@
         <div class="row">
             <div class="col-6">
                 <form class="form-signin text-center" action="/cinema/" method="GET">
-					<button class="astext"><h1>Cinema Universe</h1></button>
+					<h1><button class="astext">Cinema Universe</button></h1>
 				</form>
 				<form class="form-signin text-center" action="/cinema/" method="POST">
-						  <button class="astext"name="pageRequested" value="infopage"><h3>Info cinema</h3></button>
+                  <h3>
+                      <button class="astext" name="pageRequested" value="infopage">Info cinema</button>
+                  </h3>
 				</form>
             </div>
             <div class="col-6">
@@ -59,14 +61,18 @@
     <div class="container">
 		<div class="jumbotron">
 			<div class="row">
-				<div class="col-12">
-					<h2><b>${filmRichiesto.getFilm().getTitolo()}</b></h2>
-					<p><b>Genere:</b> ${filmRichiesto.getGenere().getDescrizione()}</p>
-					<p><b>Durata:</b> ${filmRichiesto.getFilm().getDurata()} </p>
-					<p><b>Trama:</b> ${filmRichiesto.getFilm().getTrama()}</p>
+                <div class="col-3">
+                    <img src="images${requestScope.film.getUrlLocandina()}" alt="" style="width:100%"/>
+                </div>
+				<div class="col-9">
+					<h2><b>${requestScope.film.getTitolo()}</b></h2>
+					<p><b>Genere:</b> ${requestScope.genere.getDescrizione()}</p>
+					<p><b>Durata:</b> ${requestScope.film.getDurata()} minuti</p>
+					<p><b>Trama:</b> ${requestScope.film.getTrama()}</p>
 					<div class="videoWrapper">
-						<iframe width="420" height="315" src="${filmRichiesto.getFilm().getUrlTrailer()}" frameborder="0" allowfullscreen></iframe>
+						<iframe width="420" height="315" src="${film.getUrlTrailer()}" frameborder="0" allowfullscreen></iframe>
 					</div>
+
 				</div>	
 			</div>
 		</div>

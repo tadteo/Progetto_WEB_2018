@@ -69,29 +69,42 @@ public class MainServlet extends HttpServlet {
 			FilmDAO fld = DAOFactory.getFilmDAO();
 			GenereDAO gnd = DAOFactory.getGenereDAO();
 			PrezzoDAO prd = DAOFactory.getPrezzoDAO();
+            
 			try {
-				List<PrettyPrintFilmGenere> filmspp = new ArrayList<>();
-				for( Film film : fld.getAll()){
-					for(Genere genere : gnd.getAll()){
-						if(Objects.equals(genere.getId(), film.getGenereId())){
-							filmspp.add(new PrettyPrintFilmGenere(film, genere));
-						}
-					}
-				}
+//				List<PrettyPrintFilmGenere> filmspp = new ArrayList<>();
+//				for( Film film : fld.getAll()){
+//					for(Genere genere : gnd.getAll()){
+//						if(Objects.equals(genere.getId(), film.getGenereId())){
+//							filmspp.add(new PrettyPrintFilmGenere(film, genere));
+//						}
+//					}
+//				}
+//
+//				//Prende in input il numero del film richiesto e crea un bean con il film richiesto corrispondente
+//				Integer idFilmRichiesto = Integer.parseInt(request.getParameter("film"));
+//				PrettyPrintFilmGenere filmRichiesto = new PrettyPrintFilmGenere();
+//				for( PrettyPrintFilmGenere flm:filmspp){
+//					if(Objects.equals(flm.getFilm().getId(), idFilmRichiesto) ){
+//						filmRichiesto = flm;
+//					}
+//				}
+//				request.setAttribute("filmRichiesto", filmRichiesto);
 
+                //Corretto:
+                
 				//Prende in input il numero del film richiesto e crea un bean con il film richiesto corrispondente
 				Integer idFilmRichiesto = Integer.parseInt(request.getParameter("film"));
-				PrettyPrintFilmGenere filmRichiesto = new PrettyPrintFilmGenere();
-				for( PrettyPrintFilmGenere flm:filmspp){
-					if(Objects.equals(flm.getFilm().getId(), idFilmRichiesto) ){
-						filmRichiesto = flm;
-					}
-				}
-				request.setAttribute("filmRichiesto", filmRichiesto);
-				/*Qui vanno creati i beans*/
+                
+                Film film = fld.getFilmById(idFilmRichiesto);
+                Genere genere = gnd.getGenereById(film.getGenereId());
+                
+                
+				request.setAttribute("film", film);
+				request.setAttribute("genere", genere);
 
-				/*------------------------*/
+
 				request.setAttribute("message","La richiesta arriva dalla servlet");
+                
 				request.getRequestDispatcher("JSP/filmpage.jsp").forward(request, response);
 			}catch(SQLException ex) {
 				System.out.println("Errore, impossibile ottenere la lista dei film");
