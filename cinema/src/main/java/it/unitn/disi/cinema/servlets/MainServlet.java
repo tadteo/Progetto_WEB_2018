@@ -10,9 +10,9 @@ import it.unitn.disi.cinema.dataaccess.Beans.*;
 import it.unitn.disi.cinema.dataaccess.DAO.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -69,6 +69,7 @@ public class MainServlet extends HttpServlet {
 			FilmDAO fld = DAOFactory.getFilmDAO();
 			GenereDAO gnd = DAOFactory.getGenereDAO();
 			PrezzoDAO prd = DAOFactory.getPrezzoDAO();
+            SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
             
 			try {
 //				List<PrettyPrintFilmGenere> filmspp = new ArrayList<>();
@@ -98,10 +99,15 @@ public class MainServlet extends HttpServlet {
                 Film film = fld.getFilmById(idFilmRichiesto);
                 Genere genere = gnd.getGenereById(film.getGenereId());
                 
+                long millis = System.currentTimeMillis();
+                Timestamp now = new Timestamp(millis);
+                
+                List<Spettacolo> spettacoliDisponibili = spd.getByFIlmAfter(idFilmRichiesto, now);
                 
 				request.setAttribute("film", film);
 				request.setAttribute("genere", genere);
-
+				request.setAttribute("spettacoli", spettacoliDisponibili);
+                   
 
 				request.setAttribute("message","La richiesta arriva dalla servlet");
                 

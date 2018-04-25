@@ -69,35 +69,37 @@
 					<p><b>Genere:</b> ${requestScope.genere.getDescrizione()}</p>
 					<p><b>Durata:</b> ${requestScope.film.getDurata()} minuti</p>
 					<p><b>Trama:</b> ${requestScope.film.getTrama()}</p>
+                    <p><b>Spettacoli:</b></p>
+                    <c:forEach items="${requestScope.spettacoli}" var="spettacolo">
+                        <p>${spettacolo.getDataOra()}</p>               //test      
+                    </c:forEach>
+                    
 					<div class="videoWrapper">
 						<iframe width="420" height="315" src="${film.getUrlTrailer()}" frameborder="0" allowfullscreen></iframe>
 					</div>
-
 				</div>	
 			</div>
 		</div>
-		
-        
     </div>
-				<br />
-				<footer class="container">
-				<div class="row">
-					<div class="col-lg-6 col-md-12">
-						<p><a href="${pageContext.request.contextPath}/JSP/infopage.jsp">Info:</a></p>
-						<p><b>Telefono:</b> +39 0123 123123</p>
-						<p><b>Indirizzo:</b> Via La Vita E Tutto Quanto, 42 (UNIVERSO)</p>
-						<p><b>Partita Iva: </b>01234561001<b> – C.F. </b>01234561001</p>
+    <br />
+    <footer class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <p><a href="${pageContext.request.contextPath}/JSP/infopage.jsp">Info:</a></p>
+                <p><b>Telefono:</b> +39 0123 123123</p>
+                <p><b>Indirizzo:</b> Via La Vita E Tutto Quanto, 42 (UNIVERSO)</p>
+                <p><b>Partita Iva: </b>01234561001<b> – C.F. </b>01234561001</p>
 
-					</div>
-					<div class="col-lg-6 col-md-12">
-						<br />
-						<p>Posted by: Magic Group Srl</p>
-						<p>Contact information: <a href="mailto:info@magicgroup.com">info@magicgroup.com</a>.</p>
-					</div>
-						
-				</div>
-				<p class="copyright">Copyright © 2018 · Tadiello Matteo - Stefani Domenico - Martini Ivan · all rights reserved.</p>
-			</footer>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <br />
+                <p>Posted by: Magic Group Srl</p>
+                <p>Contact information: <a href="mailto:info@magicgroup.com">info@magicgroup.com</a>.</p>
+            </div>
+
+        </div>
+        <p class="copyright">Copyright © 2018 · Tadiello Matteo - Stefani Domenico - Martini Ivan · all rights reserved.</p>
+    </footer>
 		
 
     </body>
