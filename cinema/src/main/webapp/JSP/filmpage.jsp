@@ -71,7 +71,7 @@
 					<p><b>Trama:</b> ${requestScope.film.getTrama()}</p>
                     <p><b>Spettacoli:</b></p>
                     <c:forEach items="${requestScope.spettacoli}" var="spettacolo">
-                        <p>${spettacolo.getDataOra()}</p>               //test      
+                        <p>${spettacolo.getDataOra()}</p>               <!--test -->     
                     </c:forEach>
                     
 					<div class="videoWrapper">
