@@ -51,7 +51,7 @@ public class SalaDAO {
         st.executeUpdate();
     }
     
-     public Sala getSalaById(Integer id) throws SQLException{
+    public Sala getSalaById(Integer id) throws SQLException{
         Sala result;
         PreparedStatement st = conn.prepareStatement("select * from Sala where Sala.id_sala = ?");
         st.setInt(1, id);
@@ -71,7 +71,7 @@ public class SalaDAO {
         return result;
     }
      
-    List<Sala> getAll() throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
+    public List<Sala> getAll() throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Sala> result = new ArrayList<>();
         
         PreparedStatement st = conn.prepareStatement("SELECT * FROM Sala");
@@ -83,7 +83,7 @@ public class SalaDAO {
         return result;
     }
       
-    void deleteSala(Integer id) throws SQLException{
+    public void deleteSala(Integer id) throws SQLException{
                 
         PreparedStatement st = conn.prepareStatement("DELETE FROM Sala WHERE Sala.id_sala = ?");
         st.setInt(1, id);

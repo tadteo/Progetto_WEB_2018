@@ -38,7 +38,7 @@ public class SpettacoloDAO {
     Connection conn = db.getConnection();
     
     public void addSpettacolo(Spettacolo spettacolo) throws SQLException{
-        PreparedStatement st = conn.prepareStatement("insert into Spettacolo (id_film,id_sala,dataora) values (?,?,?)");
+        PreparedStatement st = conn.prepareStatement("insert into Spettacolo (id_film,id_sala,data_ora) values (?,?,?)");
         st.setInt(1, spettacolo.getFilmId());
         st.setInt(2, spettacolo.getSalaId());
         st.setTimestamp(3, spettacolo.getDataOra());
@@ -85,7 +85,7 @@ public class SpettacoloDAO {
     public List<Spettacolo> getAfter(Timestamp time)throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Spettacolo> result = new ArrayList<>();
         
-        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.dataora > ?");
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.data_ora > ?");
         st.setTimestamp(1, time);
         ResultSet rs = st.executeQuery();
         
@@ -110,7 +110,7 @@ public class SpettacoloDAO {
     public List<Spettacolo> getByFIlmAfter(Integer idFilm, Timestamp time) throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Spettacolo> result = new ArrayList<>();
         
-        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.id_film = ? AND Spettacolo.dataora > ?");
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.id_film = ? AND Spettacolo.data_ora > ?");
         st.setInt(1, idFilm);
         st.setTimestamp(2, time);
         ResultSet rs = st.executeQuery();

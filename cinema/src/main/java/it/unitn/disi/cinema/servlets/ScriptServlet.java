@@ -5,9 +5,9 @@
  */
 package it.unitn.disi.cinema.servlets;
 
-import it.unitn.disi.cinema.dataaccess.Beans.Film;
-import it.unitn.disi.cinema.dataaccess.DAO.DAOFactory;
-import it.unitn.disi.cinema.dataaccess.DAO.FilmDAO;
+import it.unitn.disi.cinema.dataaccess.Database.*;
+import it.unitn.disi.cinema.dataaccess.Beans.*;
+import it.unitn.disi.cinema.dataaccess.DAO.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -17,6 +17,8 @@ import java.time.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +58,6 @@ public class ScriptServlet extends HttpServlet {
             
             out.println();
 
-            
             try {
                 FilmDAO fld = DAOFactory.getFilmDAO();
                 List<Film> films = fld.getAll();
@@ -68,10 +69,10 @@ public class ScriptServlet extends HttpServlet {
                     
                     Timestamp timeIterator = addMinutesToTimestamp(base, current);
                     for (int i = 1; i < numeroProiezioni; i++) {
+                        createNewSpettacolo(film.getId(),timeIterator);
                         out.print(printTime(timeIterator) + " ");
                         timeIterator = addMinutesToTimestamp(durata, timeIterator);
                     }
-
 
                     out.println();
                 }
@@ -81,7 +82,6 @@ public class ScriptServlet extends HttpServlet {
             }
         }
     }
-    
     
     private static Timestamp addMinutesToTimestamp(int minutes, Timestamp beforeTime){
         final long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
@@ -95,7 +95,24 @@ public class ScriptServlet extends HttpServlet {
     private String printTime(Timestamp timestamp){
         if((new SimpleDateFormat("dd").format(new Date(timestamp.getTime()))).equals(new SimpleDateFormat("dd").format(new Date())))
             return new SimpleDateFormat("HH.mm").format(new Date(timestamp.getTime()));
-        return "";
+        else    
+            return "(" + new SimpleDateFormat("HH.mm").format(new Date(timestamp.getTime())) + ")";
+    }
+    
+    private void createNewSpettacolo(Integer idFilm, Timestamp time){
+        SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
+        SalaDAO sld = DAOFactory.getSalaDAO();
+        
+        try {
+            List<Sala> sale = sld.getAll();
+            
+            Integer idSala = sale.get(0).getId(); //------------------------------------------------------------Questo andrà modificato
+            Spettacolo s = new Spettacolo(null,idFilm,idSala, time);
+            spd.addSpettacolo(s);
+        } catch (SQLException ex) {
+            System.out.println("Errore SQL in ScriptServlet.createNewSpettacolo()");
+            ex.printStackTrace();
+        }
     }
 
 
