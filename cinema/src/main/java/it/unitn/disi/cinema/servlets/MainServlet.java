@@ -128,7 +128,54 @@ public class MainServlet extends HttpServlet {
 			}
 		}else if(pageRequested.equals("reservationpage")){
             /*codice prenotazione*/
-			
+			PostoDAO pst = DAOFactory.getPostoDAO();
+			try{
+				List<Posto> posti = pst.getAll();
+				
+				int maxRiga=0;
+				int maxPoltrona=0; //Poltrona corrisponde a colonna
+				Integer sala = Integer.parseInt(request.getParameter("sala"));
+				for(Posto posto:posti){
+					if(Objects.equals(posto.getSalaId(), sala)){
+						if(posto.getRiga() > maxRiga ){
+							maxRiga = posto.getRiga();
+						}
+						if(posto.getPoltrona() > maxPoltrona ){
+							maxPoltrona = posto.getPoltrona();
+						}
+					}
+				}
+				
+				List<List<Posto>> postiSala = new ArrayList();
+				for( int i=0; i<maxRiga; i++){
+					postiSala.add( new ArrayList());
+				}
+				for(Posto posto:posti){
+					if(Objects.equals(posto.getSalaId(), sala)){
+						postiSala.get(posto.getRiga()).add(posto.getPoltrona(), posto);
+					}
+				}
+				
+				List<String> disposizione = new ArrayList();
+				int counter=0;
+				for(List<Posto> righe:postiSala){
+					disposizione.add(counter,"");
+					for(Posto colonne:righe){
+						if(colonne.getEsiste()){
+							 disposizione.get(counter).concat("a");
+						} else{
+							
+						}
+					}
+					counter++;
+				}
+					
+				
+				
+			} catch (SQLException ex) {
+				System.out.println("Errore impossibile ottenere i posti");
+				ex.printStackTrace();
+			}
 			
 			
 			
