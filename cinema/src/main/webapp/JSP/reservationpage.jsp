@@ -28,7 +28,7 @@
           <div class="col-6">
             <h1 class="text-center"><b>Cinema Universe (homepage)</b></h1>
 			<form class="form-signin text-center" action="/cinema/" method="POST">
-				<button class="astext"name="pageRequested" value="infopage"><h3>Info cinema</h3></button>
+				<button class="astext" name="pageRequested" value="infopage"><h3>Info cinema</h3></button>
 			</form>
           </div>
           <div class="col-6 login">
@@ -50,19 +50,61 @@
             </c:choose>
           </div>
         </div>
-      </div>
-      <br>
-        <div class="wrapper">
-			<div class="container">             
+      </div>    
+      
+        <br>
+        
+        
+        <div class="container jumbotron">
+            <h3>${requestScope.sala.getDescrizione()}</h3>
+            <h3>${requestScope.film.getTitolo()}</h3>
+                
+            <c:forEach items="mappa" var="riga">
+                <p>${riga}</p>
+            </c:forEach>
+                
+            
+            
+            
+            
+            
+            
+<!--            <div class="demo">
                 <div id="seat-map">
-					<div class="front-indicator">Front</div>
-				</div>
-			</div>
-		</div>
+                    <div class="front">SCHERMO</div>					
+                </div>
+                <div class="booking-details">
+                    <p>Movie: <span>${requestScope.film.getTitolo()}</span></p>
+                    <p>Time: <span>${requestScope.spettacolo.getDataOra()}</span></p>
+                    <p>Seat: </p>
+                    <ul id="selected-seats"></ul>
+                    <p>Tickets: <span id="counter">0</span></p>
+                    <p>Total: <b>$<span id="total">0</span></b></p>
+
+                    <button class="checkout-button">BUY</button>
+
+                    <div id="legend"></div>
+                </div>
+                <div style="clear:both"></div>
+            </div>-->
+                
+                
+                
+    <!--            <div class="wrapper">
+                    <div class="container">             
+                        <div id="seat-map">
+                            <div class="front-indicator">Front</div>
+                        </div>
+                    </div>
+                </div>-->
+        </div>
+      
+      
+      
 	  <footer class="container">
 				<div class="row">
 					<div class="col-lg-6 col-md-12">
-						<p><a href="${pageContext.request.contextPath}/JSP/infopage.jsp">Info:</a></p>
+						<p><a href="JSP/infopage.jsp">Info:</a></p>
 						<p><b>Telefono:</b> +39 0123 123123</p>
 						<p><b>Indirizzo:</b> Via La Vita E Tutto Quanto, 42 (UNIVERSO)</p>
 						<p><b>Partita Iva: </b>01234561001<b> – C.F. </b>01234561001</p>
@@ -80,53 +122,80 @@
 	  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	  <script src="${pageContext.request.contextPath}/CSS/jquery-seat-charts.js"></script>
 
-	  <script>
-			$(document).ready(function() {
+        <script>
+			var price = 10; //price
+            $(document).ready(function() {
+            var $cart = $('#selected-seats'), //Sitting Area
+            $counter = $('#counter'), //Votes
+            $total = $('#total'); //Total money
 
-			var sc = $('#seat-map').seatCharts({
-				map: [
-					'aaaaaaaaaaaa',
-					'aaaaaaaaaaaa',
-					'bbbbbbbbbb__',
-					'bbbbbbbbbb__',
-					'bbbbbbbbbbbb',
-					'cccccccccccc'
-				],
-				seats: {
-					a: {
-						price   : 99.99,
-						classes : 'front-seat' //your custom CSS class
-					}
+            var sc = $('#seat-map').seatCharts({
+                map: [  //Seating chart
+                    'aaaaaaaaaa',
+                    'aaaaaaaaaa',
+                    '__________',
+                    'aaaaaaaa__',
+                    'aaaaaaaaaa',
+                    'aaaaaaaaaa',
+                    'aaaaaaaaaa',
+                    'aaaaaaaaaa',
+                    'aaaaaaaaaa',
+                    'aa__aa__aa'
+                ],
+                naming : {
+                    top : false,
+                    getLabel : function (character, row, column) {
+                        return column;
+                    }
+                },
+                legend : { //Definition legend
+                    node : $('#legend'),
+                    items : [
+                        [ 'a', 'available',   'Option' ],
+                        [ 'a', 'unavailable', 'Sold']
+                    ]					
+                },
+                click: function () { //Click event
+                    if (this.status() == 'available') { //optional seat
+                        $('<li>R'+(this.settings.row+1)+' S'+this.settings.label+'</li>')
+                            .attr('id', 'cart-item-'+this.settings.id)
+                            .data('seatId', this.settings.id)
+                            .appendTo($cart);
 
-				},
-				click: function () {
-					if (this.status() == 'available') {
-						//do some stuff, i.e. add to the cart
-						return 'selected';
-					} else if (this.status() == 'selected') {
-						//seat has been vacated
-						return 'available';
-					} else if (this.status() == 'unavailable') {
-						//seat has been already booked
-						return 'unavailable';
-					} else {
-						return this.style();
-					}
-				}
-			});
+                        $counter.text(sc.find('selected').length+1);
+                        $total.text(recalculateTotal(sc)+price);
 
-			//Make all available 'c' seats unavailable
-			sc.find('c.available').status('unavailable');
+                        return 'selected';
+                    } else if (this.status() == 'selected') { //Checked
+                            //Update Number
+                            $counter.text(sc.find('selected').length-1);
+                            //update totalnum
+                            $total.text(recalculateTotal(sc)-price);
 
-			/*
-			Get seats with ids 2_6, 1_7 (more on ids later on),
-			put them in a jQuery set and change some css
-			*/
-			sc.get(['2_6', '1_7']).node().css({
-				color: '#ffcfcf'
-			});
+                            //Delete reservation
+                            $('#cart-item-'+this.settings.id).remove();
+                            //optional
+                            return 'available';
+                    } else if (this.status() == 'unavailable') { //sold
+                        return 'unavailable';
+                    } else {
+                        return this.style();
+                    }
+                }
+            });
+        //sold seat
+        sc.get(['1_2', '4_4','4_5','6_6','6_7','8_5','8_6','8_7','8_8', '10_1', '10_2']).status('unavailable');
 
-			console.log('Seat 1_2 costs ' + sc.get('1_2').data().price + ' and is currently ' + sc.status('1_2'));
+    });
+    //sum total money
+    function recalculateTotal(sc) {
+        var total = 0;
+        sc.find('selected').each(function () {
+            total += price;
+        });
+
+        return total;
+    }
 
 		});
 		

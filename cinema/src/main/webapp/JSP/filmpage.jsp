@@ -52,6 +52,7 @@
                     <c:otherwise>
                         <form class="form-signin" action="/cinema/login.do" method="GET">
                         <button class="btn btn-lg btn-primary btn-block" type="submit">Login/Sign Up</button>
+                        </form>
                     </c:otherwise>      
                 </c:choose>
             </div>
@@ -70,8 +71,12 @@
 					<p><b>Durata:</b> ${requestScope.film.getDurata()} minuti</p>
 					<p><b>Trama:</b> ${requestScope.film.getTrama()}</p>
                     <p><b>Spettacoli:</b></p>
+                    
                     <c:forEach items="${requestScope.spettacoli}" var="spettacolo">
-                        <p>${spettacolo.getDataOra()}</p>               <!--test -->     
+                        <form class="form-signin" action="/cinema/" method="POST">
+                            <input type="hidden" value="${spettacolo.getId()}" name="spettacolo_id"/>
+                            <button class="btn btn-lg btn-primary btn-block" value="reservationpage" name="pageRequested" type="submit">${spettacolo.getDataOra()}</button>
+                        </form>  
                     </c:forEach>
                     
 					<div class="videoWrapper">

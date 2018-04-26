@@ -23,9 +23,9 @@ public class DAOFactory {
     public static SalaDAO getSalaDAO(){
         return new SalaDAO();
     }
-//    public static PrenotazioneDAO getPrenotazioneDAO(){
-//        return new PrenotazioneDAO();
-//    }
+    public static PrenotazioneDAO getPrenotazioneDAO(){
+        return new PrenotazioneDAO();
+    }
     public static PrezzoDAO getPrezzoDAO(){
         return new PrezzoDAO();
     }

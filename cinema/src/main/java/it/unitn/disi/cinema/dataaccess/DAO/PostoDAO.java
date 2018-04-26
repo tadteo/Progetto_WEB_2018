@@ -57,7 +57,7 @@ public class PostoDAO {
         st.executeUpdate();
     }
     
-     public Posto getPostoById(Integer id) throws SQLException{
+    public Posto getPostoById(Integer id) throws SQLException{
         Posto result;
         PreparedStatement st = conn.prepareStatement("select * from Posto where Posto.id_posto = ?");
         st.setInt(1, id);
@@ -82,10 +82,10 @@ public class PostoDAO {
         return result;
     }
      
-    List<Posto> getPostoBySalaId(Integer salaId)throws SQLException{
+    public List<Posto> getPostoBySalaId(Integer salaId)throws SQLException{
         List<Posto> result = new ArrayList<>();
         
-        PreparedStatement st = conn.prepareStatement("select * from Posto where Posto.id_sala = ?");
+        PreparedStatement st = conn.prepareStatement("select * from Posto where Posto.id_sala = ? ORDER BY Posto.riga, Posto.poltrona");
         st.setInt(1, salaId);
         
         ResultSet rs = st.executeQuery();
@@ -162,5 +162,25 @@ public class PostoDAO {
         }
         
         return result;
+    }
+    
+    
+    public Boolean isReserved(Integer idSpettacolo, Integer idPosto) throws SQLException{
+        Boolean res = null;
+        
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM Prenotazione WHERE Prenotazione.id_spettacolo = ? AND Prenotazione.id_posto = ?");
+        st.setInt(1, idSpettacolo);
+        st.setInt(2, idPosto);
+        ResultSet rs = st.executeQuery();
+        
+        if(rs.next())
+            if(rs.next())
+                throw new SQLException("Too much reservation for the same Spettacolo-Posto");
+            else
+                res = true;
+        else
+            res = false;
+            
+        return res;
     }
 }
