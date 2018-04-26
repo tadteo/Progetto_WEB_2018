@@ -97,7 +97,7 @@ public class PostoDAO {
         return result;
     }
     
-    List<Posto> getAll() throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
+    public List<Posto> getAll() throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Posto> result = new ArrayList<>();
         
         PreparedStatement st = conn.prepareStatement("SELECT * FROM Posto");
