@@ -150,27 +150,31 @@ public class MainServlet extends HttpServlet {
 				for( int i=0; i<maxRiga; i++){
 					postiSala.add( new ArrayList());
 				}
-				for(Posto posto:posti){
-					if(Objects.equals(posto.getSalaId(), sala)){
+				for (Posto posto : posti) {
+					if(sala == posto.getSalaId())){
 						postiSala.get(posto.getRiga()).add(posto.getPoltrona(), posto);
 					}
 				}
 				
-				List<String> disposizione = new ArrayList();
+				Disposizione disposizione = new Disposizione();
+				
+				disposizione.add( 0 , "AAAAAAAAA");
+				
 				int counter=0;
 				for(List<Posto> righe:postiSala){
 					disposizione.add(counter,"");
 					for(Posto colonne:righe){
 						if(colonne.getEsiste()){
-							 disposizione.get(counter).concat("a");
+							disposizione.set(counter, disposizione.get(counter).concat("a"));
 						} else{
-							
+							disposizione.set(counter, disposizione.get(counter).concat("_"));
 						}
 					}
 					counter++;
 				}
-					
 				
+				
+				request.setAttribute("disposizione", disposizione);
 				
 			} catch (SQLException ex) {
 				System.out.println("Errore impossibile ottenere i posti");
