@@ -23,34 +23,8 @@
     </head>
 	
     <body>
-		<br />
-    <div class="header container">
-        <div class="row">
-            <div class="col-6">
-				<form class="form-signin text-center" action="/cinema/" method="GET">
-					<button class="astext"><h1>Cinema Universe</h1></button>
-				</form>
-				<h3 class="text-center">(info page)</h3>
-            </div>
-            <div class="col-6">
-                <c:choose>
-                    <c:when test="${sessionScope.email != null}">
-                        <c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
-                        <h3>Welcome ${emailParts[0]} <b>(${sessionScope.ruolo})</b></h3>
-                        <h4>You are logged in</h4>
-
-                        <form class="form-signin" action="/cinema/logout.do" method="POST">
-                                <button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
-                        </form>
-                    </c:when>
-                    <c:otherwise>
-                        <form class="form-signin" action="/cinema/login.do" method="GET">
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Login/Sign Up</button>
-                    </c:otherwise>      
-                </c:choose>
-            </div>
-        </div>
-    </div>
+    <br />
+    <jsp:include page='components/header.jsp'/>
 	<br />
     <div class="container">
 		<div class="row">
@@ -71,17 +45,8 @@
 		</div>
         
     </div>
-	<footer class="container">
-				<div class="row">
-					<div class="col-lg-6 col-md-12">
-						<br />
-						<p>Posted by: Magic Group Srl</p>
-						<p>Contact information: <a href="mailto:info@magicgroup.com">info@magicgroup.com</a>.</p>
-					</div>
-						
-				</div>
-				<p class="copyright">Copyright © 2018 · Tadiello Matteo - Stefani Domenico - Martini Ivan · all rights reserved.</p>
-			</footer>
+	
+    <jsp:include page='components/header.jsp'/>
 		
 	<script>
       function initMap() {
