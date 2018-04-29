@@ -14,16 +14,15 @@
         <c:when test="${hideInfos == null}">
             <div class="row">
                 <div class="col-lg-6 col-md-12">
+                    <form action="/cinema/info" method="POST" class="form-inline mb-1">
+                        <button class="astext my-2 my-sm-0" type="submit" name="pageRequested" value="infopage"><a>Info:</a></button>
+                    </form>
                     <p><b>Telefono:</b> +39 0123 123123</p>
                     <p><b>Indirizzo:</b> Via La Vita E Tutto Quanto, 42 (UNIVERSO)</p>
                     <p><b>Partita Iva: </b>01234561001<b> – C.F. </b>01234561001</p>
 
                 </div>
                 <div class="col-lg-6 col-md-12">
-        <!--            <p><a href="${pageContext.request.contextPath}/JSP/infopage.jsp">Info:</a></p>-->
-                    <form action="/cinema/" method="POST" class="form-inline">
-                        <button class="btn btn-light" type="submit" name="pageRequested" value="infopage">Info</button>
-                    </form>
                     <p>Posted by: Magic Group Srl</p>
                     <p>Contact information: <a href="mailto:info@magicgroup.com">info@magicgroup.com</a>.</p>
                 </div>

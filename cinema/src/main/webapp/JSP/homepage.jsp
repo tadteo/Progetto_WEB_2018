@@ -18,18 +18,19 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Cinema-Homepage</title>
     </head>
     <body>
         <jsp:include page='components/header.jsp'/>
-        <div class="container justify-content-center">
-          <div class="jumbotron">             
+<!--        <div class="container justify-content-center">-->
+        <div class="row justify-content-center">
+          <div class="col-md-10">             
 			<br/>
 			<div id="movies">
 
 			  <%--Qui vanno messi i cinema disponibili--%>
-
 				<c:forEach  items="${requestScope.filmspp}" var="filmpp">
                     <div class="onefilm">
                         <div class="row justify-content-center films">
