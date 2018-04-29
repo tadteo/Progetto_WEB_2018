@@ -47,6 +47,7 @@ public class MainServlet extends HttpServlet {
                         
             request.setAttribute("filmspp", filmspp);            
             request.setAttribute("prezzi", prezzi);		
+            request.setAttribute("pageCurrent","homepage");
             request.getRequestDispatcher("JSP/homepage.jsp").forward(request, response);			
         } catch (SQLException ex) {
             System.out.println("Errore, impossibile ottenere la lista dei film");
@@ -107,11 +108,8 @@ public class MainServlet extends HttpServlet {
 				request.setAttribute("film", film);
 				request.setAttribute("genere", genere);
 				request.setAttribute("spettacoli", spettacoliDisponibili);
-                   
-
-				request.setAttribute("message","La richiesta arriva dalla servlet");
                 
-				request.getRequestDispatcher("JSP/filmpage.jsp").forward(request, response);
+                request.getRequestDispatcher("JSP/filmpage.jsp").forward(request, response);
 			}catch(SQLException ex) {
 				System.out.println("Errore, impossibile ottenere la lista dei film");
 				ex.printStackTrace();
@@ -121,7 +119,9 @@ public class MainServlet extends HttpServlet {
 			try {
 				List<Prezzo> prezzi = prd.getAll();            
 				request.setAttribute("prezzi", prezzi);		
-				request.getRequestDispatcher("JSP/infopage.jsp").forward(request, response);			
+                request.setAttribute("hideInfos", "true");
+				request.setAttribute("pageCurrent","infopage");
+                request.getRequestDispatcher("JSP/infopage.jsp").forward(request, response);			
 			} catch (SQLException ex) {
 				System.out.println("Errore, impossibile ottenere i prezzi");
 				ex.printStackTrace();
@@ -178,9 +178,7 @@ public class MainServlet extends HttpServlet {
 			}
 			
 			
-			
-            
-          request.getRequestDispatcher("JSP/reservationpage.jsp").forward(request, response);
+            request.getRequestDispatcher("JSP/reservationpage.jsp").forward(request, response);
         }
     }
 

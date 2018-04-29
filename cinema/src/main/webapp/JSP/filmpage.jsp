@@ -21,42 +21,13 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Film</title>
     </head>
 	
-    <body>
-    <div class="header container">
-        <div class="row">
-            <div class="col-6">
-                <form class="form-signin text-center" action="/cinema/" method="GET">
-					<h1><button class="astext">Cinema Universe</button></h1>
-				</form>
-				<form class="form-signin text-center" action="/cinema/" method="POST">
-                  <h3>
-                      <button class="astext" name="pageRequested" value="infopage">Info cinema</button>
-                  </h3>
-				</form>
-            </div>
-            <div class="col-6">
-                <c:choose>
-                    <c:when test="${sessionScope.email != null}">
-                        <c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
-                        <h3>Welcome ${emailParts[0]} <b>(${sessionScope.ruolo})</b></h3>
-                        <h4>You are logged in</h4>
-
-                        <form class="form-signin" action="/cinema/logout.do" method="POST">
-                                <button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
-                        </form>
-                    </c:when>
-                    <c:otherwise>
-                        <form class="form-signin" action="/cinema/login.do" method="GET">
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Login/Sign Up</button>
-                    </c:otherwise>      
-                </c:choose>
-            </div>
-        </div>
-    </div>
+    <body style="background-image: url('../images/collage.jpg')">
+        <jsp:include page='components/header.jsp'/>
 
     <div class="container">
 		<div class="jumbotron">
@@ -82,25 +53,10 @@
 		</div>
     </div>
     <br />
-    <footer class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-12">
-                <p><a href="${pageContext.request.contextPath}/JSP/infopage.jsp">Info:</a></p>
-                <p><b>Telefono:</b> +39 0123 123123</p>
-                <p><b>Indirizzo:</b> Via La Vita E Tutto Quanto, 42 (UNIVERSO)</p>
-                <p><b>Partita Iva: </b>01234561001<b> – C.F. </b>01234561001</p>
+    
+    
+	<jsp:include page='components/footer.jsp'/>
 
-            </div>
-            <div class="col-lg-6 col-md-12">
-                <br />
-                <p>Posted by: Magic Group Srl</p>
-                <p>Contact information: <a href="mailto:info@magicgroup.com">info@magicgroup.com</a>.</p>
-            </div>
-
-        </div>
-        <p class="copyright">Copyright © 2018 · Tadiello Matteo - Stefani Domenico - Martini Ivan · all rights reserved.</p>
-    </footer>
-		
 
     </body>
 </html>
