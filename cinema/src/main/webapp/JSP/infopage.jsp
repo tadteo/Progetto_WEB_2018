@@ -23,8 +23,15 @@
     </head>
 	
     <body>
-    <br />
+        
+        
     <jsp:include page='components/header.jsp'/>
+    
+    
+    
+    <br>
+    <br>
+    <br>
 	<br />
     <div class="container">
 		<div class="row">
@@ -45,8 +52,12 @@
 		</div>
         
     </div>
+    
+    <br>
+    <br>
+    <br>
 	
-    <jsp:include page='components/header.jsp'/>
+    <jsp:include page='components/footer.jsp'/>
 		
 	<script>
       function initMap() {

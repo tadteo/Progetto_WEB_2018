@@ -22,7 +22,6 @@
         <title>Cinema-Homepage</title>
     </head>
     <body>
-        <br/>
         <jsp:include page='components/header.jsp'/>
         <div class="container justify-content-center">
           <div class="jumbotron">             

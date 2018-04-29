@@ -5,26 +5,36 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
-<footer class="container page-footer font-small blue pt-4 mt-4">
-    <div class="row">
-        <div class="col-lg-6 col-md-12">
-            <p><a href="${pageContext.request.contextPath}/JSP/infopage.jsp">Info:</a></p>
-            <p><b>Telefono:</b> +39 0123 123123</p>
-            <p><b>Indirizzo:</b> Via La Vita E Tutto Quanto, 42 (UNIVERSO)</p>
-            <p><b>Partita Iva: </b>01234561001<b> – C.F. </b>01234561001</p>
+<link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
 
-        </div>
-        <div class="col-lg-6 col-md-12">
-            <br />
-            <p>Posted by: Magic Group Srl</p>
-            <p>Contact information: <a href="mailto:info@magicgroup.com">info@magicgroup.com</a>.</p>
-        </div>
+<footer class="page-footer font-small blue pt-4 mt-4 bg-secondary text-light">
+           
+    <div class="container">
+        <c:choose>
+        <c:when test="${hideInfos == null}">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <p><b>Telefono:</b> +39 0123 123123</p>
+                    <p><b>Indirizzo:</b> Via La Vita E Tutto Quanto, 42 (UNIVERSO)</p>
+                    <p><b>Partita Iva: </b>01234561001<b> – C.F. </b>01234561001</p>
 
+                </div>
+                <div class="col-lg-6 col-md-12">
+        <!--            <p><a href="${pageContext.request.contextPath}/JSP/infopage.jsp">Info:</a></p>-->
+                    <form action="/cinema/" method="POST" class="form-inline">
+                        <button class="btn btn-light" type="submit" name="pageRequested" value="infopage">Info</button>
+                    </form>
+                    <p>Posted by: Magic Group Srl</p>
+                    <p>Contact information: <a href="mailto:info@magicgroup.com">info@magicgroup.com</a>.</p>
+                </div>
+            </div>
+        </c:when>
+    </c:choose>
+        <br>
+        <!--Copyright-->
+        <div class="footer-copyright py-3 text-center">
+            <p style="font-size: 0.8rem;font-style: italic;" class="copyright">Copyright © 2018 · Tadiello Matteo - Stefani Domenico - Martini Ivan · all rights reserved.</p>
+        </div>
+        <!--/.Copyright-->
     </div>
-    <br>
-    <!--Copyright-->
-    <div class="footer-copyright py-3 text-center">
-        <p style="font-size: 0.8rem;font-style: italic;" class="copyright">Copyright © 2018 · Tadiello Matteo - Stefani Domenico - Martini Ivan · all rights reserved.</p>
-    </div>
-    <!--/.Copyright-->
 </footer>

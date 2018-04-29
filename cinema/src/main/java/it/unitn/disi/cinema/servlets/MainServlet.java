@@ -121,6 +121,7 @@ public class MainServlet extends HttpServlet {
 			try {
 				List<Prezzo> prezzi = prd.getAll();            
 				request.setAttribute("prezzi", prezzi);		
+                request.setAttribute("hideInfos", "true");
 				request.getRequestDispatcher("JSP/infopage.jsp").forward(request, response);			
 			} catch (SQLException ex) {
 				System.out.println("Errore, impossibile ottenere i prezzi");
