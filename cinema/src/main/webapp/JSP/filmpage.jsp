@@ -26,7 +26,8 @@
         <title>Film</title>
     </head>
 	
-    <body style="background-image: url('../images/collage.jpg')">
+    <body class="collage">
+
         <jsp:include page='components/header.jsp'/>
 
     <div class="container">
@@ -56,7 +57,6 @@
     
     
 	<jsp:include page='components/footer.jsp'/>
-
 
     </body>
 </html>

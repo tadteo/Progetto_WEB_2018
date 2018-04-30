@@ -24,9 +24,9 @@
 
         <title>Cinema-Homepage</title>
     </head>
+<!--    <body  style="background-image: url('/cinema/images/collage.jpg');">-->
     <body>
         <jsp:include page='components/header.jsp'/>
-<!--        <div class="container justify-content-center">-->
         <div class="row justify-content-center">
           <div class="col-md-10">             
 			<br/>
@@ -60,7 +60,6 @@
 			</div>
 		  </div>
         </div>
-
         <jsp:include page='components/footer.jsp'/>
     </body>
 </html>
