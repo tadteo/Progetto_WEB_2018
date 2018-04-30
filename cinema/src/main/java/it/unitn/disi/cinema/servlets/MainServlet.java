@@ -13,7 +13,6 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -143,16 +142,22 @@ public class MainServlet extends HttpServlet {
                 
                 
                 
-            out.println("ReservationPage");
-            out.println("Film: " + film.getTitolo());
-            out.println("Sala: " + sala.getDescrizione());
-            out.println("Posti: " + posti.size());
+                out.println("ReservationPage");
+                out.println("Film: " + film.getTitolo());
+                out.println("Sala: " + sala.getDescrizione());
+                out.println("Posti: " + posti.size());
                 
                 
                 ArrayList<String> mappa = new ArrayList<>();
                 //a posto disponibile
                 //b posto prenotato
                 //_ posto inesistente
+                
+                final char letterForAvailable = 'a';
+                final char letterForReserved = 'b';
+                final char letterForNotExists = '_';
+                
+                
                 int currentRiga = 1;
                 String currentStringa = new String();
                 for(int j = 0; j<posti.size(); j++){
@@ -162,33 +167,27 @@ public class MainServlet extends HttpServlet {
                         out.println();
                         currentRiga++;
                     }
-                    //non stampa l'ultima riga
-                    //Non esegue l'if all'ultimo ciclo
-                    //Non basta aggiungere la riga fuori
-                    //Check
                     
                     char seatChar = '0';
                     if(posti.get(j).getEsiste() == false)
-                        seatChar='_';
+                        seatChar=letterForNotExists;
                     else if(psd.isReserved(spettacolo_id, posti.get(j).getId())){
                         //prenotato
-                        seatChar='b';
+                        seatChar=letterForReserved;
                     }else{
-                        seatChar='a';
+                        //libero
+                        seatChar=letterForAvailable;
                     }
-                    
                     currentStringa = currentStringa + seatChar;
                     out.print(seatChar);
                 }
+                mappa.add(currentStringa);
                 
                 out.println("\n\nArraylist:");
                 for(String s : mappa)
                     out.println(s);
                 
-                
                 request.setAttribute("mappa", mappa);
-                
-                
                 
 				//request.getRequestDispatcher("JSP/reservationpage.jsp").forward(request, response);
                 

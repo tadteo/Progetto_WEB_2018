@@ -90,4 +90,18 @@ public class SalaDAO {
         
         st.executeUpdate();
     }
+    
+    public int getPostiCount(Integer id)throws SQLException{
+        int res = -1;
+        
+        PreparedStatement st = conn.prepareStatement("SELECT COUNT(*) FROM Sala, Posto WHERE (Sala.id_sala = Posto.id_sala) AND (Posto.esiste = true)");
+        ResultSet rs = st.executeQuery();
+        
+        if(rs.next())
+            res = rs.getInt(1);
+        else
+            throw new SQLException("Impossibile ottenere il conteggio dei posti");
+        
+        return 0;
+    }
 }
