@@ -20,8 +20,7 @@
         <!-- Custom styles for this template -->
     </head>
     <body>
-        <br/>
-        <div class="container">
+        <div class="container my-2">
             <div class="row">
                 <div class="col-3"></div>
                 <div class="col-6">

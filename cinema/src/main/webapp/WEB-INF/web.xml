@@ -17,6 +17,10 @@
         <servlet-class>it.unitn.disi.cinema.servlets.ScriptServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SignupServlet</servlet-name>
+        <servlet-class>it.unitn.disi.cinema.servlets.SignupServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>InfoServlet</servlet-name>
         <servlet-class>it.unitn.disi.cinema.servlets.InfoServlet</servlet-class>
     </servlet>
@@ -35,6 +39,10 @@
     <servlet-mapping>
         <servlet-name>ScriptServlet</servlet-name>
         <url-pattern>/startup.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignupServlet</servlet-name>
+        <url-pattern>/signup.do</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>InfoServlet</servlet-name>
