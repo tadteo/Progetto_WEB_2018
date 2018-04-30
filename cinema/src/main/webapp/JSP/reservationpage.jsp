@@ -17,8 +17,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
+        
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/boostrap.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/jquery-seat-charts.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Cinema-Homepage</title>
