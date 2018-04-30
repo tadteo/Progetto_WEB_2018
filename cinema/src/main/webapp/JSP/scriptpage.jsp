@@ -18,7 +18,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Custom styles for this template -->
     </head>
-    <body>
+    <body class="collage">
         <div class="header container">
             <br><br>
             <div class="row">

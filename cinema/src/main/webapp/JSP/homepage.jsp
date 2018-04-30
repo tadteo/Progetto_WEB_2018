@@ -25,7 +25,7 @@
         <title>Cinema-Homepage</title>
     </head>
 <!--    <body  style="background-image: url('/cinema/images/collage.jpg');">-->
-    <body>
+    <body class="collage">
         <jsp:include page='components/header.jsp'/>
         <div class="row justify-content-center">
           <div class="col-md-10">             

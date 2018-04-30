@@ -83,7 +83,7 @@ and open the template in the editor.
     margin: 1rem;
 }
 
-body, .collage{
+.collage{
     background-image: url("/cinema/images/collage.jpg");
 }
 

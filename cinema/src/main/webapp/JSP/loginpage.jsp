@@ -19,7 +19,7 @@
 
         <!-- Custom styles for this template -->
     </head>
-    <body>
+    <body class="collage">
         <div class="container my-2">
             <div class="row">
                 <div class="col-3"></div>
