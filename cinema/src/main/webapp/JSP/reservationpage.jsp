@@ -69,17 +69,18 @@
                 <div class="row">
                   <div class="col">
                     <div id="seat-map">
-                      <div class="front-indicator">Front</div>
+                      <div class="front-indicator">Schermo</div>
                     </div>
                   </div>
                   <div class="col">
                     <div class="booking-details">
-                      <h2>Booking Details</h2>
-                      <h3> Selected Seats (<span id="counter">0</span>):</h3>
+                      <h2>Dettagli</h2>
+                      <h3> Posti selezionati (<span id="counter">0</span>):</h3>
                       <ul id="selected-seats">
                       </ul>
-                      Total: <b>$<span id="total">0</span></b>
-                      <button class="checkout-button">Checkout &raquo;</button>
+                      <p>Totale: <b><span id="total">0</span> €</b><p>
+                      
+                      <button class="btn btn-outline-primary my-2">Acquisto &raquo;</button>
                       <div id="legend"></div>
                     </div>
                   </div>
@@ -142,7 +143,7 @@
                 a: {
                   price   : 10,
                   classes : 'first-class', //your custom CSS class
-                  category: 'First Class'
+                  category: 'Liberi'
                 },
                 // e: {
                 //   price   : 40,
@@ -160,9 +161,9 @@
               legend : {
                 node : $('#legend'),
                   items : [
-                  [ 'f', 'available',   'First Class' ],
+                  [ 'a', 'available',   'Posti disponibili' ],
 //                  [ 'e', 'available',   'Economy Class'],
-                  [ 'f', 'unavailable', 'Already Booked']
+                  [ 'a', 'unavailable', 'Posti occupati']
                   ]
               },
               click: function () {
