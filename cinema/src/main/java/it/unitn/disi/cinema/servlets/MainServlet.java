@@ -108,8 +108,11 @@ public class MainServlet extends HttpServlet {
 			}
 		}else if(pageRequested.equals("reservationpage")){
             Integer spettacolo_id = Integer.parseInt(request.getParameter("spettacolo_id"));
+            final boolean DEBUG = false;
             
-            PrintWriter out = response.getWriter();
+            PrintWriter out;
+            if(DEBUG)
+                out = response.getWriter();
             
             
             /*
@@ -140,13 +143,14 @@ public class MainServlet extends HttpServlet {
                 request.setAttribute("posti", posti);
                 request.setAttribute("prenotazioni", prenotazioni);
                 
-                
-                
-                out.println("ReservationPage");
-                out.println("Film: " + film.getTitolo());
-                out.println("Sala: " + sala.getDescrizione());
-                out.println("Posti: " + posti.size());
-                
+                if(DEBUG){
+                    out.println("ReservationPage");
+                    out.println("Film: " + film.getTitolo());
+                    out.println("Spettacolo: " + spettacolo.getId());
+                    out.println("Sala: " + sala.getDescrizione() + " "+ sala.getId());
+                    out.println("Posti: " + sld.getPostiCount(sala.getId()));
+                    out.println("Posti Disponibili: " + (sld.getPostiCount(sala.getId()) - spd.getAvailablePostiCount(spettacolo_id)));
+                }
                 
                 ArrayList<String> mappa = new ArrayList<>();
                 //a posto disponibile
@@ -164,7 +168,8 @@ public class MainServlet extends HttpServlet {
                     if(posti.get(j).getRiga() > currentRiga){
                         mappa.add(currentStringa);
                         currentStringa = new String();
-                        out.println();
+                        if(DEBUG)
+                            out.println();
                         currentRiga++;
                     }
                     
@@ -179,17 +184,21 @@ public class MainServlet extends HttpServlet {
                         seatChar=letterForAvailable;
                     }
                     currentStringa = currentStringa + seatChar;
-                    out.print(seatChar);
+                    if(DEBUG)
+                        out.print(seatChar);
                 }
                 mappa.add(currentStringa);
                 
-                out.println("\n\nArraylist:");
-                for(String s : mappa)
-                    out.println(s);
+                if(DEBUG){
+                    out.println("\n\nArraylist:");
+                    for(String s : mappa)
+                        out.println(s);
+                }
                 
-                request.setAttribute("mappa", mappa);
-                
-				//request.getRequestDispatcher("JSP/reservationpage.jsp").forward(request, response);
+                if(!DEBUG){
+                    request.setAttribute("mappa", mappa);
+                    request.getRequestDispatcher("JSP/reservationpage.jsp").forward(request, response);
+                }
                 
             } catch (SQLException ex) {
                 System.err.println("ERRORE: impossibile ottenere dati per request page");

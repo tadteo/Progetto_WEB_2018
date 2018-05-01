@@ -130,4 +130,26 @@ public class SpettacoloDAO {
         
         st.executeUpdate();
     }
+    
+    public int getAvailablePostiCount(Integer id)throws SQLException{
+        int res = -1;
+        
+        PreparedStatement st = conn.prepareStatement("SELECT count(*) " +
+                                                        "FROM Spettacolo AS S,Posto AS P, Prenotazione AS R " +
+                                                        "WHERE  " +
+                                                        "S.id_spettacolo = ? AND " +
+                                                        "S.id_spettacolo = R.id_spettacolo AND " +
+                                                        "S.id_sala = P.id_sala AND " +
+                                                        "P.id_posto = R.id_posto AND " +
+                                                        "P.esiste ");
+        st.setInt(1, id);
+        ResultSet rs = st.executeQuery();
+        
+        if(rs.next())
+            res = rs.getInt(1);
+        else
+            throw new SQLException("Impossibile ottenere il conteggio dei posti disponibili per lo spettacolo");
+        
+        return res;
+    }
 }

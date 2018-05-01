@@ -5,7 +5,6 @@
  */
 package it.unitn.disi.cinema.servlets;
 
-import it.unitn.disi.cinema.dataaccess.Database.*;
 import it.unitn.disi.cinema.dataaccess.Beans.*;
 import it.unitn.disi.cinema.dataaccess.DAO.*;
 import java.io.IOException;
@@ -17,8 +16,6 @@ import java.time.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,7 +40,7 @@ public class ScriptServlet extends HttpServlet {
             throws ServletException, IOException {
         if(request.getParameter("durata") != null){
             PrintWriter out = response.getWriter();
-            
+            response.setContentType("text/plain");
             int durata = Integer.parseInt(request.getParameter("durata"));
             int numeroProiezioni = 10;
             if(request.getParameter("proiezioni") != null)
