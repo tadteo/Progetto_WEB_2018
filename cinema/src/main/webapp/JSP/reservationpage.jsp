@@ -6,7 +6,8 @@
 
 <%@page import="it.unitn.disi.cinema.dataaccess.Beans.Prezzo"%>
 <%@page import="java.util.List"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 <%@ page import="java.util.StringTokenizer" %>
@@ -55,8 +56,7 @@
         <br>
         
         <div class="container jumbotron">
-            <h3>${requestScope.sala.getDescrizione()}</h3>
-            <h3>${requestScope.film.getTitolo()}</h3>
+            <h3 class="my-2 text-center">${requestScope.film.getTitolo()} - ${requestScope.sala.getDescrizione()} - Proiezione delle: <span><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm (dd/MM/yyyy)" /></span></h3>
               
             <!--
             <c:forEach items="${requestScope.mappa}" var="riga">
