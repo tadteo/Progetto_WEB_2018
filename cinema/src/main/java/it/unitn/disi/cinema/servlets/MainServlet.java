@@ -109,6 +109,7 @@ public class MainServlet extends HttpServlet {
 		}else if(pageRequested.equals("reservationpage")){
             Integer spettacolo_id = Integer.parseInt(request.getParameter("spettacolo_id"));
             final boolean DEBUG = false;
+            final boolean DELIMITERS = false;
             
             PrintWriter out;
             if(DEBUG)
@@ -164,12 +165,17 @@ public class MainServlet extends HttpServlet {
                 
                 int currentRiga = 1;
                 String currentStringa = new String();
+                if(DELIMITERS)
+                    currentStringa = currentStringa + "'";  //aggiunge delimitatore
+                
                 for(int j = 0; j<posti.size(); j++){
                     if(posti.get(j).getRiga() > currentRiga){
+                        if(DELIMITERS)
+                            currentStringa = currentStringa + "'";  //aggiunge delimitatore
                         mappa.add(currentStringa);
                         currentStringa = new String();
-                        if(DEBUG)
-                            out.println();
+                        if(DELIMITERS)
+                            currentStringa = currentStringa + "'";  //aggiunge delimitatore
                         currentRiga++;
                     }
                     
@@ -184,19 +190,35 @@ public class MainServlet extends HttpServlet {
                         seatChar=letterForAvailable;
                     }
                     currentStringa = currentStringa + seatChar;
-                    if(DEBUG)
-                        out.print(seatChar);
                 }
+                
+                if(DELIMITERS)
+                    currentStringa = currentStringa + "'";  //aggiunge delimitatore
                 mappa.add(currentStringa);
+                
+                /*--Reserved String--*/
+                String reservedString = "";
+                List<Posto> reserved = spd.getReservedPosti(spettacolo_id);
+                Posto p;
+                for(int i = 0; i < reserved.size(); i++){
+                    p = reserved.get(i);
+                    reservedString += (p.getRiga() + "_" + p.getPoltrona());
+                    if(i != reserved.size()-1)
+                        reservedString += ",";
+                }
+                if(DEBUG)
+                    out.println("\nPosti Non disponibili: \n" + reservedString);
                 
                 if(DEBUG){
                     out.println("\n\nArraylist:");
                     for(String s : mappa)
                         out.println(s);
+                    out.println("");
                 }
                 
                 if(!DEBUG){
                     request.setAttribute("mappa", mappa);
+                    request.setAttribute("reserved", reservedString);
                     request.getRequestDispatcher("JSP/reservationpage.jsp").forward(request, response);
                 }
                 

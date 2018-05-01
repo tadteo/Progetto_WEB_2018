@@ -22,7 +22,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/jquery-seat-charts.css">
         <title>Cinema-Homepage</title>
     </head>
-    <body>
+    <body data-mappa="${requestScope.mappa}" data-reserved-list="${requestScope.reserved}">
       <div class="header container">
         <div class="row">
           <div class="col-6">
@@ -53,7 +53,6 @@
       </div>    
       
         <br>
-        
         
         <div class="container jumbotron">
             <h3>${requestScope.sala.getDescrizione()}</h3>
@@ -90,24 +89,24 @@
       
       
       
-	  <footer class="container">
-				<div class="row">
-					<div class="col-lg-6 col-md-12">
-						<p><a href="JSP/infopage.jsp">Info:</a></p>
-						<p><b>Telefono:</b> +39 0123 123123</p>
-						<p><b>Indirizzo:</b> Via La Vita E Tutto Quanto, 42 (UNIVERSO)</p>
-						<p><b>Partita Iva: </b>01234561001<b> – C.F. </b>01234561001</p>
+         <footer class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <p><a href="JSP/infopage.jsp">Info:</a></p>
+                    <p><b>Telefono:</b> +39 0123 123123</p>
+                    <p><b>Indirizzo:</b> Via La Vita E Tutto Quanto, 42 (UNIVERSO)</p>
+                    <p><b>Partita Iva: </b>01234561001<b> – C.F. </b>01234561001</p>
 
-					</div>
-					<div class="col-lg-6 col-md-12">
-						<br />
-						<p>Posted by: Magic Group Srl</p>
-						<p>Contact information: <a href="mailto:info@magicgroup.com">info@magicgroup.com</a>.</p>
-					</div>
-						
-				</div>
-				<p class="copyright">Copyright © 2018 · Tadiello Matteo - Stefani Domenico - Martini Ivan · all rights reserved.</p>
-			</footer>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <br />
+                    <p>Posted by: Magic Group Srl</p>
+                    <p>Contact information: <a href="mailto:info@magicgroup.com">info@magicgroup.com</a>.</p>
+                </div>
+
+            </div>
+            <p class="copyright">Copyright © 2018 · Tadiello Matteo - Stefani Domenico - Martini Ivan · all rights reserved.</p>
+		</footer>
             
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
@@ -119,20 +118,28 @@
           var firstSeatLabel = 1;
 
           $(document).ready(function() {
+              
+            
+            //Test Domenico Stefani
+            var mappa = $("body").attr("data-mappa");
+            var reserved = $("body").attr("data-reserved-list");
+            alert("La mappa è " + mappa + "\nE la lista è " + reserved);  
+              
             var $cart = $('#selected-seats'),
               $counter = $('#counter'),
               $total = $('#total'),
               sc = $('#seat-map').seatCharts({
-              map: [
-                'aaa_aaaa_a',
-                'aaa_aaaaaa',
-                '_aaaaaaaab',
-                'babaaaaaaa',
-                'aaaaaaaaaa',
-                'aaaaaaaaaa',
-                'aaaaaaaaaa',
-                'aaaaaaaaaa',
-              ],
+//              map: [
+//                'aaa_aaaa_a',
+//                'aaa_aaaaaa',
+//                '_aaaaaaaab',
+//                'babaaaaaaa',
+//                'aaaaaaaaaa',
+//                'aaaaaaaaaa',
+//                'aaaaaaaaaa',
+//                'aaaaaaaaaa',
+//              ],    
+              map: mappa.split(","),
               seats: {
                 a: {
                   price   : 10,
@@ -156,7 +163,7 @@
                 node : $('#legend'),
                   items : [
                   [ 'f', 'available',   'First Class' ],
-                  [ 'e', 'available',   'Economy Class'],
+//                  [ 'e', 'available',   'Economy Class'],
                   [ 'f', 'unavailable', 'Already Booked']
                   ]
               },
@@ -196,7 +203,9 @@
                   return this.style();
                 }
               }
+              
             });
+            
 
             //this will handle "[cancel]" link clicks
             $('#selected-seats').on('click', '.cancel-cart-item', function () {
@@ -204,10 +213,14 @@
               sc.get($(this).parents('li:first').data('seatId')).click();
             });
 
-            //let's pretend some seats have already been booked
-            sc.get(['1_2', '4_1', '7_1', '7_2']).status('unavailable');
-
+            //let's pretend some seats have already been booked //Modificato Domenico Stefani
+            var reserved_split = reserved.split(",");
+            sc.get(reserved_split).status('unavailable');
+            
+            
           });
+
+          
 
           function recalculateTotal(sc) {
           var total = 0;
