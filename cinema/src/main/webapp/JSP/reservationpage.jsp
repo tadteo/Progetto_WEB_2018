@@ -110,9 +110,7 @@
             
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
-        <script src="${pageContext.request.contextPath}/CSS/jquery-seat-charts.js"></script>
-
-        <script src="${pageContext.request.contextPath}/JS/jquery.seat-charts.js"></script>
+        <script src="${pageContext.request.contextPath}/JS/jquery-seat-charts.js"></script>
 
         <script>
           var firstSeatLabel = 1;
@@ -123,7 +121,7 @@
             //Test Domenico Stefani
             var mappa = $("body").attr("data-mappa");
             var reserved = $("body").attr("data-reserved-list");
-            alert("La mappa è " + mappa + "\nE la lista è " + reserved);  
+            //alert("La mappa è " + mappa + "\nE la lista è " + reserved);  
               
             var $cart = $('#selected-seats'),
               $counter = $('#counter'),
@@ -292,59 +290,59 @@
         </script>
 
         <script>
-          var sc = $('#sc-container').seatCharts({
-            //...
-          });
-
-          //get 2_3 seat
-          sc.get('2_3');
-
-          //get 2_3 and 2_4 seats
-          sc.get(['2_3', '2_4']);
-
-          //find all a seats
-          sc.find('a');
-
-          //find all unavailable seats
-          sc.find('unavailable');
-
-          //find all available a seats
-          sc.find('a.available');
-
-          //find all seats in the first row
-          sc.find(/^1_[0-9]+/);
-
-          //find available seats within specified seat ids
-          sc.get(['1_2', '1_3', '1_4']).find('available');
-
-          //set status for one seat
-          sc.status('2_15', 'unvailable');
-
-          //set status for two seats
-          sc.status(['2_15', '2_10'], 'unvailable');
-
-          //make all unvailable seats available
-          sc.find('unavailable').status('available');
-
-          //make all unavailable seats disappear
-          sc.find('unavailable').node().fadeOut('fast');
-
-          //with callback
-          sc.find('a.unavailable').each(function(seatId) {
-            console.log(this.data()); //display seat data
-          });
-
-          //If status argument is set, it will be used as a new seat status, otherwise current status will be returned.
-          sc.status( [status] )
-
-          //Returns a reference to jQuery element.
-          sc.node( )
-
-          //Returns a reference to seat data.
-          sc.data( )
-
-          //Returns seat character.
-          sc.char( )
+//          var sc = $('#sc-container').seatCharts({
+//            //...
+//          });
+//
+//          //get 2_3 seat
+//          sc.get('2_3');
+//
+//          //get 2_3 and 2_4 seats
+//          sc.get(['2_3', '2_4']);
+//
+//          //find all a seats
+//          sc.find('a');
+//
+//          //find all unavailable seats
+//          sc.find('unavailable');
+//
+//          //find all available a seats
+//          sc.find('a.available');
+//
+//          //find all seats in the first row
+//          sc.find(/^1_[0-9]+/);
+//
+//          //find available seats within specified seat ids
+//          sc.get(['1_2', '1_3', '1_4']).find('available');
+//
+//          //set status for one seat
+//          sc.status('2_15', 'unvailable');
+//
+//          //set status for two seats
+//          sc.status(['2_15', '2_10'], 'unvailable');
+//
+//          //make all unvailable seats available
+//          sc.find('unavailable').status('available');
+//
+//          //make all unavailable seats disappear
+//          sc.find('unavailable').node().fadeOut('fast');
+//
+//          //with callback
+//          sc.find('a.unavailable').each(function(seatId) {
+//            console.log(this.data()); //display seat data
+//          });
+//
+//          //If status argument is set, it will be used as a new seat status, otherwise current status will be returned.
+//          sc.status( [status] )
+//
+//          //Returns a reference to jQuery element.
+//          sc.node( )
+//
+//          //Returns a reference to seat data.
+//          sc.data( )
+//
+//          //Returns seat character.
+//          sc.char( )
         </script>
     </body>
 </html>
