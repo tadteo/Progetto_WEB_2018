@@ -58,45 +58,34 @@
         <div class="container jumbotron">
             <h3>${requestScope.sala.getDescrizione()}</h3>
             <h3>${requestScope.film.getTitolo()}</h3>
-                
-            <c:forEach items="mappa" var="riga">
+              
+            <!--
+            <c:forEach items="${requestScope.mappa}" var="riga">
                 <p>${riga}</p>
             </c:forEach>
+            -->
                 
             
-            
-            
-            
-            
-            
-<!--            <div class="demo">
-                <div id="seat-map">
-                    <div class="front">SCHERMO</div>					
-                </div>
-                <div class="booking-details">
-                    <p>Movie: <span>${requestScope.film.getTitolo()}</span></p>
-                    <p>Time: <span>${requestScope.spettacolo.getDataOra()}</span></p>
-                    <p>Seat: </p>
-                    <ul id="selected-seats"></ul>
-                    <p>Tickets: <span id="counter">0</span></p>
-                    <p>Total: <b>$<span id="total">0</span></b></p>
-
-                    <button class="checkout-button">BUY</button>
-
-                    <div id="legend"></div>
-                </div>
-                <div style="clear:both"></div>
-            </div>-->
-                
-                
-                
-    <!--            <div class="wrapper">
-                    <div class="container">             
-                        <div id="seat-map">
-                            <div class="front-indicator">Front</div>
-                        </div>
+            <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <div id="seat-map">
+                      <div class="front-indicator">Front</div>
                     </div>
-                </div>-->
+                  </div>
+                  <div class="col">
+                    <div class="booking-details">
+                      <h2>Booking Details</h2>
+                      <h3> Selected Seats (<span id="counter">0</span>):</h3>
+                      <ul id="selected-seats">
+                      </ul>
+                      Total: <b>$<span id="total">0</span></b>
+                      <button class="checkout-button">Checkout &raquo;</button>
+                      <div id="legend"></div>
+                    </div>
+                  </div>
+                </div>
+            </div>
         </div>
       
       
@@ -119,86 +108,230 @@
 				</div>
 				<p class="copyright">Copyright © 2018 · Tadiello Matteo - Stefani Domenico - Martini Ivan · all rights reserved.</p>
 			</footer>
-	  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	  <script src="${pageContext.request.contextPath}/CSS/jquery-seat-charts.js"></script>
+            
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+        <script src="${pageContext.request.contextPath}/CSS/jquery-seat-charts.js"></script>
+
+        <script src="${pageContext.request.contextPath}/JS/jquery.seat-charts.js"></script>
 
         <script>
-			var price = 10; //price
-            $(document).ready(function() {
-            var $cart = $('#selected-seats'), //Sitting Area
-            $counter = $('#counter'), //Votes
-            $total = $('#total'); //Total money
+          var firstSeatLabel = 1;
 
-            var sc = $('#seat-map').seatCharts({
-                map: [  //Seating chart
-                    'aaaaaaaaaa',
-                    'aaaaaaaaaa',
-                    '__________',
-                    'aaaaaaaa__',
-                    'aaaaaaaaaa',
-                    'aaaaaaaaaa',
-                    'aaaaaaaaaa',
-                    'aaaaaaaaaa',
-                    'aaaaaaaaaa',
-                    'aa__aa__aa'
-                ],
-                naming : {
-                    top : false,
-                    getLabel : function (character, row, column) {
-                        return column;
-                    }
+          $(document).ready(function() {
+            var $cart = $('#selected-seats'),
+              $counter = $('#counter'),
+              $total = $('#total'),
+              sc = $('#seat-map').seatCharts({
+              map: [
+                'aaa_aaaa_a',
+                'aaa_aaaaaa',
+                '_aaaaaaaab',
+                'babaaaaaaa',
+                'aaaaaaaaaa',
+                'aaaaaaaaaa',
+                'aaaaaaaaaa',
+                'aaaaaaaaaa',
+              ],
+              seats: {
+                a: {
+                  price   : 10,
+                  classes : 'first-class', //your custom CSS class
+                  category: 'First Class'
                 },
-                legend : { //Definition legend
-                    node : $('#legend'),
-                    items : [
-                        [ 'a', 'available',   'Option' ],
-                        [ 'a', 'unavailable', 'Sold']
-                    ]					
+                // e: {
+                //   price   : 40,
+                //   classes : 'economy-class', //your custom CSS class
+                //   category: 'Economy Class'
+                // }
+
+              },
+              naming : {
+                top : false,
+                getLabel : function (character, row, column) {
+                  return firstSeatLabel++;
                 },
-                click: function () { //Click event
-                    if (this.status() == 'available') { //optional seat
-                        $('<li>R'+(this.settings.row+1)+' S'+this.settings.label+'</li>')
-                            .attr('id', 'cart-item-'+this.settings.id)
-                            .data('seatId', this.settings.id)
-                            .appendTo($cart);
+              },
+              legend : {
+                node : $('#legend'),
+                  items : [
+                  [ 'f', 'available',   'First Class' ],
+                  [ 'e', 'available',   'Economy Class'],
+                  [ 'f', 'unavailable', 'Already Booked']
+                  ]
+              },
+              click: function () {
+                if (this.status() == 'available') {
+                  //let's create a new <li> which we'll add to the cart items
+                  $('<li>'+this.data().category+' Seat # '+this.settings.label+': <b>$'+this.data().price+'</b> <a href="#" class="cancel-cart-item">[cancel]</a></li>')
+                    .attr('id', 'cart-item-'+this.settings.id)
+                    .data('seatId', this.settings.id)
+                    .appendTo($cart);
 
-                        $counter.text(sc.find('selected').length+1);
-                        $total.text(recalculateTotal(sc)+price);
+                  /*
+                   * Lets up<a href="https://www.jqueryscript.net/time-clock/">date</a> the counter and total
+                   *
+                   * .find function will not find the current seat, because it will change its stauts only after return
+                   * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
+                   */
+                  $counter.text(sc.find('selected').length+1);
+                  $total.text(recalculateTotal(sc)+this.data().price);
 
-                        return 'selected';
-                    } else if (this.status() == 'selected') { //Checked
-                            //Update Number
-                            $counter.text(sc.find('selected').length-1);
-                            //update totalnum
-                            $total.text(recalculateTotal(sc)-price);
+                  return 'selected';
+                } else if (this.status() == 'selected') {
+                  //update the counter
+                  $counter.text(sc.find('selected').length-1);
+                  //and total
+                  $total.text(recalculateTotal(sc)-this.data().price);
 
-                            //Delete reservation
-                            $('#cart-item-'+this.settings.id).remove();
-                            //optional
-                            return 'available';
-                    } else if (this.status() == 'unavailable') { //sold
-                        return 'unavailable';
-                    } else {
-                        return this.style();
-                    }
+                  //remove the item from our cart
+                  $('#cart-item-'+this.settings.id).remove();
+
+                  //seat has been vacated
+                  return 'available';
+                } else if (this.status() == 'unavailable') {
+                  //seat has been already booked
+                  return 'unavailable';
+                } else {
+                  return this.style();
                 }
+              }
             });
-        //sold seat
-        sc.get(['1_2', '4_4','4_5','6_6','6_7','8_5','8_6','8_7','8_8', '10_1', '10_2']).status('unavailable');
 
-    });
-    //sum total money
-    function recalculateTotal(sc) {
-        var total = 0;
-        sc.find('selected').each(function () {
-            total += price;
-        });
+            //this will handle "[cancel]" link clicks
+            $('#selected-seats').on('click', '.cancel-cart-item', function () {
+              //let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
+              sc.get($(this).parents('li:first').data('seatId')).click();
+            });
 
-        return total;
-    }
+            //let's pretend some seats have already been booked
+            sc.get(['1_2', '4_1', '7_1', '7_2']).status('unavailable');
 
-		});
-		
-		</script>
+          });
+
+          function recalculateTotal(sc) {
+          var total = 0;
+
+          //basically find every selected seat and sum its price
+          sc.find('selected').each(function () {
+            total += this.data().price;
+          });
+
+          return total;
+          }
+        </script>
+
+        <script>
+          // requires <a href="https://www.jqueryscript.net/tags.php?/jQuery UI/">jQuery UI</a>
+          animate : false,
+
+          // specify your own column and row labels as well as functions for generating seat ids and labels
+          naming  : {
+          top    : true,
+          left   : true,
+          getId  : function(character, row, column) {
+          return row + '_' + column;
+          },
+          getLabel : function (character, row, column) {
+          return column;
+          }
+
+          },
+
+          // custom legend
+          legend : {
+          node   : null,
+          items  : []
+          },
+
+          // click function
+          click   : function() {
+
+          if (this.status() == 'available') {
+          return 'selected';
+          } else if (this.status() == 'selected') {
+          return 'available';
+          } else {
+          return this.style();
+          }
+
+          },
+
+          // focus function
+          focus  : function() {
+
+          if (this.status() == 'available') {
+          return 'focused';
+          } else  {
+          return this.style();
+          }
+          },
+
+          // blur function
+          blur   : function() {
+          return this.status();
+          },
+
+          // seat map definition
+          seats   : {}
+
+
+        </script>
+
+        <script>
+          var sc = $('#sc-container').seatCharts({
+            //...
+          });
+
+          //get 2_3 seat
+          sc.get('2_3');
+
+          //get 2_3 and 2_4 seats
+          sc.get(['2_3', '2_4']);
+
+          //find all a seats
+          sc.find('a');
+
+          //find all unavailable seats
+          sc.find('unavailable');
+
+          //find all available a seats
+          sc.find('a.available');
+
+          //find all seats in the first row
+          sc.find(/^1_[0-9]+/);
+
+          //find available seats within specified seat ids
+          sc.get(['1_2', '1_3', '1_4']).find('available');
+
+          //set status for one seat
+          sc.status('2_15', 'unvailable');
+
+          //set status for two seats
+          sc.status(['2_15', '2_10'], 'unvailable');
+
+          //make all unvailable seats available
+          sc.find('unavailable').status('available');
+
+          //make all unavailable seats disappear
+          sc.find('unavailable').node().fadeOut('fast');
+
+          //with callback
+          sc.find('a.unavailable').each(function(seatId) {
+            console.log(this.data()); //display seat data
+          });
+
+          //If status argument is set, it will be used as a new seat status, otherwise current status will be returned.
+          sc.status( [status] )
+
+          //Returns a reference to jQuery element.
+          sc.node( )
+
+          //Returns a reference to seat data.
+          sc.data( )
+
+          //Returns seat character.
+          sc.char( )
+        </script>
     </body>
 </html>
