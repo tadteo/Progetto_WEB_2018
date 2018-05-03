@@ -100,15 +100,15 @@
                 </div>
 
                 <div class="container-fluid text-center">
-                    <button class="btn btn-outline-success">Prossimi giorni</button> 
+                    <button class="btn btn-outline-success">Prossimi giorni(non va ancora)</button> 
                 </div>
 
-                <div class="hidden">
+                <div> <!--class="hidden">-->
                     <p><b>Spettacoli dei prossimi giorni:</b></p>
                     <div class="wrapper">
                         <c:forEach items="${requestScope.spettacoli}" var="spettacolo">
                             <c:choose>
-                                <c:when test="${spettacolo.getDataOra().getDay() == calltime.getDay()}">
+                                <c:when test="${spettacolo.getDataOra().getDay() != calltime.getDay()}">
                                     <form class="form-signin my-1" action="/cinema/" method="POST">
                                         <input type="hidden" value="${spettacolo.getId()}" name="spettacolo_id"/>
                                         <button class="btn btn-lg btn-primary btn-block" value="reservationpage" name="pageRequested" type="submit"><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm" /></button>
