@@ -97,6 +97,26 @@ public class PostoDAO {
         return result;
     }
     
+    public Posto getPostoBySalaRigaPoltrona(Integer salaId, Integer riga, Integer poltrona)throws SQLException{
+        Posto result = null;
+        
+        PreparedStatement st = conn.prepareStatement("select * from Posto where Posto.id_sala = ? AND Posto.riga = ? AND Posto.poltrona = ?");
+        st.setInt(1, salaId);
+        st.setInt(2, riga);
+        st.setInt(3, poltrona);
+        
+        ResultSet rs = st.executeQuery();
+                   
+        if(rs.next()){
+            result = new Posto(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getBoolean(5));
+            if(rs.next()){
+                throw new SQLException("Result Set contiene più di un risultato per la stessa chiave primaria");
+            }
+        }
+        
+        return result;
+    }
+    
     public List<Posto> getAll() throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Posto> result = new ArrayList<>();
         

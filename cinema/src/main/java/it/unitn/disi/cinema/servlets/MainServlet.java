@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -88,7 +89,8 @@ public class MainServlet extends HttpServlet {
 				request.setAttribute("film", film);
 				request.setAttribute("genere", genere);
 				request.setAttribute("spettacoli", spettacoliDisponibili);
-                   
+				request.setAttribute("calltime", now);/**/
+                
 
 				request.setAttribute("message","La richiesta arriva dalla servlet");
                 

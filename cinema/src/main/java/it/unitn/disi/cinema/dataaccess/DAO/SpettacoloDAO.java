@@ -74,7 +74,7 @@ public class SpettacoloDAO {
     public List<Spettacolo> getAll() throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Spettacolo> result = new ArrayList<>();
         
-        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo");
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo ORDER BY Spettacolo.data_ora");
         ResultSet rs = st.executeQuery();
         
         while(rs.next()){
@@ -86,7 +86,7 @@ public class SpettacoloDAO {
     public List<Spettacolo> getAfter(Timestamp time)throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Spettacolo> result = new ArrayList<>();
         
-        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.data_ora > ?");
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.data_ora > ?  ORDER BY Spettacolo.data_ora");
         st.setTimestamp(1, time);
         ResultSet rs = st.executeQuery();
         
@@ -99,7 +99,7 @@ public class SpettacoloDAO {
     public List<Spettacolo> getByFilm(Integer idFilm) throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Spettacolo> result = new ArrayList<>();
         
-        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.id_film = ?");
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.id_film = ? ORDER BY Spettacolo.data_ora");
         st.setInt(1, idFilm);
         ResultSet rs = st.executeQuery();
         
@@ -111,7 +111,7 @@ public class SpettacoloDAO {
     public List<Spettacolo> getByFIlmAfter(Integer idFilm, Timestamp time) throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Spettacolo> result = new ArrayList<>();
         
-        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.id_film = ? AND Spettacolo.data_ora > ?");
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.id_film = ? AND Spettacolo.data_ora > ? ORDER BY Spettacolo.data_ora");
         st.setInt(1, idFilm);
         st.setTimestamp(2, time);
         ResultSet rs = st.executeQuery();
