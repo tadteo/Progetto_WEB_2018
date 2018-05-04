@@ -47,7 +47,8 @@ public class MainServlet extends HttpServlet {
             }          
                         
             request.setAttribute("filmspp", filmspp);            
-            request.setAttribute("prezzi", prezzi);		
+            request.setAttribute("prezzi", prezzi);
+			request.setAttribute("pageCurrent","homepage");
             request.getRequestDispatcher("JSP/homepage.jsp").forward(request, response);			
         } catch (SQLException ex) {
             System.out.println("Errore, impossibile ottenere la lista dei film");
@@ -121,7 +122,6 @@ public class MainServlet extends HttpServlet {
                 x Spettacolo 1
                 x Sala 1
                 x Lista posti sala 1
-                Prezzi
             */
             
             //DAOs
@@ -229,7 +229,60 @@ public class MainServlet extends HttpServlet {
             
             
             
-        }
+        } else if(pageRequested.equals("buypage")){
+			//DAOs
+            SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
+            SalaDAO sld = DAOFactory.getSalaDAO();
+            PostoDAO psd = DAOFactory.getPostoDAO();
+            FilmDAO fld = DAOFactory.getFilmDAO();
+            PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
+			PrezzoDAO prz = DAOFactory.getPrezzoDAO();
+            
+			try {
+				List<Prezzo> prezzi = prz.getAll();
+				
+				String selezionati = request.getParameter("posti"); // Richiedo tutti i posti selezionati dalla requestpage sotto forma di stringa del tipo -Riga_Colonna!-Riga_Colonna!-etc_etc!
+				// Variabili e oggetti che mi servono per "parsare" la stringa Posti in due liste di interi
+				List<Integer> Riga= new ArrayList();
+				List<Integer> Colonna= new ArrayList();
+				String riga="";
+				String colonna="";
+				Boolean RoC = true; //Indica se stiamo creando la string per la colonna o per la riga: true indica la riga, false indica la colonna
+				
+				//Creo le due liste di interi
+				for(char c:selezionati.toCharArray()){
+					if(c == '-') {
+						RoC=true;
+						riga="";
+						colonna="";
+					} else if(Character.isDigit(c) && RoC ) {
+						riga+=c;
+					} else if(Character.isDigit(c) && !RoC) {
+						colonna+=c;
+					} else if( c== '_'){
+						RoC = false;
+					} else if( c== '!'){
+						Riga.add(Integer.parseInt(riga));
+						Colonna.add(Integer.parseInt(colonna));
+					}
+				}
+				
+				//Ciclo sulle rige per creare i bean dei posti necessari alla buypage
+//				List<Posto> posti= new ArrayList();
+//				for(Integer i:Riga){
+//					posti.add(psd.getPostoBySalaRigaColonna(i))
+//				}
+				
+				request.setAttribute("prezzi", prezzi);
+//				request.setAttribute("posti", posti);
+
+				request.setAttribute("pageCurrent","buypage");
+				request.getRequestDispatcher("JSP/buypage.jsp").forward(request, response);			
+			} catch (SQLException ex) {
+				System.out.println("Errore, impossibile ottenere la lista dei film");
+				ex.printStackTrace();
+			}
+		}
     }
 
 }

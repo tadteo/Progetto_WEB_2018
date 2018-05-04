@@ -78,9 +78,12 @@
                       <h3> Posti selezionati (<span id="counter">0</span>):</h3>
                       <ul id="selected-seats">
                       </ul>
-                      <p>Totale: <b><span id="total">0</span> €</b><p>
-                      
-                      <button class="btn btn-outline-primary my-2">Acquisto &raquo;</button>
+                      <form class="form-signin" action="/cinema/" method="POST" onsubmit="setValue(this.posti)">
+                            <input type="hidden" name="pageRequested" value="buypage">
+							<input type="hidden" name="sala" value="${requestScope.sala.getId()}">	
+							<input type="hidden" name="posti" value="">				
+                            <button class="btn btn-lg btn-primary btn-block btn-outline-primary my-2" type="submit">Acquisto &raquo;</button>
+                      </form>
                       <div id="legend"></div>
                     </div>
                   </div>
@@ -143,7 +146,7 @@
                 a: {
                   price   : 10,
                   classes : 'first-class', //your custom CSS class
-                  category: 'Liberi'
+                  category: 'Libero'
                 },
                 // e: {
                 //   price   : 40,
@@ -169,11 +172,11 @@
               click: function () {
                 if (this.status() == 'available') {
                   //let's create a new <li> which we'll add to the cart items
-                  $('<li>'+this.data().category+' Seat # '+this.settings.label+': <b>$'+this.data().price+'</b> <a href="#" class="cancel-cart-item">[cancel]</a></li>')
+                  $('<li>Posto N: '+this.settings.label+' - '+this.data().category+'  <a href="#" class="cancel-cart-item">[annulla]</a></li>')
                     .attr('id', 'cart-item-'+this.settings.id)
                     .data('seatId', this.settings.id)
                     .appendTo($cart);
-
+					 
                   /*
                    * Lets up<a href="https://www.jqueryscript.net/time-clock/">date</a> the counter and total
                    *
@@ -182,7 +185,6 @@
                    */
                   $counter.text(sc.find('selected').length+1);
                   $total.text(recalculateTotal(sc)+this.data().price);
-
                   return 'selected';
                 } else if (this.status() == 'selected') {
                   //update the counter
@@ -192,7 +194,7 @@
 
                   //remove the item from our cart
                   $('#cart-item-'+this.settings.id).remove();
-
+				  
                   //seat has been vacated
                   return 'available';
                 } else if (this.status() == 'unavailable') {
@@ -211,7 +213,10 @@
               //let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
               sc.get($(this).parents('li:first').data('seatId')).click();
             });
-
+//			$('#selected-seats').animate({
+//				scrollTop: $("#selected-seats").offsetHeight()+$("#selected-seats").offsetTop();
+//		
+//			});
             //let's pretend some seats have already been booked //Modificato Domenico Stefani
             var reserved_split = reserved.split(",");
             sc.get(reserved_split).status('unavailable');
@@ -289,61 +294,12 @@
 
 
         </script>
-
-        <script>
-//          var sc = $('#sc-container').seatCharts({
-//            //...
-//          });
-//
-//          //get 2_3 seat
-//          sc.get('2_3');
-//
-//          //get 2_3 and 2_4 seats
-//          sc.get(['2_3', '2_4']);
-//
-//          //find all a seats
-//          sc.find('a');
-//
-//          //find all unavailable seats
-//          sc.find('unavailable');
-//
-//          //find all available a seats
-//          sc.find('a.available');
-//
-//          //find all seats in the first row
-//          sc.find(/^1_[0-9]+/);
-//
-//          //find available seats within specified seat ids
-//          sc.get(['1_2', '1_3', '1_4']).find('available');
-//
-//          //set status for one seat
-//          sc.status('2_15', 'unvailable');
-//
-//          //set status for two seats
-//          sc.status(['2_15', '2_10'], 'unvailable');
-//
-//          //make all unvailable seats available
-//          sc.find('unavailable').status('available');
-//
-//          //make all unavailable seats disappear
-//          sc.find('unavailable').node().fadeOut('fast');
-//
-//          //with callback
-//          sc.find('a.unavailable').each(function(seatId) {
-//            console.log(this.data()); //display seat data
-//          });
-//
-//          //If status argument is set, it will be used as a new seat status, otherwise current status will be returned.
-//          sc.status( [status] )
-//
-//          //Returns a reference to jQuery element.
-//          sc.node( )
-//
-//          //Returns a reference to seat data.
-//          sc.data( )
-//
-//          //Returns seat character.
-//          sc.char( )
-        </script>
+		<script>
+			function setValue(hiddenInput) {
+				$("li[id^='cart-item']").each( function(){         
+					hiddenInput.value += $(this).attr('id').substr(9,)+"!";
+				});
+			}
+		</script>	
     </body>
 </html>
