@@ -63,15 +63,19 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             
-                                <i class="fa fa-user"></i> <b>${emailParts[0]}</b>(${sessionScope.ruolo})
+                                <i class="fa fa-user"></i> <b>${emailParts[0]}</b> (${sessionScope.ruolo})
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
+                            <c:choose>
+                                <c:when test="${sessionScope.ruolo == 'admin'}">
+                                    <a class="dropdown-item" href="#">Action only for Admins</a>
+                                </c:when>
+                            </c:choose>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <form class="form-signin" action="/cinema/logout.do" method="POST">
-                                <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
+                            <a class="dropdown-item" href="#">Manage account</a>                           
+                            <form class="form-signin" id="form-logout-instance" action="/cinema/logout.do" method="POST">
+                                <a class="dropdown-item" href="#" onclick="document.getElementById('form-logout-instance').submit();">Logout</a>
                             </form>
                         </div>
                     </li>   
