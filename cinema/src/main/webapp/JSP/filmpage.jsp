@@ -62,7 +62,7 @@
                                 <c:when test="${spettacolo.getDataOra().getDay() == calltime.getDay()}">
                                     <form class="form-signin my-1" action="/cinema/" method="POST">
                                         <input type="hidden" value="${spettacolo.getId()}" name="spettacolo_id"/>
-                                        <button class="btn btn-primary" value="reservationpage" name="pageRequested" type="submit"><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm" /></button>
+                                        <button class="btn btn-lg btn-dark btn-block" value="reservationpage" name="pageRequested" type="submit"><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm" /></button>
                                     </form>  
                                 </c:when>
                             </c:choose>
@@ -70,11 +70,11 @@
                     </div> 
                 </div>
 
-                <div class="container-fluid text-center">
-                    <button class="btn btn-outline-success">Prossimi giorni(non va ancora)</button> 
+                <div id="hide-button" class="container-fluid text-center" >
+                    <button class="btn btn-outline-success" onclick="showHidden()">Mostra prossimi giorni</button>
                 </div>
 
-                <div> <!--class="hidden">-->
+                <div id="hidden-shows" class="hidden container-fluid text-center">
                     <p><b>Spettacoli dei prossimi giorni:</b></p>
                     <div class="wrapper">
                         <c:forEach items="${requestScope.spettacoli}" var="spettacolo">
@@ -82,7 +82,7 @@
                                 <c:when test="${spettacolo.getDataOra().getDay() != calltime.getDay()}">
                                     <form class="form-signin my-1" action="/cinema/" method="POST">
                                         <input type="hidden" value="${spettacolo.getId()}" name="spettacolo_id"/>
-                                        <button class="btn btn-lg btn-primary btn-block" value="reservationpage" name="pageRequested" type="submit"><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm" /></button>
+                                        <button class="btn btn-lg btn-dark btn-block" value="reservationpage" name="pageRequested" type="submit"><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm - dd/MM" /></button>
                                     </form>  
                                 </c:when>
                             </c:choose>
@@ -96,6 +96,14 @@
     
     
 	<jsp:include page='components/footer.jsp'/>
-
+    <script>
+        function showHidden(){
+            var hiddenShows = document.getElementById("hidden-shows");
+            hiddenShows.classList.remove("hidden");
+            
+            var button = document.getElementById("hide-button");
+            button.classList.add("hidden");
+        }
+    </script>
     </body>
 </html>
