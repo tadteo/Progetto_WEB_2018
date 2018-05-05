@@ -20,11 +20,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/yesOrNo.css">
-		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-			<script src="${pageContext.request.contextPath}/JS/jquery.payments.js"></script>
-			<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/payments.css">
-			<script type="text/javascript">$(document).ready(function() {$('#creditcardform').paymentForm();});</script>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/payments.css">
 
         <title>Cinema-Homepage</title>
     </head>
@@ -54,6 +50,62 @@
 			  </ul>
 
 <br /><br />
+<div class="creditCardForm">
+            <div class="heading">
+                <h4>Conferma il pagamento</h4>
+				<h5>Inserisci i dati della carta</h5>
+            </div>
+	<br />
+            <div class="payment">
+                <form>
+                    <div class="form-group owner">
+                        <label for="owner">Proprietario</label>
+                        <input type="text" class="form-control" id="owner">
+                    </div>
+                    <div class="form-group CVV">
+                        <label for="cvv">CVV</label>
+                        <input type="text" class="form-control" id="cvv">
+                    </div>
+                    <div class="form-group" id="card-number-field">
+                        <label for="cardNumber">Numero di carta</label>
+                        <input type="text" class="form-control" id="cardNumber">
+                    </div>
+                    <div class="form-group" id="expiration-date">
+                        <label>Data di scadenza</label>
+                        <select>
+                            <option value="01">Gennaio</option>
+                            <option value="02">Febbraio </option>
+                            <option value="03">Marzo</option>
+                            <option value="04">Aprile</option>
+                            <option value="05">Maggio</option>
+                            <option value="06">Giugno</option>
+                            <option value="07">Luglio</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Settembre</option>
+                            <option value="10">Ottobre</option>
+                            <option value="11">Novembre</option>
+                            <option value="12">Dicembre</option>
+                        </select>
+                        <select>
+                            <option value="16"> 2018</option>
+                            <option value="17"> 2019</option>
+                            <option value="18"> 2020</option>
+                            <option value="19"> 2021</option>
+                            <option value="20"> 2022</option>
+                            <option value="21"> 2023</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="credit_cards">
+                        <img src="${pageContext.request.contextPath}/images/cards/visa.jpg" id="visa">
+                        <img src="${pageContext.request.contextPath}/images/cards/mastercard.jpg" id="mastercard">
+                        <img src="${pageContext.request.contextPath}/images/cards/amex.jpg" id="amex">
+                    </div>
+                    <div class="form-group" id="pay-now">
+                        <button type="submit" class="btn btn-default" id="confirm-purchase">Confirm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
 
 
@@ -71,7 +123,9 @@
 		  </div>
 		</div>
 		<jsp:include page='components/footer.jsp'/>
-		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="${pageContext.request.contextPath}/JS/jquery.payform.min.js" charset="utf-8"></script>
+		<script src="${pageContext.request.contextPath}/JS/script.js"></script>
 		<script>
 			function setTotale(){
 				var totale = 0;
