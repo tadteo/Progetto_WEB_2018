@@ -275,6 +275,7 @@ public class MainServlet extends HttpServlet {
 					posti.add(p);
 				}
 				
+				
 				request.setAttribute("selezionati", selezionati);
 				request.setAttribute("prezzi", prezzi);
 				request.setAttribute("posti", posti);
@@ -285,8 +286,29 @@ public class MainServlet extends HttpServlet {
 				System.out.println("Errore, impossibile ottenere la lista dei film");
 				ex.printStackTrace();
 			}
-		}
+		} else if(pageRequested.equals("confermationpage")){
+			//DAOs
+            SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
+            SalaDAO sld = DAOFactory.getSalaDAO();
+            PostoDAO psd = DAOFactory.getPostoDAO();
+            FilmDAO fld = DAOFactory.getFilmDAO();
+            PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
+			PrezzoDAO prz = DAOFactory.getPrezzoDAO();
+            
+			try {
+				request.setAttribute("utente" ,request.getParameter("utente"));
+				request.setAttribute("posti" ,request.getParameter("posti"));
+				request.setAttribute("totalePagato" ,request.getParameter("totalePagato"));
 
+				
+				Sala sala= sld.getSalaById(1);
+				request.setAttribute("pageCurrent","confermationpage");
+				request.getRequestDispatcher("JSP/confermationpage.jsp").forward(request, response);			
+			} catch (SQLException ex) {
+				System.out.println("Errore, impossibile ottenere la lista dei film");
+				ex.printStackTrace();
+			}
+		}
     }
 
 }

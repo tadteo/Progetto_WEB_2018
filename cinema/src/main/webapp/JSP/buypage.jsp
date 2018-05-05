@@ -113,9 +113,11 @@
 
 			  <div class="totale">
 				  <p>Il totale e': <b id="prezzoTotale"></b></p> 
-				  <form class="form-signin" action="/cinema/" method="POST">
-							<input type="hidden" name="posti" value="">				
-							<input type="hidden" name="posti" value="">				
+				  <form class="form-signin" action="/cinema/" method="POST" onsubmit="setTotalePagato(this.totalePagato)">
+							<input type="hidden" name="pageRequested" value="confermationpage">
+							<input type="hidden" name="utente" value="${sessionScope.email}">				
+							<input type="hidden" name="posti" value="${requestScope.posti}">
+							<input type='hidden' name='totalePagato' value="">
                             <button class="btn btn-lg btn-primary btn-block btn-outline-primary my-2" type="submit">Acquisto &raquo;</button>
                   </form>
 			  </div>
@@ -139,8 +141,23 @@
 					}
 				});
 				document.getElementById("prezzoTotale").innerHTML= totale+" euro";
+				return totale;
 			}
+			
 			setTotale();
+			function setTotalePagato(hiddenInput){
+				var totale = 0;
+				$("[id^='switch_']").each( function(){
+					if( this.checked ){
+						if(this.value=="yes"){
+							totale+=7;
+						}else{
+							totale+=10;
+						}
+					}
+				});
+				hiddenInput.value = totale+" euro";
+			}
 			
 			function setPrezzo(a,b){
 				if(document.getElementById("switch_left_"+a+b).checked ){
