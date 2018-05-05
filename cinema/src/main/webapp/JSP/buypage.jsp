@@ -19,74 +19,154 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/yesOrNo.css">
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/payments.css">
 
         <title>Cinema-Homepage</title>
     </head>
-    <body>
-        <br />
-        <div class="header container">
-            <div class="row">
-                <div class="col-sm-12 col-md-6">
-                    <h1 class="text-center"><b>Cinema Universe</b></h1>
-                    
-                    <form class="form-signin text-center" action="/cinema/" method="POST">
-                        <h3><button class="astext" name="pageRequested" value="infopage"> Info cinema</button></h3>
-                    </form>
-                </div>
-                <div class="col-sm-12 col-md-6 login">
-                    <c:choose>
-                      <c:when test="${sessionScope.email != null}">
-                            <c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
-                            <h3>Welcome ${emailParts[0]} <b>(${sessionScope.ruolo})</b></h3>
-                            <h4>You are logged in</h4>
+    <body class="collage">
+        <jsp:include page='components/header.jsp'/>
 
-                            <form class="form-signin" action="/cinema/logout.do" method="POST">
-                              <button class="btn btn-lg btn-primary btn-block" type="submit">Logout</button>
-                            </form>
-                      </c:when>
-                      <c:otherwise>
-                            <form class="form-signin" action="/cinema/login.do" method="GET">
-                              <button class="btn btn-lg btn-primary btn-block" type="submit">Login/Sign up</button>
-                            </form>
-                      </c:otherwise>      
-                    </c:choose>
-                </div>
-            </div>
-        </div>
         <br>
         <div class="container justify-content-center">
           <div class="jumbotron">
+			  <h3>Le poltrone selezionate sono:</h3>
 			  <ul>
 					<c:forEach items="${requestScope.posti}" var="posto">
 						<li><b>Poltrona N:${posto.getPoltrona()} alla riga N:${posto.getRiga()}</b> - E' per un cliente con tariffa ridotta? 
+							<form class="form-inline">
+								<div class="form-group switch-field">
+								  <input type="radio" id="switch_left_${posto.getRiga()}${posto.getPoltrona()}" name="switch_${posto.getRiga()}${posto.getPoltrona()}" value="no" checked onclick="setTotale(); setPrezzo(${posto.getRiga()},${posto.getPoltrona()});"/>
+								  <label for="switch_left_${posto.getRiga()}${posto.getPoltrona()}">NO</label>
+								  <input type="radio" id="switch_right_${posto.getRiga()}${posto.getPoltrona()}" name="switch_${posto.getRiga()}${posto.getPoltrona()}" value="yes"  onclick="setTotale(); setPrezzo(${posto.getRiga()},${posto.getPoltrona()})" />
+								  <label for="switch_right_${posto.getRiga()}${posto.getPoltrona()}">SI</label>
+								</div>
+								<div class="form-group">
+									<p>Prezzo: <b id="prezzo_${posto.getRiga()}${posto.getPoltrona()}">10</b> euro</p>
+								</div>
+							</form>
 						</li>
 					</c:forEach>
 			  </ul>
-			  
+
+<br /><br />
+<div class="creditCardForm">
+            <div class="heading">
+                <h4>Conferma il pagamento</h4>
+				<h5>Inserisci i dati della carta</h5>
+            </div>
+	<br />
+            <div class="payment">
+                <form>
+                    <div class="form-group owner">
+                        <label for="owner">Proprietario</label>
+                        <input type="text" class="form-control" id="owner">
+                    </div>
+                    <div class="form-group CVV">
+                        <label for="cvv">CVV</label>
+                        <input type="text" class="form-control" id="cvv">
+                    </div>
+                    <div class="form-group" id="card-number-field">
+                        <label for="cardNumber">Numero di carta</label>
+                        <input type="text" class="form-control" id="cardNumber">
+                    </div>
+                    <div class="form-group" id="expiration-date">
+                        <label>Data di scadenza</label>
+                        <select>
+                            <option value="01">Gennaio</option>
+                            <option value="02">Febbraio </option>
+                            <option value="03">Marzo</option>
+                            <option value="04">Aprile</option>
+                            <option value="05">Maggio</option>
+                            <option value="06">Giugno</option>
+                            <option value="07">Luglio</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Settembre</option>
+                            <option value="10">Ottobre</option>
+                            <option value="11">Novembre</option>
+                            <option value="12">Dicembre</option>
+                        </select>
+                        <select>
+                            <option value="16"> 2018</option>
+                            <option value="17"> 2019</option>
+                            <option value="18"> 2020</option>
+                            <option value="19"> 2021</option>
+                            <option value="20"> 2022</option>
+                            <option value="21"> 2023</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="credit_cards">
+                        <img src="${pageContext.request.contextPath}/images/cards/visa.jpg" id="visa">
+                        <img src="${pageContext.request.contextPath}/images/cards/mastercard.jpg" id="mastercard">
+                        <img src="${pageContext.request.contextPath}/images/cards/amex.jpg" id="amex">
+                    </div>
+                    <div class="form-group" id="pay-now">
+                        <button type="submit" class="btn btn-default" id="confirm-purchase">Confirm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+
+
+			  <div class="totale">
+				  <p>Il totale e': <b id="prezzoTotale"></b></p> 
+				  <form class="form-signin" action="/cinema/" method="POST" onsubmit="setTotalePagato(this.totalePagato)">
+							<input type="hidden" name="pageRequested" value="confermationpage">
+							<input type="hidden" name="utente" value="${sessionScope.email}">				
+							<input type="hidden" name="posti" value="${requestScope.posti}">
+							<input type='hidden' name='totalePagato' value="">
+                            <button class="btn btn-lg btn-primary btn-block btn-outline-primary my-2" type="submit">Acquisto &raquo;</button>
+                  </form>
+			  </div>
 
 		  </div>
 		</div>
+		<jsp:include page='components/footer.jsp'/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="${pageContext.request.contextPath}/JS/jquery.payform.min.js" charset="utf-8"></script>
+		<script src="${pageContext.request.contextPath}/JS/script.js"></script>
+		<script>
+			function setTotale(){
+				var totale = 0;
+				$("[id^='switch_']").each( function(){
+					if( this.checked ){
+						if(this.value=="yes"){
+							totale+=7;
+						}else{
+							totale+=10;
+						}
+					}
+				});
+				document.getElementById("prezzoTotale").innerHTML= totale+" euro";
+				return totale;
+			}
 			
-
-        <footer class="container page-footer font-small blue pt-4 mt-4">
-            <div class="row">
-                <div class="col-lg-6 col-md-12">
-                    <p><a href="${pageContext.request.contextPath}/JSP/infopage.jsp">Info:</a></p>
-                    <p><b>Telefono:</b> +39 0123 123123</p>
-                    <p><b>Indirizzo:</b> Via La Vita E Tutto Quanto, 42 (UNIVERSO)</p>
-                    <p><b>Partita Iva: </b>01234561001<b> – C.F. </b>01234561001</p>
-
-                </div>
-                <div class="col-lg-6 col-md-12">
-                    <br />
-                    <p>Posted by: Magic Group Srl</p>
-                    <p>Contact information: <a href="mailto:info@magicgroup.com">info@magicgroup.com</a>.</p>
-                </div>
-
-            </div>
-            <br>
-            <p style="font-size: 0.8rem;font-style: italic;" class="copyright">Copyright © 2018 · Tadiello Matteo - Stefani Domenico - Martini Ivan · all rights reserved.</p>
-        </footer>
+			setTotale();
+			function setTotalePagato(hiddenInput){
+				var totale = 0;
+				$("[id^='switch_']").each( function(){
+					if( this.checked ){
+						if(this.value=="yes"){
+							totale+=7;
+						}else{
+							totale+=10;
+						}
+					}
+				});
+				hiddenInput.value = totale+" euro";
+			}
+			
+			function setPrezzo(a,b){
+				if(document.getElementById("switch_left_"+a+b).checked ){
+					document.getElementById("prezzo_"+a+b).innerHTML="10";
+				}else{
+					document.getElementById("prezzo_"+a+b).innerHTML= "7";
+				}
+			}
+		</script>
     </body>
 </html>
 

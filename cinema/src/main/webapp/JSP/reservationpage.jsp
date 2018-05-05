@@ -26,12 +26,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Cinema-Homepage</title>
     </head>
-    <body data-mappa="${requestScope.mappa}" data-reserved-list="${requestScope.reserved}">
+    <body class="collage" data-mappa="${requestScope.mappa}" data-reserved-list="${requestScope.reserved}">
         <jsp:include page='components/header.jsp'/>   
       
         <br>
         
-        <div class="container jumbotron">
+        <div class="container jumbotron reservation">
             <h3 class="my-2 text-center">${requestScope.film.getTitolo()} - ${requestScope.sala.getDescrizione()} - Proiezione delle: <span><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm (dd/MM/yyyy)" /></span></h3>
 			<h4 class="my-2 text-center">Ricordarsi di loggare prima di selezionare i posti</h4>
             <!--
@@ -270,7 +270,7 @@
 
         </script>
 		<script>
-			function setValue(hiddenInput) {
+			function setValue(hiddenInput){
 				$("li[id^='cart-item']").each( function(){         
 					hiddenInput.value += $(this).attr('id').substr(9,)+"!";
 				});

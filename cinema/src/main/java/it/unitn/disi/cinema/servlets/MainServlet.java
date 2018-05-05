@@ -267,15 +267,18 @@ public class MainServlet extends HttpServlet {
 						Colonna.add(Integer.parseInt(colonna));
 					}
 				}
-				
+				Integer sala = Integer.parseInt(request.getParameter("sala"));
 				//Ciclo sulle rige per creare i bean dei posti necessari alla buypage
-//				List<Posto> posti= new ArrayList();
-//				for(Integer i:Riga){
-//					posti.add(psd.getPostoBySalaRigaColonna(i))
-//				}
+				List<Posto> posti= new ArrayList();
+				for(int i=0; i<Riga.size() ; i++){
+					Posto p = psd.getPostoBySalaRigaPoltrona( sala , Riga.get(i) , Colonna.get(i));
+					posti.add(p);
+				}
 				
+				
+				request.setAttribute("selezionati", selezionati);
 				request.setAttribute("prezzi", prezzi);
-//				request.setAttribute("posti", posti);
+				request.setAttribute("posti", posti);
 
 				request.setAttribute("pageCurrent","buypage");
 				request.getRequestDispatcher("JSP/buypage.jsp").forward(request, response);			
@@ -283,8 +286,29 @@ public class MainServlet extends HttpServlet {
 				System.out.println("Errore, impossibile ottenere la lista dei film");
 				ex.printStackTrace();
 			}
-		}
+		} else if(pageRequested.equals("confermationpage")){
+			//DAOs
+            SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
+            SalaDAO sld = DAOFactory.getSalaDAO();
+            PostoDAO psd = DAOFactory.getPostoDAO();
+            FilmDAO fld = DAOFactory.getFilmDAO();
+            PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
+			PrezzoDAO prz = DAOFactory.getPrezzoDAO();
+            
+			try {
+				request.setAttribute("utente" ,request.getParameter("utente"));
+				request.setAttribute("posti" ,request.getParameter("posti"));
+				request.setAttribute("totalePagato" ,request.getParameter("totalePagato"));
 
+				
+				Sala sala= sld.getSalaById(1);
+				request.setAttribute("pageCurrent","confermationpage");
+				request.getRequestDispatcher("JSP/confermationpage.jsp").forward(request, response);			
+			} catch (SQLException ex) {
+				System.out.println("Errore, impossibile ottenere la lista dei film");
+				ex.printStackTrace();
+			}
+		}
     }
 
 }
