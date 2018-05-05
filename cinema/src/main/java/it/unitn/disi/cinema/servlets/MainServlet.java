@@ -267,15 +267,17 @@ public class MainServlet extends HttpServlet {
 						Colonna.add(Integer.parseInt(colonna));
 					}
 				}
-				
+				Integer sala = Integer.parseInt(request.getParameter("sala"));
 				//Ciclo sulle rige per creare i bean dei posti necessari alla buypage
-//				List<Posto> posti= new ArrayList();
-//				for(Integer i:Riga){
-//					posti.add(psd.getPostoBySalaRigaColonna(i))
-//				}
+				List<Posto> posti= new ArrayList();
+				for(int i=0; i<Riga.size() ; i++){
+					Posto p = psd.getPostoBySalaRigaPoltrona( sala , Riga.get(i) , Colonna.get(i));
+					posti.add(p);
+				}
 				
+				request.setAttribute("selezionati", selezionati);
 				request.setAttribute("prezzi", prezzi);
-//				request.setAttribute("posti", posti);
+				request.setAttribute("posti", posti);
 
 				request.setAttribute("pageCurrent","buypage");
 				request.getRequestDispatcher("JSP/buypage.jsp").forward(request, response);			
