@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         if(session.getAttribute("email") == null)
-            response.sendRedirect(request.getContextPath() + "/JSP/loginpage.jsp");
+            request.getRequestDispatcher("/JSP/loginpage.jsp").forward(request, response);//            response.sendRedirect(request.getContextPath() + "/JSP/loginpage.jsp");
         else
             response.setStatus(500);
         

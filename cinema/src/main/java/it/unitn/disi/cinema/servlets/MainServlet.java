@@ -48,8 +48,8 @@ public class MainServlet extends HttpServlet {
             }          
                         
             request.setAttribute("filmspp", filmspp);            
-            request.setAttribute("prezzi", prezzi);
-			request.setAttribute("pageCurrent","homepage");
+            request.setAttribute("prezzi", prezzi);		
+            request.setAttribute("pageCurrent","homepage");
             request.getRequestDispatcher("JSP/homepage.jsp").forward(request, response);			
         } catch (SQLException ex) {
             System.out.println("Errore, impossibile ottenere la lista dei film");
@@ -90,15 +90,14 @@ public class MainServlet extends HttpServlet {
 				request.setAttribute("genere", genere);
 				request.setAttribute("spettacoli", spettacoliDisponibili);
 				request.setAttribute("calltime", now);/**/
-                
 
-				request.setAttribute("message","La richiesta arriva dalla servlet");
                 
-				request.getRequestDispatcher("JSP/filmpage.jsp").forward(request, response);
+                request.getRequestDispatcher("JSP/filmpage.jsp").forward(request, response);
 			}catch(SQLException ex) {
 				System.out.println("Errore, impossibile ottenere la lista dei film");
 				ex.printStackTrace();
 			}
+
         }else if(pageRequested.equals("infopage")){
 			PrezzoDAO prd = DAOFactory.getPrezzoDAO();
 			try {
@@ -285,6 +284,7 @@ public class MainServlet extends HttpServlet {
 				ex.printStackTrace();
 			}
 		}
+
     }
 
 }

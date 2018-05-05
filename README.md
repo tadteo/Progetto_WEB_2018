@@ -7,7 +7,7 @@ Impostare connessione con:
 	<li>Password: "root"</li>
 	<li>Porta Standard: "3306"</li>
 </ul>
-<h5>Setup:</h5>
+<h5>Setup 1:</h5>
 <ol>
 	<li>Eseguire cinema.sql per creare il db</li>
 	<li>Importare in ordine:
@@ -21,4 +21,9 @@ Impostare connessione con:
 			<li>data_utente.csv (Record importati: 3)</li>
 		</ol>
 	</li>
+</ol>
+<h5>Setup 2:</h5>
+<ol>
+	<li>Eseguire cinema.sql per creare il db</li>
+	<li>Eseguire insert.sql per aggiungere tutte le entry</li>
 </ol>
