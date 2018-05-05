@@ -91,6 +91,7 @@ and open the template in the editor.
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
+}
 
 .collage{
     background-image: url("/cinema/images/collage.jpg");
