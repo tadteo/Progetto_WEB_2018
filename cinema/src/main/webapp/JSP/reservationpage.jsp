@@ -33,7 +33,7 @@
         
         <div class="container jumbotron">
             <h3 class="my-2 text-center">${requestScope.film.getTitolo()} - ${requestScope.sala.getDescrizione()} - Proiezione delle: <span><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm (dd/MM/yyyy)" /></span></h3>
-              
+			<h4 class="my-2 text-center">Ricordarsi di loggare prima di selezionare i posti</h4>
             <!--
             <c:forEach items="${requestScope.mappa}" var="riga">
                 <p>${riga}</p>
@@ -54,14 +54,15 @@
                       <h3> Posti selezionati (<span id="counter">0</span>):</h3>
                       <ul id="selected-seats">
                       </ul>
-					  <%-- <c:when test="${sessionScope.email != null}"> --%>
+					  <c:choose>
+						  <c:when test="${sessionScope.email != null}">
 						  <c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
 						<form class="form-signin" action="/cinema/" method="POST" onsubmit="setValue(this.posti)">
                             <input type="hidden" name="pageRequested" value="buypage">
 							<input type="hidden" name="sala" value="${requestScope.sala.getId()}">	
 							<input type="hidden" name="posti" value="">				
                             <button class="btn btn-lg btn-primary btn-block btn-outline-primary my-2" type="submit">Acquisto &raquo;</button>
-						</form><%--
+						</form>
 					  </c:when>
 					  <c:otherwise>
 						  <p> Per continuare con la prenotazione bisogna loggarsi </p>
@@ -71,7 +72,10 @@
 							<input type="hidden" name="posti" value="">				
                             <button class="btn btn-lg btn-primary btn-block btn-outline-primary my-2" type="submit" disabled>Acquisto &raquo;</button>
 						</form>
-					  </c:otherwise> --%>
+					  </c:otherwise>
+					  </c:choose>
+					  
+					  
                       
                       <div id="legend"></div>
                     </div>
