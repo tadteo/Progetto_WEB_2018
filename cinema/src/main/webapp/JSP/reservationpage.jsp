@@ -54,12 +54,25 @@
                       <h3> Posti selezionati (<span id="counter">0</span>):</h3>
                       <ul id="selected-seats">
                       </ul>
-                      <form class="form-signin" action="/cinema/" method="POST" onsubmit="setValue(this.posti)">
+					  <%-- <c:when test="${sessionScope.email != null}"> --%>
+						  <c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
+						<form class="form-signin" action="/cinema/" method="POST" onsubmit="setValue(this.posti)">
                             <input type="hidden" name="pageRequested" value="buypage">
 							<input type="hidden" name="sala" value="${requestScope.sala.getId()}">	
 							<input type="hidden" name="posti" value="">				
                             <button class="btn btn-lg btn-primary btn-block btn-outline-primary my-2" type="submit">Acquisto &raquo;</button>
-                      </form>
+						</form><%--
+					  </c:when>
+					  <c:otherwise>
+						  <p> Per continuare con la prenotazione bisogna loggarsi </p>
+						<form class="form-signin" action="/cinema/" method="POST" onsubmit="setValue(this.posti)">
+                            <input type="hidden" name="pageRequested" value="buypage">
+							<input type="hidden" name="sala" value="${requestScope.sala.getId()}">	
+							<input type="hidden" name="posti" value="">				
+                            <button class="btn btn-lg btn-primary btn-block btn-outline-primary my-2" type="submit" disabled>Acquisto &raquo;</button>
+						</form>
+					  </c:otherwise> --%>
+                      
                       <div id="legend"></div>
                     </div>
                   </div>

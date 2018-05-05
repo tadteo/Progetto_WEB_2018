@@ -21,6 +21,9 @@
     <c:when test="${pageCurrent=='prezzipage'}">
         <c:set var="activePrezzipage" value="active"></c:set>
     </c:when>
+	<c:when test="${pageCurrent=='reservationpage'}">
+        <c:set var="activeReservationpage" value="active"></c:set>
+    </c:when>
 </c:choose>
 
 
