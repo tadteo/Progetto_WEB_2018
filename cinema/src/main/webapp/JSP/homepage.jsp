@@ -52,7 +52,21 @@
                             <p>Genere: ${filmpp.getGenere().getDescrizione()}</p>
                             <p>Durata: ${filmpp.getFilm().getDurata()}</p>
                             <p>${fn:substring(filmpp.getFilm().getTrama(),0,200)}..</p>
+							<%-- Qui faccio un elenco di tutti gli spettacoli disponibili e invio le informazioni corrispondenti alla reservationpage 
+							<c:forEach items="${requestScope.spettacoli}" var="spettacoli">
+								<c:if test= " ${spettacoli.getFilmId()} == ${filmpp.getId()}">
+									<form class="form-signin text-center" action="/cinema/" method="POST">
+									<input type="hidden" name="sala" value="1">
+									<button class="astext" name="pageRequested" value="reservationpage"> Prenota: ${spettacoli.getDataOra()}</button>
+									</form>
+									
+								</c:if>								
+							</c:forEach>--%>
                             <p><a href="${pageContext.request.contextPath}/JSP/reservationpage.jsp">prenota</a></p>
+							<form class="text-center" action="/cinema/" method="POST">
+								<input type="hidden" name="sala" value="1">
+								<button class="astext" name="pageRequested" value="reservationpage"> Prenota:</button>
+							</form>
                           </div>
                         </div>
                     </div>

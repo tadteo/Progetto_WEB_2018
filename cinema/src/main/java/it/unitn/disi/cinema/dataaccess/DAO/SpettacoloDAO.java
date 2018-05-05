@@ -5,6 +5,7 @@
  */
 package it.unitn.disi.cinema.dataaccess.DAO;
 
+import it.unitn.disi.cinema.dataaccess.Beans.Posto;
 import it.unitn.disi.cinema.dataaccess.Beans.Spettacolo;
 import it.unitn.disi.cinema.dataaccess.Database;
 import java.sql.Connection;
@@ -73,7 +74,7 @@ public class SpettacoloDAO {
     public List<Spettacolo> getAll() throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Spettacolo> result = new ArrayList<>();
         
-        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo");
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo ORDER BY Spettacolo.data_ora");
         ResultSet rs = st.executeQuery();
         
         while(rs.next()){
@@ -85,7 +86,7 @@ public class SpettacoloDAO {
     public List<Spettacolo> getAfter(Timestamp time)throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Spettacolo> result = new ArrayList<>();
         
-        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.data_ora > ?");
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.data_ora > ?  ORDER BY Spettacolo.data_ora");
         st.setTimestamp(1, time);
         ResultSet rs = st.executeQuery();
         
@@ -98,7 +99,7 @@ public class SpettacoloDAO {
     public List<Spettacolo> getByFilm(Integer idFilm) throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Spettacolo> result = new ArrayList<>();
         
-        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.id_film = ?");
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.id_film = ? ORDER BY Spettacolo.data_ora");
         st.setInt(1, idFilm);
         ResultSet rs = st.executeQuery();
         
@@ -110,7 +111,7 @@ public class SpettacoloDAO {
     public List<Spettacolo> getByFIlmAfter(Integer idFilm, Timestamp time) throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Spettacolo> result = new ArrayList<>();
         
-        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.id_film = ? AND Spettacolo.data_ora > ?");
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.id_film = ? AND Spettacolo.data_ora > ? ORDER BY Spettacolo.data_ora");
         st.setInt(1, idFilm);
         st.setTimestamp(2, time);
         ResultSet rs = st.executeQuery();
@@ -129,5 +130,55 @@ public class SpettacoloDAO {
         st.setInt(1, id);
         
         st.executeUpdate();
+    }
+    
+    public int getAvailablePostiCount(Integer id)throws SQLException{
+        int res = -1;
+        
+        PreparedStatement st = conn.prepareStatement("SELECT count(*) " +
+                                                        "FROM Spettacolo AS S,Posto AS P, Prenotazione AS R " +
+                                                        "WHERE  " +
+                                                        "S.id_spettacolo = ? AND " +
+                                                        "S.id_spettacolo = R.id_spettacolo AND " +
+                                                        "S.id_sala = P.id_sala AND " +
+                                                        "P.id_posto = R.id_posto AND " +
+                                                        "P.esiste ");
+        st.setInt(1, id);
+        ResultSet rs = st.executeQuery();
+        
+        if(rs.next())
+            res = rs.getInt(1);
+        else
+            throw new SQLException("Impossibile ottenere il conteggio dei posti disponibili per lo spettacolo");
+        
+        return res;
+    }
+    
+    public List<Posto> getReservedPosti(Integer id)throws SQLException{
+        List<Posto> res = new ArrayList<>();
+        
+        PreparedStatement st = conn.prepareStatement("SELECT P.id_posto, P.id_sala, P.riga, P.poltrona, P.esiste " +
+                                                        "FROM Spettacolo AS S,Posto AS P, Prenotazione AS R " +
+                                                        "WHERE  " +
+                                                        "S.id_spettacolo = ? AND " +
+                                                        "S.id_spettacolo = R.id_spettacolo AND " +
+                                                        "S.id_sala = P.id_sala AND " +
+                                                        "P.id_posto = R.id_posto AND " +
+                                                        "P.esiste ");
+        st.setInt(1, id);
+        ResultSet rs = st.executeQuery();
+        
+        Posto currentPosto;
+        while(rs.next()){
+            currentPosto = new Posto();
+            currentPosto.setId(rs.getInt(1));
+            currentPosto.setSalaId(rs.getInt(2));
+            currentPosto.setRiga(rs.getInt(3));
+            currentPosto.setPoltrona(rs.getInt(4));
+            currentPosto.setEsiste(rs.getBoolean(5));
+            res.add(currentPosto);
+        }
+        
+        return res;
     }
 }

@@ -83,6 +83,15 @@ and open the template in the editor.
     margin: 1rem;
 }
 
+.hidden {
+    display: none;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+
 .collage{
     background-image: url("/cinema/images/collage.jpg");
 }
@@ -94,4 +103,5 @@ and open the template in the editor.
     left: 0;
     width: 100%;
     height: 100%;
+
 }
