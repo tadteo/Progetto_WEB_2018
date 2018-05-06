@@ -167,6 +167,8 @@ public class MainServlet extends HttpServlet {
 			
 			
             request.getRequestDispatcher("JSP/reservationpage.jsp").forward(request, response);
+        } else if (pageRequested.equals("adminpage")) {
+            request.getRequestDispatcher("JSP/adminpage.jsp").forward(request, response);
         }
     }
 
