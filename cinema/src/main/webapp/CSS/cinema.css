@@ -95,3 +95,23 @@ and open the template in the editor.
     width: 100%;
     height: 100%;
 }
+
+.accordion-margin {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.accordion-marginMiddle {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.accordion-marginTop {
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+
+.accordion-marginBottom {
+    margin-top: 20px;
+    margin-bottom: 100px;
+}
