@@ -32,6 +32,9 @@
 
 
 <header class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand flex-row" style="font-family: 'Gugi', cursive;">CINEMA UNIVERSE</a>
+</header>
+<header class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 <!--<header class="navbar navbar-expand navbar-dark bg-dark flex-column flex-md-row bd-navbar">-->
 
     
@@ -65,16 +68,30 @@
                     <c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            
-                                <i class="fa fa-user"></i> <b>${emailParts[0]}</b>(${sessionScope.ruolo})
+                            <c:choose>
+                                <c:when test="${sessionScope.ruolo == 'admin'}">
+                                    <i class="fa fa-user"></i> <b>${emailParts[0]}</b> (${sessionScope.ruolo})
+                                </c:when>
+                                <c:otherwise>
+                                    <i class="fa fa-user"></i> <b>${emailParts[0]}</b>
+                                </c:otherwise>
+                            </c:choose>
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
+                            <c:choose>
+                                <c:when test="${sessionScope.ruolo == 'admin'}">
+                                    <div class="dropdown-divider"></div>
+                                    <form class="form-signin" id="form-admin-instance" action="/cinema/" method="POST">
+                                        <input type="hidden" name="pageRequested" value="adminpage">
+                                        <a class="dropdown-item" onclick="document.getElementById('form-admin-instance').submit();">Admin control panel</a>
+                                    </form>
+                                </c:when>
+                            </c:choose>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <form class="form-signin" action="/cinema/logout.do" method="POST">
-                                <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
+                            <a class="dropdown-item" href="#">Manage account</a>                           
+                            <form class="form-signin" id="form-logout-instance" action="/cinema/logout.do" method="POST">
+                                <a class="dropdown-item text-white bg-danger" href="#" onclick="document.getElementById('form-logout-instance').submit();">Logout</a>
                             </form>
                         </div>
                     </li>   
@@ -101,38 +118,7 @@
         </ul>
     </div>
 </header>
-                
-<!--                
-<header class="navbar navbar-expand navbar-dark bg-dark flex-column flex-md-row bd-navbar">
-                    
-    <div class="navbar-nav-scroll">
-    <ul class="navbar-nav bd-navbar-nav flex-row">
-      <li class="nav-item">
-        <a class="nav-link " href="/" onclick="ga('send', 'event', 'Navbar', 'Community links', 'Bootstrap');">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" href="/docs/4.1/getting-started/introduction/" onclick="ga('send', 'event', 'Navbar', 'Community links', 'Docs');">Documentation</a>
-      </li>
-    </ul>
-  </div>
-
-  <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
-    <li class="nav-item dropdown">
-      <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        v4.1
-      </a>
-      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
-        <a class="dropdown-item active" href="/docs/4.1/">Latest (4.1.x)</a>
-        <a class="dropdown-item" href="https://getbootstrap.com/docs/4.0/">v4.0.0</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="https://v4-alpha.getbootstrap.com/">v4 Alpha 6</a>
-        <a class="dropdown-item" href="https://getbootstrap.com/docs/3.3/">v3.3.7</a>
-        <a class="dropdown-item" href="https://getbootstrap.com/2.3.2/">v2.3.2</a>
-      </div>
-    </li>
-  </ul>
-                    
-                </header>-->
+               
                 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous"></script>

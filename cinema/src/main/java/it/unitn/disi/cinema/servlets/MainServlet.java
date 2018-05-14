@@ -97,7 +97,6 @@ public class MainServlet extends HttpServlet {
 				System.out.println("Errore, impossibile ottenere la lista dei film");
 				ex.printStackTrace();
 			}
-
         }else if(pageRequested.equals("infopage")){
 			PrezzoDAO prd = DAOFactory.getPrezzoDAO();
 			try {
@@ -308,7 +307,9 @@ public class MainServlet extends HttpServlet {
 				System.out.println("Errore, impossibile ottenere la lista dei film");
 				ex.printStackTrace();
 			}
-		}
+        } else if (pageRequested.equals("adminpage")) {
+            request.getRequestDispatcher("JSP/adminpage.jsp").forward(request, response);
+        }
     }
 
 }
