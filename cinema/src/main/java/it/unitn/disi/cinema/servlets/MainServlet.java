@@ -72,7 +72,7 @@ public class MainServlet extends HttpServlet {
 			FilmDAO fld = DAOFactory.getFilmDAO();
 			GenereDAO gnd = DAOFactory.getGenereDAO();
 			PrezzoDAO prd = DAOFactory.getPrezzoDAO();
-            SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
+                        SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
             
 			try {
 				//Prende in input il numero del film richiesto e crea un bean con il film richiesto corrispondente
@@ -86,11 +86,10 @@ public class MainServlet extends HttpServlet {
                 
                 List<Spettacolo> spettacoliDisponibili = spd.getByFIlmAfter(idFilmRichiesto, now);
                 
-				request.setAttribute("film", film);
-				request.setAttribute("genere", genere);
-				request.setAttribute("spettacoli", spettacoliDisponibili);
-				request.setAttribute("calltime", now);/**/
-
+                request.setAttribute("film", film);
+                request.setAttribute("genere", genere);
+                request.setAttribute("spettacoli", spettacoliDisponibili);
+                request.setAttribute("calltime", now);/**/
                 
                 request.getRequestDispatcher("JSP/filmpage.jsp").forward(request, response);
 			}catch(SQLException ex) {
@@ -236,80 +235,96 @@ public class MainServlet extends HttpServlet {
             PostoDAO psd = DAOFactory.getPostoDAO();
             FilmDAO fld = DAOFactory.getFilmDAO();
             PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
-			PrezzoDAO prz = DAOFactory.getPrezzoDAO();
-            
-			try {
-				List<Prezzo> prezzi = prz.getAll();
-				
-				String selezionati = request.getParameter("posti"); // Richiedo tutti i posti selezionati dalla requestpage sotto forma di stringa del tipo -Riga_Colonna!-Riga_Colonna!-etc_etc!
-				// Variabili e oggetti che mi servono per "parsare" la stringa Posti in due liste di interi
-				List<Integer> Riga= new ArrayList();
-				List<Integer> Colonna= new ArrayList();
-				String riga="";
-				String colonna="";
-				Boolean RoC = true; //Indica se stiamo creando la string per la colonna o per la riga: true indica la riga, false indica la colonna
-				
-				//Creo le due liste di interi
-				for(char c:selezionati.toCharArray()){
-					if(c == '-') {
-						RoC=true;
-						riga="";
-						colonna="";
-					} else if(Character.isDigit(c) && RoC ) {
-						riga+=c;
-					} else if(Character.isDigit(c) && !RoC) {
-						colonna+=c;
-					} else if( c== '_'){
-						RoC = false;
-					} else if( c== '!'){
-						Riga.add(Integer.parseInt(riga));
-						Colonna.add(Integer.parseInt(colonna));
-					}
-				}
-				Integer sala = Integer.parseInt(request.getParameter("sala"));
-				//Ciclo sulle rige per creare i bean dei posti necessari alla buypage
-				List<Posto> posti= new ArrayList();
-				for(int i=0; i<Riga.size() ; i++){
-					Posto p = psd.getPostoBySalaRigaPoltrona( sala , Riga.get(i) , Colonna.get(i));
-					posti.add(p);
-				}
-				
-				
-				request.setAttribute("selezionati", selezionati);
-				request.setAttribute("prezzi", prezzi);
-				request.setAttribute("posti", posti);
+            PrezzoDAO prz = DAOFactory.getPrezzoDAO();
 
-				request.setAttribute("pageCurrent","buypage");
-				request.getRequestDispatcher("JSP/buypage.jsp").forward(request, response);			
-			} catch (SQLException ex) {
-				System.out.println("Errore, impossibile ottenere la lista dei film");
-				ex.printStackTrace();
-			}
-		} else if(pageRequested.equals("confermationpage")){
-			//DAOs
+            try {
+                    List<Prezzo> prezzi = prz.getAll();
+
+                    String selezionati = request.getParameter("posti"); // Richiedo tutti i posti selezionati dalla requestpage sotto forma di stringa del tipo -Riga_Colonna!-Riga_Colonna!-etc_etc!
+                    // Variabili e oggetti che mi servono per "parsare" la stringa Posti in due liste di interi
+                    List<Integer> Riga= new ArrayList();
+                    List<Integer> Colonna= new ArrayList();
+                    String riga="";
+                    String colonna="";
+                    Boolean RoC = true; //Indica se stiamo creando la string per la colonna o per la riga: true indica la riga, false indica la colonna
+
+                    //Creo le due liste di interi
+                    for(char c:selezionati.toCharArray()){
+                            if(c == '-') {
+                                    RoC=true;
+                                    riga="";
+                                    colonna="";
+                            } else if(Character.isDigit(c) && RoC ) {
+                                    riga+=c;
+                            } else if(Character.isDigit(c) && !RoC) {
+                                    colonna+=c;
+                            } else if( c== '_'){
+                                    RoC = false;
+                            } else if( c== '!'){
+                                    Riga.add(Integer.parseInt(riga));
+                                    Colonna.add(Integer.parseInt(colonna));
+                            }
+                    }
+                    Integer sala = Integer.parseInt(request.getParameter("sala"));
+                    //Ciclo sulle rige per creare i bean dei posti necessari alla buypage
+                    List<Posto> posti= new ArrayList();
+                    for(int i=0; i<Riga.size() ; i++){
+                            Posto p = psd.getPostoBySalaRigaPoltrona( sala , Riga.get(i) , Colonna.get(i));
+                            posti.add(p);
+                    }
+
+
+                    request.setAttribute("selezionati", selezionati);
+                    request.setAttribute("prezzi", prezzi);
+                    request.setAttribute("posti", posti);
+
+                    request.setAttribute("pageCurrent","buypage");
+                    request.getRequestDispatcher("JSP/buypage.jsp").forward(request, response);			
+            } catch (SQLException ex) {
+                    System.out.println("Errore, impossibile ottenere la lista dei film");
+                    ex.printStackTrace();
+            }
+        } else if(pageRequested.equals("confermationpage")){
+            //DAOs
             SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
             SalaDAO sld = DAOFactory.getSalaDAO();
             PostoDAO psd = DAOFactory.getPostoDAO();
             FilmDAO fld = DAOFactory.getFilmDAO();
             PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
-			PrezzoDAO prz = DAOFactory.getPrezzoDAO();
-            
-			try {
-				request.setAttribute("utente" ,request.getParameter("utente"));
-				request.setAttribute("posti" ,request.getParameter("posti"));
-				request.setAttribute("totalePagato" ,request.getParameter("totalePagato"));
+            PrezzoDAO prz = DAOFactory.getPrezzoDAO();
 
-				
-				Sala sala= sld.getSalaById(1);
-				request.setAttribute("pageCurrent","confermationpage");
-				request.getRequestDispatcher("JSP/confermationpage.jsp").forward(request, response);			
-			} catch (SQLException ex) {
-				System.out.println("Errore, impossibile ottenere la lista dei film");
-				ex.printStackTrace();
-			}
+            try {
+                    request.setAttribute("utente" ,request.getParameter("utente"));
+                    request.setAttribute("posti" ,request.getParameter("posti"));
+                    request.setAttribute("totalePagato" ,request.getParameter("totalePagato"));
+
+
+                    Sala sala= sld.getSalaById(1);
+                    request.setAttribute("pageCurrent","confermationpage");
+                    request.getRequestDispatcher("JSP/confermationpage.jsp").forward(request, response);			
+            } catch (SQLException ex) {
+                    System.out.println("Errore, impossibile ottenere la lista dei film");
+                    ex.printStackTrace();
+            }
         } else if (pageRequested.equals("adminpage")) {
-            request.getRequestDispatcher("JSP/adminpage.jsp").forward(request, response);
+            SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
+            SalaDAO sld = DAOFactory.getSalaDAO();
+            PostoDAO psd = DAOFactory.getPostoDAO();
+            FilmDAO fld = DAOFactory.getFilmDAO();
+            PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
+            PrezzoDAO prz = DAOFactory.getPrezzoDAO();
+
+            try {
+                Film film = fld.getFilmById(2);
+                
+                //request.setAttribute("film", film);
+                request.setAttribute("pageCurrent","adminpage");
+
+                request.getRequestDispatcher("JSP/adminpage.jsp").forward(request, response);
+            } catch (SQLException ex) {
+                System.out.println("Errore, inpossibile ottenere la pagina degli admin");
+                ex.printStackTrace();
+            }      
         }
     }
-
 }

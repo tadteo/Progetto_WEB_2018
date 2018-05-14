@@ -33,7 +33,7 @@
                       </button>
                     </h5>
                   </div>
-                  <div id="collapseProgrammazioni" class="collapse show" aria-labelledby="headingProgrammazioni" data-parent="#accordionProgrammazioni">
+                  <div id="collapseProgrammazioni" class="collapse" aria-labelledby="headingProgrammazioni" data-parent="#accordionProgrammazioni">
                     <div class="card-body">
                       <!--Gestione programmazioni-->
                     </div>
