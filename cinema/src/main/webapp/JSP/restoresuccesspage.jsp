@@ -23,6 +23,10 @@
                 <div  class="jumbotron text-center my-4 bg-light">
                     <h1 class="display-3">Ti è stata inviata un'email con la password</h1>
                     <p class="lead"><strong>controlla se hai ricevuto l'email</strong></p>
+                    
+                    <form action="/cinema/" method="GET">
+                        <input type="submit" class="btn btn-primary" value="Vai alla Homepage">
+                    </form>
                 </div>
             </div>
         </div>

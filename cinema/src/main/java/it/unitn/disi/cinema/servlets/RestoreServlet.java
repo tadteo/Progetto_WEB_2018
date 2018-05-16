@@ -9,19 +9,17 @@ import it.unitn.disi.cinema.dataaccess.DAO.DAOFactory;
 import it.unitn.disi.cinema.dataaccess.DAO.UtenteDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.HtmlEmail;
 
 
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.mail.*;
-import javax.mail.internet.*;
 
 /**
  *
@@ -49,8 +47,11 @@ public class RestoreServlet extends HttpServlet {
         UtenteDAO utd = DAOFactory.getUtenteDAO();
         try {
             if((email != null)&&(utd.isUsed(email))){
+                out.println("Ready to send message...");
                 session.removeAttribute("restoreErrorMessage");
-                sendPassword(utd.getUtenteByEmail(email).getPassword());
+                sendPassword(utd.getUtenteByEmail(email).getPassword(),email);
+                out.println("Message Send.....");
+                
                 request.getRequestDispatcher("/JSP/restoresuccesspage.jsp").forward(request, response);
             }else{
                 session.setAttribute("restoreErrorMessage", "Errore, la mail specificata non risulta iscritta");
@@ -65,47 +66,33 @@ public class RestoreServlet extends HttpServlet {
         }
     }
     
-    private boolean sendPassword(String password) throws Exception{
+    public static final String HOST_NAME = "smtp.gmail.com";
+    public static final int PORT = 465;
+    public static final String TEXT_PLAIN = "text/plain";
+    
+    
+    public void sendPassword(String userPassword, String recipient) throws IOException, EmailException {
+
+        final String cinemaUsername = "cinema.universe.42@gmail.com";
+        final String cinemaPassword = "Univers3";
         
+        final String recipientEmailAddress = recipient;//"dodostefani@gmail.com";
 
-        String host = "192.168.10.205";
-        String from = "test@localhost";
-        String to = "dodostefani@gmail.com";
+        HtmlEmail email = new HtmlEmail();
+        email.setHostName(HOST_NAME);
+        email.setSmtpPort(PORT);
+        email.setSSLOnConnect(true);
 
-        // Get system properties
-        Properties properties = System.getProperties();
+        email.setAuthentication(cinemaUsername, cinemaPassword);
 
-        // Setup mail server
-        properties.setProperty("mail.smtp.host", host);
-
-        // Get the default Session object.
-        Session session = Session.getDefaultInstance(properties);
-
-        // Create a default MimeMessage object.
-        MimeMessage message = new MimeMessage(session);
-
-        // Set the RFC 822 "From" header field using the 
-        // value of the InternetAddress.getLocalAddress method.
-        message.setFrom(new InternetAddress(from));
-
-        // Add the given addresses to the specified recipient type.
-        message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-
-        // Set the "Subject" header field.
-        message.setSubject("hi..!");
-
-        // Sets the given String as this part's content,
-        // with a MIME type of "text/plain".
-        message.setText("Hi ......");
-
-        // Send message
-        Transport.send(message);
-
-        System.out.println("Message Send.....");
-        
-        
-        return true;
+        email.setSubject("Recupero Password - Cinema Universe");
+        email.setFrom(cinemaUsername, "Cinema Universe", String.valueOf(StandardCharsets.UTF_8));
+        email.addTo(recipientEmailAddress);
+        email.setHtmlMsg("<h3>Recupero Password - Cinema Universe<br></h3>"
+                + "Utente: " + recipient + "<br>"
+                + "La tua password è: '" + userPassword + "'<br>");
+        email.send();
     }
+    
 }
 
