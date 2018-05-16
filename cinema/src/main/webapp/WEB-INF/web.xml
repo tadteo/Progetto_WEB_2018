@@ -24,6 +24,10 @@
         <servlet-name>InfoServlet</servlet-name>
         <servlet-class>it.unitn.disi.cinema.servlets.InfoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RestoreServlet</servlet-name>
+        <servlet-class>it.unitn.disi.cinema.servlets.RestoreServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login.do</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>InfoServlet</servlet-name>
         <url-pattern>/info</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RestoreServlet</servlet-name>
+        <url-pattern>/restore.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
