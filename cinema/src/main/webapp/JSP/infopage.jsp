@@ -9,6 +9,7 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@page import="java.util.StringTokenizer" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -41,7 +42,11 @@
 			<div class="col-lg-6 col-md-12 ">
 				<h5>Costi:</h5>
 				<c:forEach items="${requestScope.prezzi}" var="prezzi">
-					<p><b>${prezzi.getTipo()}:</b> ${prezzi.getPrezzo()}</p>
+          
+					<p>
+            <b>${prezzi.getTipo()}:</b>
+            <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${prezzi.getPrezzo()}"/> € (Euro)
+          </p>
 				</c:forEach>
 					<hr>
 				<h5>Informazioni:</h5>
