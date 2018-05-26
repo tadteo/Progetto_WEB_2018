@@ -12,15 +12,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.Enumerated;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -310,7 +304,7 @@ public class MainServlet extends HttpServlet {
                 System.out.println("Errore, impossibile ottenere la lista dei film");
                 ex.printStackTrace();
             }
-        } else if(pageRequested.equals("confermationpage")){
+        } else if(pageRequested.equals("confirmationpage")){
             
             //DAOs
             UtenteDAO usd = DAOFactory.getUtenteDAO();
@@ -425,8 +419,9 @@ public class MainServlet extends HttpServlet {
             request.setAttribute("posti" ,postiString);
             request.setAttribute("totalePagato" ,request.getParameter("totalePagato"));
 
-            request.setAttribute("pageCurrent","confermationpage");
-            request.getRequestDispatcher("JSP/confermationpage.jsp").forward(request, response);
+            request.setAttribute("pageCurrent","confirmationpage");
+            
+            request.getRequestDispatcher("JSP/confirmationpage.jsp").forward(request, response);
                 
         } else if (pageRequested.equals("adminpage")) {
             request.getRequestDispatcher("JSP/adminpage.jsp").forward(request, response);

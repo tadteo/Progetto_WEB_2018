@@ -129,7 +129,7 @@
         <div class="totale">
           <p>Il totale e': <b id="prezzoTotale"></b></p> 
           <form class="form-signin" action="/cinema/" method="POST" onsubmit="setTotalePagato(this.totalePagato,this.prezzi)">
-            <input type="hidden" name="pageRequested" value="confermationpage">
+            <input type="hidden" name="pageRequested" value="confirmationpage">
             <input type="hidden" name="utente" value="${sessionScope.email}">				
             <input type="hidden" name="posti" value="${listaPosti}">			
             <input type='hidden' name='prezzi' value="">   <!-- Questi prezzi sono settti dalla funzione setTotalePaato-->

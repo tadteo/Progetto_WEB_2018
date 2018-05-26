@@ -4,7 +4,6 @@
     Author     : Domenico Stefani - Matteo Tadiello
 --%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="it.unitn.disi.cinema.dataaccess.Beans.Prezzo"%>
 <%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
