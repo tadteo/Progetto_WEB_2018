@@ -193,12 +193,17 @@ public class PostoDAO {
         st.setInt(2, idPosto);
         ResultSet rs = st.executeQuery();
         
-        if(rs.next())
-            if(rs.next())
+        if(rs.next()){
+            System.out.println("PRENOTAZIONE:" + rs.getInt(1));
+            if(rs.next()){
+                
+                System.out.println("PRENOTAZIONE:" + rs.getInt(1));
                 throw new SQLException("Too much reservation for the same Spettacolo-Posto");
-            else
+            }else{
+                
                 res = true;
-        else
+            }
+        }else
             res = false;
             
         return res;

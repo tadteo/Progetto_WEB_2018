@@ -44,7 +44,7 @@ public class PrenotazioneDAO {
     Connection conn = db.getConnection();
     
     public void addPrenotazione(Prenotazione prenotazione) throws SQLException{
-        PreparedStatement st = conn.prepareStatement("insert into Prenotazione (id_utente,id_spettacolo,id_prezzo,id_posto,dataora) values (?,?,?,?,?)");
+        PreparedStatement st = conn.prepareStatement("insert into Prenotazione (id_utente,id_spettacolo,id_prezzo,id_posto,data_ora_operazione) values (?,?,?,?,?)");
         st.setInt(1, prenotazione.getUtenteId());
         st.setInt(2, prenotazione.getSpettacoloId());
         st.setInt(3, prenotazione.getPrezzoId());
@@ -87,7 +87,7 @@ public class PrenotazioneDAO {
         ResultSet rs = st.executeQuery();
         
         while(rs.next()){
-            result.add(new Prenotazione(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(4), rs.getTimestamp(5)));
+            result.add(new Prenotazione(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6)));
         }
         return result;
     }
@@ -101,7 +101,7 @@ public class PrenotazioneDAO {
         ResultSet rs = st.executeQuery();
         
         while(rs.next()){
-            result.add(new Prenotazione(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(4), rs.getTimestamp(5)));
+            result.add(new Prenotazione(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6)));
         }
         return result;
     }
@@ -114,7 +114,7 @@ public class PrenotazioneDAO {
         ResultSet rs = st.executeQuery();
         
         while(rs.next()){
-            result.add(new Prenotazione(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(4), rs.getTimestamp(5)));
+            result.add(new Prenotazione(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6)));
         }
         return result;
     }
@@ -128,7 +128,7 @@ public class PrenotazioneDAO {
         ResultSet rs = st.executeQuery();
         
         while(rs.next()){
-            result.add(new Prenotazione(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(4), rs.getTimestamp(5)));
+            result.add(new Prenotazione(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6)));
         }
         return result;
     }
@@ -142,7 +142,7 @@ public class PrenotazioneDAO {
         ResultSet rs = st.executeQuery();
         
         while(rs.next()){
-            result.add(new Prenotazione(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(4), rs.getTimestamp(5)));
+            result.add(new Prenotazione(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6)));
         }
         return result;
     }
@@ -155,7 +155,7 @@ public class PrenotazioneDAO {
         ResultSet rs = st.executeQuery();
         
         while(rs.next()){
-            result.add(new Prenotazione(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(4), rs.getTimestamp(5)));
+            result.add(new Prenotazione(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6)));
         }
         return result;
     }
@@ -168,7 +168,14 @@ public class PrenotazioneDAO {
         ResultSet rs = st.executeQuery();
         
         while(rs.next()){
-            result.add(new Prenotazione(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(4), rs.getTimestamp(5)));
+            
+            Integer id_prenotazione = rs.getInt(1);
+            Integer id_utente= rs.getInt(2);
+            Integer id_spettacolo = rs.getInt(3);
+            Integer id_prezzo =  rs.getInt(4);
+            Integer id_posto = rs.getInt(5);
+            Timestamp data_ora_operazione = rs.getTimestamp(6);
+            result.add(new Prenotazione(id_prenotazione, id_utente, id_spettacolo, id_prezzo, id_posto, data_ora_operazione));
         }
         return result;
     }
@@ -182,7 +189,13 @@ public class PrenotazioneDAO {
         ResultSet rs = st.executeQuery();
         
         while(rs.next()){
-            result.add(new Prenotazione(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(4), rs.getTimestamp(5)));
+            Integer id_prenotazione = rs.getInt(1);
+            Integer id_utente= rs.getInt(2);
+            Integer id_spettacolo = rs.getInt(3);
+            Integer id_prezzo =  rs.getInt(4);
+            Integer id_posto = rs.getInt(5);
+            Timestamp data_ora_operazione = rs.getTimestamp(6);
+            result.add(new Prenotazione(id_prenotazione, id_utente, id_spettacolo, id_prezzo, id_posto, data_ora_operazione));
         }
         return result;
     }
