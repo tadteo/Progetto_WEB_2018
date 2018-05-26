@@ -74,35 +74,35 @@ public class MainServlet extends HttpServlet {
 
         String pageRequested = request.getParameter("pageRequested");
         if(pageRequested.equals("filmpage")){
-            String id_film;
-            FilmDAO fld = DAOFactory.getFilmDAO();
-            GenereDAO gnd = DAOFactory.getGenereDAO();
-            PrezzoDAO prd = DAOFactory.getPrezzoDAO();
-            SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
-            
-            try {
-                //Prende in input il numero del film richiesto e crea un bean con il film richiesto corrispondente
-                Integer idFilmRichiesto = Integer.parseInt(request.getParameter("film"));
-                
-                Film film = fld.getFilmById(idFilmRichiesto);
-                Genere genere = gnd.getGenereById(film.getGenereId());
-                
-                long millis = System.currentTimeMillis();
-                Timestamp now = new Timestamp(millis);
-                
-                List<Spettacolo> spettacoliDisponibili = spd.getByFIlmAfter(idFilmRichiesto, now);
-                
-                request.setAttribute("film", film);
-                request.setAttribute("genere", genere);
-                request.setAttribute("spettacoli", spettacoliDisponibili);
-                request.setAttribute("calltime", now);/**/
-
-                
-                request.getRequestDispatcher("JSP/filmpage.jsp").forward(request, response);
-            }catch(SQLException ex) {
-                    System.out.println("Errore, impossibile ottenere la lista dei film");
-                    ex.printStackTrace();
-            }
+//            String id_film;
+//            FilmDAO fld = DAOFactory.getFilmDAO();
+//            GenereDAO gnd = DAOFactory.getGenereDAO();
+//            PrezzoDAO prd = DAOFactory.getPrezzoDAO();
+//            SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
+//            
+//            try {
+//                //Prende in input il numero del film richiesto e crea un bean con il film richiesto corrispondente
+//                Integer idFilmRichiesto = Integer.parseInt(request.getParameter("film"));
+//                
+//                Film film = fld.getFilmById(idFilmRichiesto);
+//                Genere genere = gnd.getGenereById(film.getGenereId());
+//                
+//                long millis = System.currentTimeMillis();
+//                Timestamp now = new Timestamp(millis);
+//                
+//                List<Spettacolo> spettacoliDisponibili = spd.getByFIlmAfter(idFilmRichiesto, now);
+//                
+//                request.setAttribute("film", film);
+//                request.setAttribute("genere", genere);
+//                request.setAttribute("spettacoli", spettacoliDisponibili);
+//                request.setAttribute("calltime", now);/**/
+//
+//                
+//                request.getRequestDispatcher("JSP/filmpage.jsp").forward(request, response);
+//            }catch(SQLException ex) {
+//                    System.out.println("Errore, impossibile ottenere la lista dei film");
+//                    ex.printStackTrace();
+//            }
         }else if(pageRequested.equals("infopage")){
             PrezzoDAO prd = DAOFactory.getPrezzoDAO();
             try {

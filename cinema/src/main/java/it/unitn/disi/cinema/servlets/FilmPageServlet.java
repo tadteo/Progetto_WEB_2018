@@ -1,0 +1,86 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package it.unitn.disi.cinema.servlets;
+
+import it.unitn.disi.cinema.dataaccess.Beans.Film;
+import it.unitn.disi.cinema.dataaccess.Beans.Genere;
+import it.unitn.disi.cinema.dataaccess.Beans.Spettacolo;
+import it.unitn.disi.cinema.dataaccess.DAO.DAOFactory;
+import it.unitn.disi.cinema.dataaccess.DAO.FilmDAO;
+import it.unitn.disi.cinema.dataaccess.DAO.GenereDAO;
+import it.unitn.disi.cinema.dataaccess.DAO.SpettacoloDAO;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ *
+ * @author domenico
+ */
+@WebServlet(name = "FilmPageServlet", urlPatterns = {"/film/*"})
+public class FilmPageServlet extends HttpServlet {
+
+   
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        FilmDAO fld = DAOFactory.getFilmDAO();
+        GenereDAO gnd = DAOFactory.getGenereDAO();
+        SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
+               
+        response.setContentType("text/html;charset=UTF-8");
+        try{
+            
+            String idReq_str = request.getPathInfo().substring(1); //QUESTO PRENDE L'ULTIMO PARAMETRO DELL'URL
+            String[] parts_str = idReq_str.split("-");
+            if(parts_str.length < 1){
+                //Segnala errore
+            }else{
+                Integer idReq = Integer.parseInt(parts_str[0]); 
+
+                Film filmRequested = fld.getFilmById(idReq);
+
+                if(filmRequested != null){
+
+                    Genere genere = gnd.getGenereById(filmRequested.getGenereId());
+
+                    long millis = System.currentTimeMillis();
+                    Timestamp now = new Timestamp(millis);
+
+                    List<Spettacolo> spettacoliDisponibili = spd.getByFIlmAfter(filmRequested.getId(), now);
+
+                    request.setAttribute("film", filmRequested);
+                    request.setAttribute("genere", genere);
+                    request.setAttribute("spettacoli", spettacoliDisponibili);
+                    request.setAttribute("calltime", now);/**/
+
+                    request.getRequestDispatcher("/JSP/filmpage.jsp").forward(request, response);
+                }else{
+                    //SORRY PAGE NOT AVAILABLE
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FilmPageServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    }
+}

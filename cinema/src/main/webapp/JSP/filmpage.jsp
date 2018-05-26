@@ -12,11 +12,9 @@
 <%@page import="java.util.StringTokenizer" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%--Associo il film a quello passato via url
-<%! Film film; %>
-<% for( Film flm:films){
-	
-}%>--%>
+
+<%--<c:set var="context" value="${pageContext.request.contextPath}" />--%>
+
 <html>
     <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -35,7 +33,7 @@
 		<div class="jumbotron">
 			<div class="row  justify-content-center">
                 <div class="col-3">
-                    <img src="images${requestScope.film.getUrlLocandina()}" alt="" style="width:100%"/>
+                    <img src="${pageContext.request.contextPath}/images${requestScope.film.getUrlLocandina()}" alt="" style="width:100%"/>
                 </div>
 				<div class="col-5 justify-content-center">
 					<h2><b>${requestScope.film.getTitolo()}</b></h2>
