@@ -53,6 +53,52 @@
                   <div id="collapseIncassi" class="collapse" aria-labelledby="headingIncassi" data-parent="#accordionIncassi">
                     <div class="card-body">
                       <!--Gestione Incassi-->
+                      <table class="table  table-striped">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">Film</th>
+                            <th scope="col">Incasso giornaliero</th>
+                            <th scope="col">Incasso totale</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                      <c:forEach items="${requestScope.film}" var="film">
+                          <!-- tutti i film>-->
+                          <c:set var = "tot" value = "${0}"/>
+                          <c:set var = "totGiorno" value = "${0}"/>
+                          <tr>
+                          <td>${film.getTitolo()}</td>
+                         
+                          <c:forEach items="${requestScope.spettacolo}" var="spettacolo">  
+                            <!--Per ogni film, prendo solo gli spettacoli legati a quel film-->
+                              <c:choose>        
+                                <c:when test="${spettacolo.getFilmId() == film.getId()}">                                
+                                  <c:forEach items="${requestScope.prenotazione}" var="prenotazione">
+                                    <!--Per ogni spettacolo, prendo solo le prenotazioni relative a quello spettacolo-->
+                                    <c:choose>
+                                        <c:when test="${prenotazione.getSpettacoloId() == spettacolo.getId()}">
+                                          <c:set var="costo" value="prezzo${prenotazione.getPrezzoId()}" />
+                                          <c:set var = "tot" value = "${tot+requestScope[costo]}"/>
+                                          
+                                          <c:choose>
+                                              <c:when test="${prenotazione.getDataOraOperazione().getDay() == calltime.getDay()}">
+                                                  <c:set var="costo" value="prezzo${prenotazione.getPrezzoId()}" />
+                                                  <c:set var="totGiorno" value = "${totGiorno+requestScope[costo]}"/>
+                                              </c:when>
+                                          </c:choose>                         
+                                        </c:when>
+                                    </c:choose>
+                                  </c:forEach>     
+                                </c:when>                      
+                              </c:choose>                             
+                          </c:forEach>                                                         
+    
+                        <td>${totGiorno}</td>
+                        <td>${tot}</td>
+                        </tr>
+                      </c:forEach>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>

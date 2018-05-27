@@ -32,9 +32,10 @@
 		<br />
 		<div class="container">
 			<div class='jumbotron'>
-				<p>Caro utente ${requestScope.utente}</p>
-				<p> I suoi posti ${requestScope.posti} sono stati prenotati</p>
-				<p>L'acquisto dei biglietti pagato ${requestScope.totalePagato} é andato a buon fine controlli sulla propria mail per i biglietti</p>
+        <p><i>Gentile utente <b>${requestScope.utente}</b></i></p>
+				<p>I suoi posti ${requestScope.posti} sono stati prenotati</p>
+				<p>L'acquisto dei biglietti <!--pagato ${requestScope.totalePagato}--> é andato a buon fine.</p>
+        <p>I suoi biglietti sono stati inviati al suo indirizzo email, la preghiamo di stamparli e portarli con se alla proiezione.</p>
 			</div>
 		</div>    
 		<jsp:include page='components/footer.jsp'/>
