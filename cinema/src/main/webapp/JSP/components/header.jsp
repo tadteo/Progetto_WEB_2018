@@ -18,9 +18,9 @@
     <c:when test="${pageCurrent=='infopage'}">
         <c:set var="activeInfopage" value="active"></c:set>
     </c:when>
-    <c:when test="${pageCurrent=='prezzipage'}">
-        <c:set var="activePrezzipage" value="active"></c:set>
-    </c:when>
+    <%--<c:when test="${pageCurrent=='prezzipage'}">--%>
+        <%--<c:set var="activePrezzipage" value="active"></c:set>--%>
+    <%--</c:when>--%>
 	<c:when test="${pageCurrent=='reservationpage'}">
         <c:set var="activeReservationpage" value="active"></c:set>
     </c:when>
@@ -51,14 +51,18 @@
             </li>
             
             <li class="nav-item">
-                <form action="/cinema/info" method="POST" class="form-inline" style="padding: .5rem">
+<!--                <form action="/cinema/info" method="POST" class="form-inline" style="padding: .5rem">
                     <button class="astext nav-link ${activeInfopage}" type="submit" name="pageRequested" value="infopage">Info</button>
-                </form>
+                </form>-->
+              <div class="form-inline" style="padding: .5rem">
+                <a class="astext nav-link ${activeInfopage}" href="/cinema/info">Info</a>
+              </div>
+                
             </li>
             
-            <li class="nav-item ${activePrezziPage}">
+<!--            <li class="nav-item ${activePrezziPage}">
                 <a class="nav-link" href="#">Prezzi</a>
-            </li>
+            </li>-->
         </ul>
             
             

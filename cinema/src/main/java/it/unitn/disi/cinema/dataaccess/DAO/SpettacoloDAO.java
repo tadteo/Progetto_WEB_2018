@@ -48,6 +48,8 @@ public class SpettacoloDAO {
     }
     
     public Spettacolo getSpettacoloById(Integer id) throws SQLException{
+        if(id == null || id == 0)
+            throw new SQLException("getSpettacoloById was called with a null or 0 argument");
         Spettacolo result;
         PreparedStatement st = conn.prepareStatement("select * from Spettacolo where Spettacolo.id_spettacolo = ?");
         st.setInt(1, id);

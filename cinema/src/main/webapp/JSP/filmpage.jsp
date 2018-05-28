@@ -12,11 +12,9 @@
 <%@page import="java.util.StringTokenizer" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%--Associo il film a quello passato via url
-<%! Film film; %>
-<% for( Film flm:films){
-	
-}%>--%>
+
+<%--<c:set var="context" value="${pageContext.request.contextPath}" />--%>
+
 <html>
     <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -35,7 +33,7 @@
 		<div class="jumbotron">
 			<div class="row  justify-content-center">
                 <div class="col-3">
-                    <img src="images${requestScope.film.getUrlLocandina()}" alt="" style="width:100%"/>
+                    <img src="${pageContext.request.contextPath}/images${requestScope.film.getUrlLocandina()}" alt="" style="width:100%"/>
                 </div>
 				<div class="col-5 justify-content-center">
 					<h2><b>${requestScope.film.getTitolo()}</b></h2>
@@ -60,10 +58,22 @@
                         <c:forEach items="${requestScope.spettacoli}" var="spettacolo">
                             <c:choose>
                                 <c:when test="${spettacolo.getDataOra().getDay() == calltime.getDay()}">
-                                    <form class="form-signin my-1" action="/cinema/" method="POST">
+<!--                                    <form class="form-signin my-1" action="/cinema/" method="POST">
                                         <input type="hidden" value="${spettacolo.getId()}" name="spettacolo_id"/>
                                         <button class="btn btn-lg btn-dark btn-block" value="reservationpage" name="pageRequested" type="submit"><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm" /></button>
-                                    </form>  
+                                    </form>  -->
+                                    <div class="form-signin my-1">
+                                  
+                                    <c:set var="title" value="${film.getTitolo()}"/>
+                                    <c:set var="title" value="${fn:replace(title,' ', '')}"/>
+                                    <c:set var="title" value="${fn:toLowerCase(title)}"/>
+
+                                      <a href="../prenotaspettacolo/${spettacolo.getId()}-${title}" class="btn btn-lg btn-dark btn-block" >
+                                        <fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm" />
+                                      </a>
+                                    </div>
+
+
                                 </c:when>
                             </c:choose>
                         </c:forEach>      

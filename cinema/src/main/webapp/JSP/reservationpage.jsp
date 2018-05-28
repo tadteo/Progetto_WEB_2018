@@ -57,7 +57,8 @@
 					  <c:choose>
 						  <c:when test="${sessionScope.email != null}">
                 <c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
-                <form class="form-signin" action="/cinema/" method="POST" onsubmit="setValue(this.posti)">
+<!--                <form class="form-signin" action="/cinema/" method="POST" onsubmit="setValue(this.posti)">-->
+                <form class="form-signin" action="/cinema/acquistabiglietti" method="POST" onsubmit="setValue(this.posti)">
                   <input type="hidden" name="pageRequested" value="buypage">
                   <input type="hidden" name="sala" value="${requestScope.sala.getId()}">	
                   <input type="hidden" name="posti" value="">			
