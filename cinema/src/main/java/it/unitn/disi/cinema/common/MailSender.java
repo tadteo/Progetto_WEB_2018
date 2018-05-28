@@ -5,6 +5,7 @@
  */
 package it.unitn.disi.cinema.common;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.mail.EmailException;
@@ -40,11 +41,31 @@ public class MailSender {
         email.setHtmlMsg("<h3>Recupero Password - Cinema Universe<br></h3>"
                 + "Utente: " + recipient + "<br>"
                 + "La tua password è: '" + userPassword + "'<br>");
+        
         email.send();
     }
     
-    public static void sendTickets(String recipient) throws IOException, EmailException {
+    public static void sendTickets(String recipient,File file) throws IOException, EmailException {
+        final String cinemaUsername = "cinema.universe.42@gmail.com";
+        final String cinemaPassword = "Univers3";
         
+        final String recipientEmailAddress = recipient;//"dodostefani@gmail.com";
+
+        HtmlEmail email = new HtmlEmail();
+        email.setHostName(HOST_NAME);
+        email.setSmtpPort(PORT);
+        email.setSSLOnConnect(true);
+
+        email.setAuthentication(cinemaUsername, cinemaPassword);
+
+        email.setSubject("Biglietti - Cinema Universe");
+        email.setFrom(cinemaUsername, "Cinema Universe", String.valueOf(StandardCharsets.UTF_8));
+        email.addTo(recipientEmailAddress);
+        email.setHtmlMsg("<h3>Biglietti - Cinema Universe<br></h3>"
+                + "Utente: " + recipient + "<br>"
+                + "La prenotazione é avvenuta con successo in allegato puo' trovare i QRCode relativi ai biglietti"  + "'<br>");
+        email.attach(file);
+        email.send();
     }
 
 }
