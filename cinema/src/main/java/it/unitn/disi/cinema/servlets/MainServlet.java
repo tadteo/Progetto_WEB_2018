@@ -430,6 +430,7 @@ public class MainServlet extends HttpServlet {
             request.getRequestDispatcher("JSP/confermationpage.jsp").forward(request, response);
                 
         } else if (pageRequested.equals("adminpage")) {
+            
             SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
             SalaDAO sld = DAOFactory.getSalaDAO();
             PostoDAO psd = DAOFactory.getPostoDAO();
@@ -437,24 +438,30 @@ public class MainServlet extends HttpServlet {
             PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
             PrezzoDAO prz = DAOFactory.getPrezzoDAO();
 
-            try {
-                List<Film> film = fld.getAll();
-                List<Spettacolo> spettacolo = spd.getAll();
-                List<Prenotazione> prenotazione = prd.getAll();
+            try {               
                 List<Prezzo> prezzo = prz.getAll();
                 
                 long millis = System.currentTimeMillis();
                 Timestamp now = new Timestamp(millis);
                 
-                request.setAttribute("film", film);
-                request.setAttribute("spettacolo", spettacolo);
-                request.setAttribute("prenotazione", prenotazione);
-                request.setAttribute("calltime", now);
-                
-                for (Prezzo prez : prezzo) {
-                    request.setAttribute("prezzo"+prez.getId(), prez.getPrezzo());
+                for (Film filmc: fld.getAll()) {
+                    double tot = 0.0;
+                    double totGiorno = 0.0;
+                    
+                    for (Spettacolo spettc: spd.getByFilm(filmc.getId())) {
+                        for (Prenotazione prenc: prd.getBySpettacolo(spettc.getId())) {
+                            tot += prz.getPrezzoById(prenc.getPrezzoId()).getPrezzo();
+                            if (prenc.getDataOraOperazione().getDay() == now.getDay()) {
+                                totGiorno += prz.getPrezzoById(prenc.getPrezzoId()).getPrezzo();
+                            }
+                        }
                     }
+                    
+                    request.setAttribute("tot" + filmc.getTitolo(), tot);
+                    request.setAttribute("totGiorno" + filmc.getTitolo(), totGiorno);
+                }                
                 
+                request.setAttribute("film", fld.getAll());
                 request.setAttribute("pageCurrent","adminpage");
                 request.getRequestDispatcher("JSP/adminpage.jsp").forward(request, response);
             } catch (SQLException ex) {
