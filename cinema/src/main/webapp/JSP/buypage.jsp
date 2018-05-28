@@ -128,7 +128,7 @@
         
         <div class="totale">
           <p>Il totale e': <b id="prezzoTotale"></b></p> 
-          <form class="form-signin" action="/cinema/" method="POST" onsubmit="setTotalePagato(this.totalePagato,this.prezzi)">
+          <form class="form-signin" action="${pageContext.request.contextPath}/acquistabiglietti/conferma" method="POST" onsubmit="setTotalePagato(this.totalePagato,this.prezzi)">
             <input type="hidden" name="pageRequested" value="confirmationpage">
             <input type="hidden" name="utente" value="${sessionScope.email}">				
             <input type="hidden" name="posti" value="${listaPosti}">			

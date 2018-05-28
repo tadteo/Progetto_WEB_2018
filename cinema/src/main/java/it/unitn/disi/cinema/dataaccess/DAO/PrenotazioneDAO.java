@@ -43,6 +43,23 @@ public class PrenotazioneDAO {
     Database db = Database.getInstance();   //Questa è l'istanza del database che serve per ottenere la connessione
     Connection conn = db.getConnection();
     
+    public Boolean isItAlreadyStored(Integer idUtente, Integer idSpettacolo, Integer idPosto) throws SQLException{
+        Boolean result = false;
+        PreparedStatement st = conn.prepareStatement("select * from Prenotazione where id_utente = ? AND id_spettacolo = ? AND id_posto = ?;");
+        st.setInt(1, idUtente);
+        st.setInt(2, idSpettacolo);
+        st.setInt(3, idPosto);
+        
+        ResultSet rs = st.executeQuery();
+        
+        if(rs.next()){
+            result = true;
+        }
+        
+        return result;
+    }
+    
+    
     public void addPrenotazione(Prenotazione prenotazione) throws SQLException{
         PreparedStatement st = conn.prepareStatement("insert into Prenotazione (id_utente,id_spettacolo,id_prezzo,id_posto,data_ora_operazione) values (?,?,?,?,?)");
         st.setInt(1, prenotazione.getUtenteId());
@@ -92,7 +109,6 @@ public class PrenotazioneDAO {
         return result;
     }
     
-    
     public List<Prenotazione> getAfter(Timestamp time)throws SQLException{
         List<Prenotazione> result = new ArrayList<>();
         
@@ -119,7 +135,7 @@ public class PrenotazioneDAO {
         return result;
     }
 
-    List<Prenotazione> getByUtenteAfter(Integer idUtente, Timestamp time) throws SQLException{
+    public List<Prenotazione> getByUtenteAfter(Integer idUtente, Timestamp time) throws SQLException{
         List<Prenotazione> result = new ArrayList<>();
         
         PreparedStatement st = conn.prepareStatement("SELECT * FROM Prenotazione WHERE Prenotazione.id_utente = ? AND Prenotazione.data_ora_operazione > ?");
@@ -132,7 +148,6 @@ public class PrenotazioneDAO {
         }
         return result;
     }
-
     
     public List<Prenotazione> getByFilm(Integer idFilm) throws SQLException{
         List<Prenotazione> result = new ArrayList<>();
@@ -146,6 +161,7 @@ public class PrenotazioneDAO {
         }
         return result;
     }
+    
     public List<Prenotazione> getByFIlmAfter(Integer idFilm, Timestamp time) throws SQLException{
         List<Prenotazione> result = new ArrayList<>();
         
@@ -199,7 +215,6 @@ public class PrenotazioneDAO {
         }
         return result;
     }
-
     
     public void deletePrenotazione(Integer id) throws SQLException{
         if(id == null)

@@ -13,12 +13,9 @@ import it.unitn.disi.cinema.dataaccess.DAO.FilmDAO;
 import it.unitn.disi.cinema.dataaccess.DAO.GenereDAO;
 import it.unitn.disi.cinema.dataaccess.DAO.SpettacoloDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,12 +41,29 @@ public class FilmPageServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try{
             
-            String idReq_str = request.getPathInfo().substring(1); //QUESTO PRENDE L'ULTIMO PARAMETRO DELL'URL
+            String idReq_str = request.getPathInfo(); //QUESTO PRENDE L'ULTIMO PARAMETRO DELL'URL
+            if(idReq_str == null){
+                request.setAttribute("errorcode", "404");
+                request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
+            }
+            idReq_str = idReq_str.substring(1);
+            if(idReq_str.equals("") || idReq_str.equals("film")){
+                request.setAttribute("errorcode", "404");
+                request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
+            }
+            
             String[] parts_str = idReq_str.split("-");
             if(parts_str.length < 1){
-                //Segnala errore
+                request.setAttribute("errorcode", "404");
+                request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
             }else{
-                Integer idReq = Integer.parseInt(parts_str[0]); 
+                Integer idReq = null;
+                try{
+                    idReq = Integer.parseInt(parts_str[0]);
+                }catch(NumberFormatException nfe){
+                    request.setAttribute("errorcode", "400");
+                    request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
+                }
 
                 Film filmRequested = fld.getFilmById(idReq);
 
@@ -73,7 +87,8 @@ public class FilmPageServlet extends HttpServlet {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FilmPageServlet.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("errorcode", "410");
+            request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
         }
         
         
