@@ -28,17 +28,17 @@
     </head>
 	
     <body class="collage">
-		<jsp:include page='components/header.jsp'/>
-		<br />
-		<div class="container">
-			<div class='jumbotron'>
-        <p><i>Gentile utente <b>${requestScope.utente}</b></i></p>
-				<p>I suoi posti ${requestScope.posti} sono stati prenotati</p>
-				<p>L'acquisto dei biglietti <!--pagato ${requestScope.totalePagato}--> é andato a buon fine.</p>
-        <p>I suoi biglietti sono stati inviati al suo indirizzo email, la preghiamo di stamparli e portarli con se alla proiezione.</p>
-			</div>
-		</div>    
-		<jsp:include page='components/footer.jsp'/>
+	<jsp:include page='components/header.jsp'/>
+	<br />
+	<div class="container">
+            <div class='jumbotron'>
+                <p><i>Gentile utente <b>${requestScope.utente}</b></i></p>
+                <p>I suoi posti ${requestScope.posti} sono stati prenotati</p>
+		<p>L'acquisto dei biglietti <!--pagato ${requestScope.totalePagato}--> é andato a buon fine.</p>
+                <p>I suoi biglietti sono stati inviati al suo indirizzo email, la preghiamo di stamparli e portarli con se alla proiezione.</p>
+            </div>
+	</div>    
+	<jsp:include page='components/footer.jsp'/>
 
     </body>
 </html>

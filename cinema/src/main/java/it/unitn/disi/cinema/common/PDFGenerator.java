@@ -7,6 +7,7 @@ package it.unitn.disi.cinema.common;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -20,33 +21,43 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
  * @author matteo
  */
 public class PDFGenerator {
-    public static void generaPDF(String utente, File[] qrCode, File path) throws IOException{
+    public static void generaPDF(String utente, ArrayList<String> qrCode, File path) throws IOException{
         //CREAZIONE DEL PDF
         try (PDDocument doc = new PDDocument()) {
-            PDPage page = new PDPage();
-            doc.addPage(page);
+            ArrayList<PDPage> page = new ArrayList<>();
+            page.add( new PDPage());
+            int counter = 0;
+            doc.addPage(page.get(counter));
             
-            PDPageContentStream contentStream = new PDPageContentStream(doc, page);
+            ArrayList<PDPageContentStream> contentStream = new ArrayList<>();
+            contentStream.add(new PDPageContentStream(doc, page.get(counter)));
             
-            contentStream.beginText();
+            contentStream.get(counter).beginText();
             
-            contentStream.newLineAtOffset(25, 700);
+            contentStream.get(counter).newLineAtOffset(30, 700);
             PDFont font = HELVETICA_BOLD;
-            contentStream.setFont(font, 24);
-            contentStream.showText("Biglietti Cinema World");
+            contentStream.get(counter).setFont(font, 24);
+            contentStream.get(counter).showText("Biglietti Cinema World");
+            contentStream.get(counter).endText();
             
-            contentStream.newLineAtOffset(25, 680);
+            contentStream.get(counter).beginText();
+            contentStream.get(counter).newLineAtOffset(30, 650);
             font = HELVETICA;
-            contentStream.setFont(font, 24);
-            contentStream.showText("Sotto puo' trovare tutti i codici QR corrispondenti ai biglietti da lei comprati: ");
-            contentStream.endText();
+            contentStream.get(counter).setFont(font, 16);
+            contentStream.get(counter).showText("Sotto puo' trovare tutti i codici QR corrispondenti ai biglietti da lei comprati: ");
+            contentStream.get(counter).endText();
+            contentStream.get(counter).close();
 
-            for(File qr:qrCode){
-                PDImageXObject pdImage = PDImageXObject.createFromFileByContent(qr, doc);
-                contentStream.drawImage(pdImage, 250, 250);
+            for(String qr:qrCode){
+                counter++;
+                page.add(new PDPage());
+                doc.addPage(page.get(counter));
+                contentStream.add(new PDPageContentStream(doc, page.get(counter)));
+                PDImageXObject pdImage = PDImageXObject.createFromFile(qr, doc);
+                contentStream.get(counter).drawImage(pdImage, 250, 250);
+                contentStream.get(counter).close();        
             }
             
-            contentStream.close();
         
             doc.save(path); 
             doc.close();

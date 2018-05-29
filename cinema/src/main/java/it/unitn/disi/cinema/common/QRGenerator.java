@@ -24,16 +24,11 @@ public class QRGenerator {
     public static void generaQR(String path, String utente, String prezzo, String tipoBiglietto, String posto, Spettacolo spettacolo) throws IOException{
         String qrInformation = "";
         qrInformation += "Comprato da "+utente+"\nPosto: "+posto+"\nTipo: "+tipoBiglietto+"\nCosto: "+prezzo+"\nSpettacolo: "+spettacolo.getId()+"\nData-Ora: "+spettacolo.getDataOra();
-        ByteArrayOutputStream imageStream = QRCode.from(qrInformation).to(ImageType.PNG).stream();            
-        OutputStream outStream = null;  
-        try {  
-            outStream = new FileOutputStream(path);  
-            imageStream = new ByteArrayOutputStream();  
-            // writing bytes in to byte output stream  
-            imageStream.writeTo(outStream);  
-        } catch (IOException e) {  
-        } finally {  
-            outStream.close();  
-        }  
+        ByteArrayOutputStream imageStream = QRCode.from(qrInformation).to(ImageType.PNG).stream();             
+          
+            FileOutputStream outStream = new FileOutputStream(path);
+            outStream.write(imageStream.toByteArray());
+            outStream.flush(); 
+            outStream.close();
     }
 }

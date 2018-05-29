@@ -5,6 +5,8 @@
  */
 package it.unitn.disi.cinema.servlets;
 
+import it.unitn.disi.cinema.common.MailSender;
+import it.unitn.disi.cinema.common.PDFGenerator;
 import it.unitn.disi.cinema.common.QRGenerator;
 import it.unitn.disi.cinema.dataaccess.Beans.Posto;
 import it.unitn.disi.cinema.dataaccess.Beans.Prenotazione;
@@ -30,6 +32,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.mail.EmailException;
 
 /**
  *
@@ -143,15 +146,17 @@ public class ConfirmationPageServlet extends HttpServlet {
             }
             long millis = System.currentTimeMillis();   //retrieving current time
             Timestamp now = new Timestamp(millis);
-                
+            ArrayList<String> path = new ArrayList<String>(posto_prezzo.size());
+            
             try{
                 int i=0;
                 for(Posto posto : posti){
                     if(prd.isItAlreadyStored(currentUser.getId(), spettacoloid, posto.getId()) == false){
                         prd.addPrenotazione(new Prenotazione(null,currentUser.getId(),spettacoloid,posto_prezzo.get(posto.getId()),posto.getId(),now));
                         Prezzo prezzo = pzd.getPrezzoById(posto_prezzo.get(posto.getId()));
-                        String path = getServletContext().getRealPath("/")+"qr"+(i++)+".png"; //PATH da inizializzare con la directory dove vengono salvati i QR CODE
-                        QRGenerator.generaQR(path, currentUser.getEmail(), Integer.toString(posto_prezzo.get(posto.getId())), prezzo.getTipo() , ""+posto.getRiga()+posto.getPoltrona() , spettacolo);
+                        path.add(i, ""+getServletContext().getRealPath("/")+"/qr"+(i)+".png"); //PATH da inizializzare con la directory dove vengono salvati i QR CODE
+                        QRGenerator.generaQR(path.get(i), currentUser.getEmail(), Float.toString(prezzo.getPrezzo()), prezzo.getTipo() , ""+posto.getRiga()+posto.getPoltrona() , spettacolo);
+                        i++;
                     }else
                         System.out.println("ENENENENENENENEN_E_E_E_E_E_E_E_E_E_E_E__E_E");
                 }
@@ -161,8 +166,15 @@ public class ConfirmationPageServlet extends HttpServlet {
             }
             
             //</editor-fold>
-
-            
+            File p = new File( getServletContext().getRealPath("/")+"/biglietti.pdf");
+            PDFGenerator.generaPDF(request.getParameter("utente"), path,p);
+            try {
+                MailSender.sendTickets(currentUser.getEmail(), p.getCanonicalPath());
+            } catch (EmailException ex) {
+                System.err.println("Errore, impossibile inviare mail");
+                ex.printStackTrace(); 
+                Logger.getLogger(ConfirmationPageServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
             request.setAttribute("utente" ,request.getParameter("utente"));
 //            request.setAttribute("posti" ,request.getParameter("posti"));
 
@@ -174,7 +186,6 @@ public class ConfirmationPageServlet extends HttpServlet {
                 
                 postiString += "(Riga:<b><i><u>" + posti.get(i).getRiga() + "</u></i></b> / Poltrona:<b><i><u>" + posti.get(i).getPoltrona() + "</u></i></b>)";
             }
-
             request.setAttribute("posti" ,postiString);
             request.setAttribute("totalePagato" ,request.getParameter("totalePagato"));
 
