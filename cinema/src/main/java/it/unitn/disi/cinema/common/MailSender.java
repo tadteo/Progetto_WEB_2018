@@ -57,7 +57,7 @@ public class MailSender {
         biglietti.setPath(file);
         biglietti.setDisposition(EmailAttachment.ATTACHMENT);
         biglietti.setDescription("Tickets");
-        biglietti.setName("Biglietti");
+        biglietti.setName("Biglietti.pdf");
         
         MultiPartEmail email = new MultiPartEmail();
         email.setHostName(HOST_NAME);

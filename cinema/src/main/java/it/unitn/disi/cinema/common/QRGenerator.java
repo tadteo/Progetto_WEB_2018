@@ -23,7 +23,7 @@ public class QRGenerator {
         
         String qrInformation = "";
         qrInformation += "Comprato da "+utente+"\nPosto: "+posto+"\nTipo: "+tipoBiglietto+"\nCosto: "+prezzo+"\nSpettacolo: "+spettacolo.getId()+"\nData-Ora: "+spettacolo.getDataOra();
-        ByteArrayOutputStream imageStream = QRCode.from(qrInformation).to(ImageType.PNG).stream();             
+        ByteArrayOutputStream imageStream = QRCode.from(qrInformation).to(ImageType.PNG).withSize(250, 250).stream();             
           
             FileOutputStream outStream = new FileOutputStream(path);
             outStream.write(imageStream.toByteArray());

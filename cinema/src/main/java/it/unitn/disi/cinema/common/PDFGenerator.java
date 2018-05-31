@@ -53,8 +53,15 @@ public class PDFGenerator {
                 page.add(new PDPage());
                 doc.addPage(page.get(counter));
                 contentStream.add(new PDPageContentStream(doc, page.get(counter)));
+                contentStream.get(counter).beginText();
+            
+                contentStream.get(counter).newLineAtOffset(30, 700);
+                font = HELVETICA;
+                contentStream.get(counter).setFont(font, 20);
+                contentStream.get(counter).showText("Biglietto numero "+ counter);
+                contentStream.get(counter).endText();
                 PDImageXObject pdImage = PDImageXObject.createFromFile(qr, doc);
-                contentStream.get(counter).drawImage(pdImage, 250, 250);
+                contentStream.get(counter).drawImage(pdImage, 150, 200);
                 contentStream.get(counter).close();        
             }
             

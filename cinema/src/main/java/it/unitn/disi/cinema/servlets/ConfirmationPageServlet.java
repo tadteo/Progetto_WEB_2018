@@ -175,7 +175,7 @@ public class ConfirmationPageServlet extends HttpServlet {
             //</editor-fold>
             
             File p = new File( getServletContext().getRealPath("/")+"/biglietti.pdf");
-            PDFGenerator.generaPDF(request.getParameter("utente"), path,p);
+            PDFGenerator.generaPDF(request.getParameter("utente"), path , p);
             try {
                 MailSender.sendTickets(currentUser.getEmail(), p.getCanonicalPath());
             } catch (EmailException ex) {
