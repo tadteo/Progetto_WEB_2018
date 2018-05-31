@@ -21,7 +21,6 @@ import it.unitn.disi.cinema.dataaccess.DAO.SpettacoloDAO;
 import it.unitn.disi.cinema.dataaccess.DAO.UtenteDAO;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -144,8 +143,12 @@ public class ConfirmationPageServlet extends HttpServlet {
                 System.err.println("Errore, impossibile ottenere info sullo spettacolo");
                 ex.printStackTrace();            
             }
-            long millis = System.currentTimeMillis();   //retrieving current time
+            
+            //retrieving current time
+            long millis = System.currentTimeMillis();
             Timestamp now = new Timestamp(millis);
+            
+            //creating structure for multiple path 
             ArrayList<String> path = new ArrayList<String>(posto_prezzo.size());
             
             try{
@@ -153,12 +156,16 @@ public class ConfirmationPageServlet extends HttpServlet {
                 for(Posto posto : posti){
                     if(prd.isItAlreadyStored(currentUser.getId(), spettacoloid, posto.getId()) == false){
                         prd.addPrenotazione(new Prenotazione(null,currentUser.getId(),spettacoloid,posto_prezzo.get(posto.getId()),posto.getId(),now));
+                        
                         Prezzo prezzo = pzd.getPrezzoById(posto_prezzo.get(posto.getId()));
+                        
                         path.add(i, ""+getServletContext().getRealPath("/")+"/qr"+(i)+".png"); //PATH da inizializzare con la directory dove vengono salvati i QR CODE
+                        System.out.println("DEBUG## Path is \"" + path.get(i) + "\"");
+                        System.out.println("DEBUG## Calling generaQR");
                         QRGenerator.generaQR(path.get(i), currentUser.getEmail(), Float.toString(prezzo.getPrezzo()), prezzo.getTipo() , ""+posto.getRiga()+posto.getPoltrona() , spettacolo);
                         i++;
                     }else
-                        System.out.println("ENENENENENENENEN_E_E_E_E_E_E_E_E_E_E_E__E_E");
+                        System.err.println("Prenotazione già inserita!");
                 }
             }catch(SQLException ex){
                 System.err.println("ERRORE! Impossibile creare prenotazione");
@@ -166,14 +173,14 @@ public class ConfirmationPageServlet extends HttpServlet {
             }
             
             //</editor-fold>
+            
             File p = new File( getServletContext().getRealPath("/")+"/biglietti.pdf");
             PDFGenerator.generaPDF(request.getParameter("utente"), path,p);
             try {
                 MailSender.sendTickets(currentUser.getEmail(), p.getCanonicalPath());
             } catch (EmailException ex) {
-                System.err.println("Errore, impossibile inviare mail");
+                System.err.println("ERRORE! Impossibile inviare mail");
                 ex.printStackTrace(); 
-                Logger.getLogger(ConfirmationPageServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
             request.setAttribute("utente" ,request.getParameter("utente"));
 //            request.setAttribute("posti" ,request.getParameter("posti"));

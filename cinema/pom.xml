@@ -25,7 +25,7 @@
             <groupId>net.glxn</groupId>
             <artifactId>qrgen</artifactId>
             <version>1.4</version>
-            <type>jar</type>
+            <!--<type>jar</type>-->
         </dependency>
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
