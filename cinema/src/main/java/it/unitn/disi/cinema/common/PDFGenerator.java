@@ -21,7 +21,7 @@ import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
  * @author matteo
  */
 public class PDFGenerator {
-    public static void generaPDF(String utente, ArrayList<String> qrCode, File path) throws IOException{
+    public static void generaPDF(String utente, ArrayList<File> qrCode, File path) throws IOException{
         //CREAZIONE DEL PDF
         try (PDDocument doc = new PDDocument()) {
             ArrayList<PDPage> page = new ArrayList<>();
@@ -48,7 +48,7 @@ public class PDFGenerator {
             contentStream.get(counter).endText();
             contentStream.get(counter).close();
 
-            for(String qr:qrCode){
+            for(File qr:qrCode){
                 counter++;
                 page.add(new PDPage());
                 doc.addPage(page.get(counter));
@@ -60,7 +60,7 @@ public class PDFGenerator {
                 contentStream.get(counter).setFont(font, 20);
                 contentStream.get(counter).showText("Biglietto numero "+ counter);
                 contentStream.get(counter).endText();
-                PDImageXObject pdImage = PDImageXObject.createFromFile(qr, doc);
+                PDImageXObject pdImage = PDImageXObject.createFromFile(qr.toString(), doc);
                 contentStream.get(counter).drawImage(pdImage, 150, 200);
                 contentStream.get(counter).close();        
             }

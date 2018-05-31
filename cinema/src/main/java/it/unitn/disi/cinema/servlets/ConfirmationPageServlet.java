@@ -27,10 +27,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.mail.EmailException;
 
 /**
@@ -148,8 +150,9 @@ public class ConfirmationPageServlet extends HttpServlet {
             long millis = System.currentTimeMillis();
             Timestamp now = new Timestamp(millis);
             
+            File appTempDir = (File) getServletContext().getAttribute(ServletContext.TEMPDIR);
             //creating structure for multiple path 
-            ArrayList<String> path = new ArrayList<String>(posto_prezzo.size());
+            ArrayList<File> tmpPath = new ArrayList<File>(posto_prezzo.size());
             
             try{
                 int i=0;
@@ -158,11 +161,13 @@ public class ConfirmationPageServlet extends HttpServlet {
                         prd.addPrenotazione(new Prenotazione(null,currentUser.getId(),spettacoloid,posto_prezzo.get(posto.getId()),posto.getId(),now));
                         
                         Prezzo prezzo = pzd.getPrezzoById(posto_prezzo.get(posto.getId()));
-                        
-                        path.add(i, ""+getServletContext().getRealPath("/")+"/qr"+(i)+".png"); //PATH da inizializzare con la directory dove vengono salvati i QR CODE
-                        System.out.println("DEBUG## Path is \"" + path.get(i) + "\"");
+                        File tmpFile = File.createTempFile("qr"+(i)+"_"+RandomStringUtils.randomAlphanumeric(8),".png", appTempDir);
+                        tmpPath.add(i,tmpFile); //PATH da inizializzare con la directory dove vengono salvati i QR CODE
+                        System.out.println("DEBUG## Path is \"" + appTempDir.toString() + "\"");
+                        System.out.println("DEBUG## Path of file is \"" + tmpPath.get(i).toString() + "\"");
+
                         System.out.println("DEBUG## Calling generaQR");
-                        QRGenerator.generaQR(path.get(i), currentUser.getEmail(), Float.toString(prezzo.getPrezzo()), prezzo.getTipo() , ""+posto.getRiga()+posto.getPoltrona() , spettacolo);
+                        QRGenerator.generaQR(tmpPath.get(i).toString(), currentUser.getEmail(), Float.toString(prezzo.getPrezzo()), prezzo.getTipo() , ""+posto.getRiga()+posto.getPoltrona() , spettacolo);
                         i++;
                     }else
                         System.err.println("Prenotazione già inserita!");
@@ -174,10 +179,10 @@ public class ConfirmationPageServlet extends HttpServlet {
             
             //</editor-fold>
             
-            File p = new File( getServletContext().getRealPath("/")+"/biglietti.pdf");
-            PDFGenerator.generaPDF(request.getParameter("utente"), path , p);
+            File p = File.createTempFile("Biglietti"+RandomStringUtils.randomAlphanumeric(8), ".pdf", appTempDir);
+            PDFGenerator.generaPDF(request.getParameter("utente"), tmpPath , p);
             try {
-                MailSender.sendTickets(currentUser.getEmail(), p.getCanonicalPath());
+                MailSender.sendTickets(currentUser.getEmail(), p.toString());
             } catch (EmailException ex) {
                 System.err.println("ERRORE! Impossibile inviare mail");
                 ex.printStackTrace(); 
@@ -185,6 +190,17 @@ public class ConfirmationPageServlet extends HttpServlet {
             request.setAttribute("utente" ,request.getParameter("utente"));
 //            request.setAttribute("posti" ,request.getParameter("posti"));
 
+
+            //ELIMINAZIONE FILE TEMPORANEI 
+            for(File tmp:tmpPath){
+                tmp.deleteOnExit();
+                tmp.delete();
+            }
+            p.deleteOnExit(); 
+            p.delete();
+            
+            
+            
             String postiString = "";
             
             for(int i = 0; i < posti.size(); i++){
