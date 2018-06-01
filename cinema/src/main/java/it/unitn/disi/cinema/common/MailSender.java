@@ -58,22 +58,32 @@ public class MailSender {
         biglietti.setDisposition(EmailAttachment.ATTACHMENT);
         biglietti.setDescription("Tickets");
         biglietti.setName("Biglietti.pdf");
-        
+        System.out.println("DEBUG## La mail ha creato l'attachment");
         MultiPartEmail email = new MultiPartEmail();
         email.setHostName(HOST_NAME);
         email.setSmtpPort(PORT);
+        System.out.println("DEBUG## La mail ha settato l'hostname e la porta");
 
         email.addTo(recipientEmailAddress);
         email.setFrom(cinemaUsername, "Cinema Universe", String.valueOf(StandardCharsets.UTF_8));
-        email.setSubject("Biglietti - Cinema Universe");
+                System.out.println("DEBUG## La mail ha settato l'intestatario");
 
+        
+        email.setSubject("Biglietti - Cinema Universe");
         email.setMsg("Biglietti - Cinema Universe\n\n"
                     + "La prenotazione é avvenuta con successo in allegato puo' trovare i QRCode relativi ai biglietti");
         email.attach(biglietti);
+        System.out.println("DEBUG## La mail ha inserito l'attachment correttamente");
+
         email.setSSLOnConnect(true);
+        System.out.println("DEBUG## La mail si é connessa ad SSL");
 
         email.setAuthentication(cinemaUsername, cinemaPassword);
+        System.out.println("DEBUG## La mail ha fatto l'autenticazione");
+                        
         email.send();
+        System.out.println("DEBUG## La mail si é inviata");
+
     }
 
 }
