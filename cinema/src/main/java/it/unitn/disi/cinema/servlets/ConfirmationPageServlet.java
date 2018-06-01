@@ -5,23 +5,35 @@
  */
 package it.unitn.disi.cinema.servlets;
 
+import it.unitn.disi.cinema.common.MailSender;
+import it.unitn.disi.cinema.common.PDFGenerator;
+import it.unitn.disi.cinema.common.QRGenerator;
 import it.unitn.disi.cinema.dataaccess.Beans.Posto;
 import it.unitn.disi.cinema.dataaccess.Beans.Prenotazione;
+import it.unitn.disi.cinema.dataaccess.Beans.Prezzo;
+import it.unitn.disi.cinema.dataaccess.Beans.Spettacolo;
 import it.unitn.disi.cinema.dataaccess.Beans.Utente;
 import it.unitn.disi.cinema.dataaccess.DAO.DAOFactory;
 import it.unitn.disi.cinema.dataaccess.DAO.PostoDAO;
 import it.unitn.disi.cinema.dataaccess.DAO.PrenotazioneDAO;
+import it.unitn.disi.cinema.dataaccess.DAO.PrezzoDAO;
+import it.unitn.disi.cinema.dataaccess.DAO.SpettacoloDAO;
 import it.unitn.disi.cinema.dataaccess.DAO.UtenteDAO;
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.mail.EmailException;
 
 /**
  *
@@ -45,7 +57,8 @@ public class ConfirmationPageServlet extends HttpServlet {
             UtenteDAO usd = DAOFactory.getUtenteDAO();
             PostoDAO psd = DAOFactory.getPostoDAO();
             PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();            
-
+            SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
+            PrezzoDAO pzd = DAOFactory.getPrezzoDAO();
             //<editor-fold defaultstate="collapsed" desc="Gestione stringa posti">
             
             String[] postiRaw = request.getParameter("posti").split(" ");
@@ -124,16 +137,40 @@ public class ConfirmationPageServlet extends HttpServlet {
             //<editor-fold defaultstate="collapsed" desc="Inserimento prenotazione">
             
             int spettacoloid = Integer.parseInt(request.getParameter("spettacolo"));
-            
-            long millis = System.currentTimeMillis();   //retrieving current time
-            Timestamp now = new Timestamp(millis);
+            Spettacolo spettacolo = null;
+            try {
+                spettacolo = spd.getSpettacoloById(spettacoloid);
                 
+            } catch (SQLException ex) {
+                System.err.println("Errore, impossibile ottenere info sullo spettacolo");
+                ex.printStackTrace();            
+            }
+            
+            //retrieving current time
+            long millis = System.currentTimeMillis();
+            Timestamp now = new Timestamp(millis);
+            
+            File appTempDir = (File) getServletContext().getAttribute(ServletContext.TEMPDIR);
+            //creating structure for multiple path 
+            ArrayList<File> tmpPath = new ArrayList<File>(posto_prezzo.size());
+            
             try{
+                int i=0;
                 for(Posto posto : posti){
-                    if(prd.isItAlreadyStored(currentUser.getId(), spettacoloid, posto.getId()) == false)
+                    if(prd.isItAlreadyStored(currentUser.getId(), spettacoloid, posto.getId()) == false){
                         prd.addPrenotazione(new Prenotazione(null,currentUser.getId(),spettacoloid,posto_prezzo.get(posto.getId()),posto.getId(),now));
-                    else
-                        System.out.println("ENENENENENENENEN_E_EE_E_E_EEE__E_E_E_E_E__E_E");
+                        
+                        Prezzo prezzo = pzd.getPrezzoById(posto_prezzo.get(posto.getId()));
+                        File tmpFile = File.createTempFile("qr"+(i)+"_"+RandomStringUtils.randomAlphanumeric(8),".png", appTempDir);
+                        tmpPath.add(i,tmpFile); //PATH da inizializzare con la directory dove vengono salvati i QR CODE
+                        System.out.println("DEBUG## Path is \"" + appTempDir.toString() + "\"");
+                        System.out.println("DEBUG## Path of file is \"" + tmpPath.get(i).toString() + "\"");
+
+                        System.out.println("DEBUG## Calling generaQR");
+                        QRGenerator.generaQR(tmpPath.get(i).toString(), currentUser.getEmail(), Float.toString(prezzo.getPrezzo()), prezzo.getTipo() , ""+posto.getRiga()+posto.getPoltrona() , spettacolo);
+                        i++;
+                    }else
+                        System.err.println("Prenotazione già inserita!");
                 }
             }catch(SQLException ex){
                 System.err.println("ERRORE! Impossibile creare prenotazione");
@@ -141,11 +178,29 @@ public class ConfirmationPageServlet extends HttpServlet {
             }
             
             //</editor-fold>
-
             
+            File p = File.createTempFile("Biglietti"+RandomStringUtils.randomAlphanumeric(8), ".pdf", appTempDir);
+            PDFGenerator.generaPDF(request.getParameter("utente"), tmpPath , p);
+            try {
+                MailSender.sendTickets(currentUser.getEmail(), p.toString());
+            } catch (EmailException ex) {
+                System.err.println("ERRORE! Impossibile inviare mail");
+                ex.printStackTrace(); 
+            }
             request.setAttribute("utente" ,request.getParameter("utente"));
 //            request.setAttribute("posti" ,request.getParameter("posti"));
 
+
+            //ELIMINAZIONE FILE TEMPORANEI 
+            for(File tmp:tmpPath){
+                tmp.deleteOnExit();
+                tmp.delete();
+            }
+            p.deleteOnExit(); 
+            p.delete();
+            
+            
+            
             String postiString = "";
             
             for(int i = 0; i < posti.size(); i++){
@@ -154,7 +209,6 @@ public class ConfirmationPageServlet extends HttpServlet {
                 
                 postiString += "(Riga:<b><i><u>" + posti.get(i).getRiga() + "</u></i></b> / Poltrona:<b><i><u>" + posti.get(i).getPoltrona() + "</u></i></b>)";
             }
-
             request.setAttribute("posti" ,postiString);
             request.setAttribute("totalePagato" ,request.getParameter("totalePagato"));
 
