@@ -63,8 +63,8 @@
                         </thead>
                         <tbody>
                           <c:forEach items="${requestScope.film}" var="film">
-                            <c:set var="tot" value="tot${film.getTitolo()}" />
-                            <c:set var="totGiorno" value="totGiorno${film.getTitolo()}" />
+                            <c:set var="tot" value="tot${film.getId()}" />
+                            <c:set var="totGiorno" value="totGiorno${film.getId()}" />
                             <tr>
                             <td>${film.getTitolo()}</td>
                             <td>${requestScope[totGiorno]}</td>
@@ -90,6 +90,33 @@
                   <div id="collapseClienti" class="collapse" aria-labelledby="headingClienti" data-parent="#accordionClienti">
                     <div class="card-body">
                     <!--Gestione Clienti-->
+                     <table class="table  table-striped">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">Posizione</th>
+                            <th scope="col">Utente</th>
+                            <th scope="col">Prenotazioni Effettuate</th>
+                            <th scope="col">Soldi spesi</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <c:set var="count" value="1" />
+                          <c:forEach items="${requestScope.utenti}" var="utente">
+                            
+                            <c:set var="tot" value="tot${utente.getId()}" />
+                            <c:set var="totPren" value="totPren${utente.getId()}" />
+                            <c:set var="count" value="${count + 1}" />
+                            <c:set var="emailParts" value="${fn:split(utente.getEmail(), '@')}" />
+
+                            <tr>
+                            <td>${requestScope[count]}</td>
+                            <td>${emailParts[0]}</td>
+                            <td>${requestScope[totPren]}</td>
+                            <td>${requestScope[tot]}</td>
+                            </tr>
+                          </c:forEach>
+                        </tbody>
+                      </table>-->
                     </div>
                   </div>
                 </div>

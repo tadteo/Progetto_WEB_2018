@@ -429,11 +429,18 @@ public class MainServlet extends HttpServlet {
             request.setAttribute("pageCurrent","confermationpage");
             request.getRequestDispatcher("JSP/confermationpage.jsp").forward(request, response);
                 
-        } else if (pageRequested.equals("adminpage")) {
+        } else if (pageRequested.equals("adminsituazione")) {
+
+            //try {               
+            //    request.setAttribute("pageCurrent","adminsituazione");
+            //    request.getRequestDispatcher("JSP/adminsituazione.jsp").forward(request, response);
+            //} catch (SQLException ex) {
+            //    System.out.println("Errore, inpossibile ottenere la pagina degli admin");
+            //    ex.printStackTrace();
+            //}      
+        } else if (pageRequested.equals("adminincassi")) {
             
             SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
-            SalaDAO sld = DAOFactory.getSalaDAO();
-            PostoDAO psd = DAOFactory.getPostoDAO();
             FilmDAO fld = DAOFactory.getFilmDAO();
             PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
             PrezzoDAO prz = DAOFactory.getPrezzoDAO();
@@ -444,6 +451,7 @@ public class MainServlet extends HttpServlet {
                 long millis = System.currentTimeMillis();
                 Timestamp now = new Timestamp(millis);
                 
+                // incassi
                 for (Film filmc: fld.getAll()) {
                     double tot = 0.0;
                     double totGiorno = 0.0;
@@ -457,17 +465,57 @@ public class MainServlet extends HttpServlet {
                         }
                     }
                     
-                    request.setAttribute("tot" + filmc.getTitolo(), tot);
-                    request.setAttribute("totGiorno" + filmc.getTitolo(), totGiorno);
-                }                
-                
+                    request.setAttribute("tot" + filmc.getId(), tot);
+                    request.setAttribute("totGiorno" + filmc.getId(), totGiorno);
+                }
+
                 request.setAttribute("film", fld.getAll());
-                request.setAttribute("pageCurrent","adminpage");
-                request.getRequestDispatcher("JSP/adminpage.jsp").forward(request, response);
+                request.setAttribute("pageCurrent","adminincassi");
+                request.getRequestDispatcher("JSP/adminincassi.jsp").forward(request, response);
             } catch (SQLException ex) {
                 System.out.println("Errore, inpossibile ottenere la pagina degli admin");
                 ex.printStackTrace();
             }      
+        } else if (pageRequested.equals("adminclientitop")) {
+
+            PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
+            PrezzoDAO prz = DAOFactory.getPrezzoDAO();
+            UtenteDAO utd = DAOFactory.getUtenteDAO();
+
+            try {    
+                List<Prezzo> prezzo = prz.getAll();
+
+                //utenti
+                for (Utente utentec: utd.getAll()) {
+                    double tot = 0.0;
+                    int totPren = 0;
+
+                    for (Prenotazione prenc: prd.getByUtente(utentec.getId())) {
+                        tot += prz.getPrezzoById(prenc.getPrezzoId()).getPrezzo();
+                        totPren += 1;
+                    }
+
+                    request.setAttribute("tot" + utentec.getId(), tot);
+                    request.setAttribute("totPren" + utentec.getId(), totPren);
+                }
+
+                request.setAttribute("utenti", utd.getAll());     
+                request.setAttribute("pageCurrent","adminclientitop");
+                request.getRequestDispatcher("JSP/adminclientitop.jsp").forward(request, response);
+            } catch (SQLException ex) {
+                System.out.println("Errore, inpossibile ottenere la pagina degli admin");
+                ex.printStackTrace();
+            }      
+        } else if (pageRequested.equals("adminprenotazioni")) {
+        
+            //try {               
+            //    request.setAttribute("pageCurrent","adminprenotazioni");
+            //    request.getRequestDispatcher("JSP/adminprenotazioni.jsp").forward(request, response);
+            //} catch (SQLException ex) {
+            //    System.out.println("Errore, inpossibile ottenere la pagina degli admin");
+            //    ex.printStackTrace();
+            //}      
         }
     }
 }
+

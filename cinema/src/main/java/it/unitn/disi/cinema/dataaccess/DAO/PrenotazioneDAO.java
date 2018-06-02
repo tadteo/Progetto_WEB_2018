@@ -34,7 +34,7 @@ import java.util.List;
  * 
  * //No update
  * 
- deletePrenotazione(Integer id);
+ * deletePrenotazione(Integer id);
  * 
  * 
  * @author domenico
@@ -119,7 +119,7 @@ public class PrenotazioneDAO {
         return result;
     }
 
-    List<Prenotazione> getByUtenteAfter(Integer idUtente, Timestamp time) throws SQLException{
+    public List<Prenotazione> getByUtenteAfter(Integer idUtente, Timestamp time) throws SQLException{
         List<Prenotazione> result = new ArrayList<>();
         
         PreparedStatement st = conn.prepareStatement("SELECT * FROM Prenotazione WHERE Prenotazione.id_utente = ? AND Prenotazione.data_ora_operazione > ?");
