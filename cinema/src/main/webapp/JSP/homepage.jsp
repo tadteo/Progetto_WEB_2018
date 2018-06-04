@@ -1,4 +1,4 @@
-<%-- 
+            <%-- 
     Document   : homepage
     Created on : 23-mar-2018, 16.58.41
     Author     : Domenico Stefani - Matteo Tadiello
@@ -17,9 +17,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
+
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
-		
+
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -29,41 +29,41 @@
     <body class="collage">
         <jsp:include page='components/header.jsp'/>
         <div class="row justify-content-center">
-          <div class="col-md-10">             
-			<br/>
-			<div id="movies">
-				<div class="text-center onefilm">
-          <h2><b>Questa settimana al cinema :</b></h2>
-				</div>
-			  <%--Qui vanno messi i cinema disponibili--%>
-				<c:forEach  items="${requestScope.filmspp}" var="filmpp">
-          <c:set var="title" value="${filmpp.getFilm().getTitolo()}"/>
-          <c:set var="title" value="${fn:replace(title,' ', '')}"/>
-          <c:set var="title" value="${fn:toLowerCase(title)}"/>
-          
-            <div class="onefilm"> 
-                <div class="row justify-content-center films">
-                  <div class="col-sm-12 col-md-4">
-                    <a href="film/${filmpp.getFilm().getId()}-${title}">
+            <div class="col-md-10">             
+                <br/>
+                <div id="movies">
+                    <div class="text-center onefilm">
+                        <h2><b>Questa settimana al cinema :</b></h2>
+                    </div>
+                    <%--Qui vanno messi i cinema disponibili--%>
+                    <c:forEach  items="${requestScope.filmspp}" var="filmpp">
+                        <c:set var="title" value="${filmpp.getFilm().getTitolo()}"/>
+                        <c:set var="title" value="${fn:replace(title,' ', '')}"/>
+                        <c:set var="title" value="${fn:toLowerCase(title)}"/>
 
-                      <img class="locandina" src="images${filmpp.getFilm().getUrlLocandina()}"/>
-                    </a>
+                        <div class="onefilm"> 
+                            <div class="row justify-content-center films">
+                                <div class="col-sm-12 col-md-4">
+                                    <a href="film/${filmpp.getFilm().getId()}-${title}">
 
-                  </div>
-                  <div class="col-sm-12 col-md-8">
-                    <a class="btn btn-outline-primary my-3" href="film/${filmpp.getFilm().getId()}-${title}">
-                      <b>${filmpp.getFilm().getTitolo()}</b>
-                    </a>
-                    <p>Genere: ${filmpp.getGenere().getDescrizione()}</p>
-                    <p>Durata: ${filmpp.getFilm().getDurata()}</p>
-                    <p>${fn:substring(filmpp.getFilm().getTrama(),0,200)}..</p>
+                                        <img class="locandina" src="images${filmpp.getFilm().getUrlLocandina()}"/>
+                                    </a>
 
-                  </div>
+                                </div>
+                                <div class="col-sm-12 col-md-8">
+                                    <a class="btn btn-outline-primary my-3" href="film/${filmpp.getFilm().getId()}-${title}">
+                                        <b>${filmpp.getFilm().getTitolo()}</b>
+                                    </a>
+                                    <p>Genere: ${filmpp.getGenere().getDescrizione()}</p>
+                                    <p>Durata: ${filmpp.getFilm().getDurata()}</p>
+                                    <p>${fn:substring(filmpp.getFilm().getTrama(),0,200)}..</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
-				</c:forEach>
-			</div>
-		  </div>
         </div>
         <jsp:include page='components/footer.jsp'/>
     </body>

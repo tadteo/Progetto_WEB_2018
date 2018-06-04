@@ -19,9 +19,9 @@
         <c:set var="activeInfopage" value="active"></c:set>
     </c:when>
     <%--<c:when test="${pageCurrent=='prezzipage'}">--%>
-        <%--<c:set var="activePrezzipage" value="active"></c:set>--%>
+    <%--<c:set var="activePrezzipage" value="active"></c:set>--%>
     <%--</c:when>--%>
-	<c:when test="${pageCurrent=='reservationpage'}">
+    <c:when test="${pageCurrent=='reservationpage'}">
         <c:set var="activeReservationpage" value="active"></c:set>
     </c:when>
 </c:choose>
@@ -32,12 +32,12 @@
 
 
 <header class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand flex-row" style="font-family: 'Gugi', cursive;">CINEMA UNIVERSE</a>
+    <a class="navbar-brand flex-row" style="font-family: 'Gugi', cursive;">CINEMA UNIVERSE</a>
 </header>
 <header class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-<!--<header class="navbar navbar-expand navbar-dark bg-dark flex-column flex-md-row bd-navbar">-->
+    <!--<header class="navbar navbar-expand navbar-dark bg-dark flex-column flex-md-row bd-navbar">-->
 
-    
+
 
     <a class="navbar-brand flex-row" href="${context}" style="font-family: 'Gugi', cursive;">CINEMA UNIVERSE</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,23 +49,23 @@
             <li class="nav-item ${activeHomepage}">
                 <a class="nav-link" href="${context}">Home <span class="sr-only">(current)</span></a>
             </li>
-            
+
             <li class="nav-item">
-<!--                <form action="/cinema/info" method="POST" class="form-inline" style="padding: .5rem">
-                    <button class="astext nav-link ${activeInfopage}" type="submit" name="pageRequested" value="infopage">Info</button>
-                </form>-->
-              <div class="form-inline" style="padding: .5rem">
-                <a class="astext nav-link ${activeInfopage}" href="/cinema/info">Info</a>
-              </div>
-                
+                <!--                <form action="/cinema/info" method="POST" class="form-inline" style="padding: .5rem">
+                                    <button class="astext nav-link ${activeInfopage}" type="submit" name="pageRequested" value="infopage">Info</button>
+                                </form>-->
+                <div class="form-inline" style="padding: .5rem">
+                    <a class="astext nav-link ${activeInfopage}" href="/cinema/info">Info</a>
+                </div>
+
             </li>
-            
+
 <!--            <li class="nav-item ${activePrezziPage}">
-                <a class="nav-link" href="#">Prezzi</a>
-            </li>-->
+    <a class="nav-link" href="#">Prezzi</a>
+</li>-->
         </ul>
-            
-            
+
+
         <ul class="navbar-nav my-2 my-lg-0">
             <c:choose>
                 <c:when test="${sessionScope.email != null}">
@@ -101,29 +101,29 @@
                     </li>   
                 </c:when>
                 <c:otherwise>
-                    
+
                     <li><form class="form-inline " action="/cinema/login.do" method="GET">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                            <i class="fa fa-user"></i>
-                            Accedi
-                        </button>
-                    </form></li>
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                                <i class="fa fa-user"></i>
+                                Accedi
+                            </button>
+                        </form></li>
                     <li style="margin-left: 1rem">
-                        
+
                     </li>
                     <li><form class="form-inline " action="/cinema/signup.do" method="GET">
-                        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
-                            <i class="fa fa-plus-circle"></i>
-                            Registrati
-                        </button>
-                    </form></li>
-                </c:otherwise>      
-            </c:choose>
+                            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
+                                <i class="fa fa-plus-circle"></i>
+                                Registrati
+                            </button>
+                        </form></li>
+                    </c:otherwise>      
+                </c:choose>
         </ul>
     </div>
 </header>
-               
-                
+
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" crossorigin="anonymous"></script>

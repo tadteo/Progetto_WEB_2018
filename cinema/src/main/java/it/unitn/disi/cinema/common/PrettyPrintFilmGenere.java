@@ -12,6 +12,7 @@ import it.unitn.disi.cinema.dataaccess.Beans.*;
  * @author domenico
  */
 public class PrettyPrintFilmGenere {
+
     private Film film;
     private Genere genere;
 
@@ -22,8 +23,7 @@ public class PrettyPrintFilmGenere {
         this.film = film;
         this.genere = genere;
     }
-    
-    
+
     /**
      * @return the film
      */
@@ -51,5 +51,5 @@ public class PrettyPrintFilmGenere {
     public void setGenere(Genere genere) {
         this.genere = genere;
     }
-    
+
 }

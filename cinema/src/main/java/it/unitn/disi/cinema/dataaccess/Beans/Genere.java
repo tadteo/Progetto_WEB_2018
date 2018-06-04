@@ -8,6 +8,7 @@ package it.unitn.disi.cinema.dataaccess.Beans;
  * @author domenico
  */
 public class Genere {
+
     private Integer id_genere;
     private String descrizione;
 
@@ -18,9 +19,9 @@ public class Genere {
         this.id_genere = id_genere;
         this.descrizione = descrizione;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Genere[" + getId() + "," + getDescrizione() + "]";
     }
 
@@ -52,5 +53,4 @@ public class Genere {
         this.descrizione = descrizione;
     }
 
-    
 }

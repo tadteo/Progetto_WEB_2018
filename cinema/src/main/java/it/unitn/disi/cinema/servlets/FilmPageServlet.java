@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.unitn.disi.cinema.servlets;
 
 import it.unitn.disi.cinema.dataaccess.Beans.Film;
@@ -29,45 +24,44 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "FilmPageServlet", urlPatterns = {"/film/*"})
 public class FilmPageServlet extends HttpServlet {
 
-   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         FilmDAO fld = DAOFactory.getFilmDAO();
         GenereDAO gnd = DAOFactory.getGenereDAO();
         SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
-               
+
         response.setContentType("text/html;charset=UTF-8");
-        try{
-            
+        try {
+
             String idReq_str = request.getPathInfo(); //QUESTO PRENDE L'ULTIMO PARAMETRO DELL'URL
-            if(idReq_str == null){
+            if (idReq_str == null) {
                 request.setAttribute("errorcode", "404");
                 request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
             }
             idReq_str = idReq_str.substring(1);
-            if(idReq_str.equals("") || idReq_str.equals("film")){
+            if (idReq_str.equals("") || idReq_str.equals("film")) {
                 request.setAttribute("errorcode", "404");
                 request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
             }
-            
+
             String[] parts_str = idReq_str.split("-");
-            if(parts_str.length < 1){
+            if (parts_str.length < 1) {
                 request.setAttribute("errorcode", "404");
                 request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
-            }else{
+            } else {
                 Integer idReq = null;
-                try{
+                try {
                     idReq = Integer.parseInt(parts_str[0]);
-                }catch(NumberFormatException nfe){
+                } catch (NumberFormatException nfe) {
                     request.setAttribute("errorcode", "400");
                     request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
                 }
 
                 Film filmRequested = fld.getFilmById(idReq);
 
-                if(filmRequested != null){
+                if (filmRequested != null) {
 
                     Genere genere = gnd.getGenereById(filmRequested.getGenereId());
 
@@ -82,7 +76,7 @@ public class FilmPageServlet extends HttpServlet {
                     request.setAttribute("calltime", now);/**/
 
                     request.getRequestDispatcher("/JSP/filmpage.jsp").forward(request, response);
-                }else{
+                } else {
                     //SORRY PAGE NOT AVAILABLE
                 }
             }
@@ -90,8 +84,7 @@ public class FilmPageServlet extends HttpServlet {
             request.setAttribute("errorcode", "410");
             request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
         }
-        
-        
+
     }
 
     @Override

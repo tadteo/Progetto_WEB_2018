@@ -18,16 +18,16 @@ import org.apache.commons.mail.MultiPartEmail;
  * @author domenico
  */
 public class MailSender {
+
     public static final String HOST_NAME = "smtp.gmail.com";
     public static final int PORT = 465;
     public static final String TEXT_PLAIN = "text/plain";
-    
-    
+
     public static void sendPassword(String userPassword, String recipient) throws IOException, EmailException {
 
         final String cinemaUsername = "cinema.universe.42@gmail.com";
         final String cinemaPassword = "Univers3";
-        
+
         final String recipientEmailAddress = recipient;//"dodostefani@gmail.com";
 
         HtmlEmail email = new HtmlEmail();
@@ -43,47 +43,45 @@ public class MailSender {
         email.setHtmlMsg("<h3>Recupero Password - Cinema Universe<br></h3>"
                 + "Utente: " + recipient + "<br>"
                 + "La tua password è: '" + userPassword + "'<br>");
-        
+
         email.send();
     }
-    
-    public static void sendTickets(String recipient,String file) throws IOException, EmailException {
+
+    /**
+     *
+     * @param recipient
+     * @param file
+     * @throws IOException
+     * @throws EmailException
+     *
+     * The function to send the mail of confermation with the pdf and the
+     * tickets
+     */
+    public static void sendTickets(String recipient, String file) throws IOException, EmailException {
         final String cinemaUsername = "cinema.universe.42@gmail.com";
         final String cinemaPassword = "Univers3";
-        
-        final String recipientEmailAddress = recipient;//"dodostefani@gmail.com";
-        
+
+        final String recipientEmailAddress = recipient;
+
+        //Creazione dell'allegato
         EmailAttachment biglietti = new EmailAttachment();
         biglietti.setPath(file);
         biglietti.setDisposition(EmailAttachment.ATTACHMENT);
         biglietti.setDescription("Tickets");
         biglietti.setName("Biglietti.pdf");
-        System.out.println("DEBUG## La mail ha creato l'attachment");
+
+        //Creazione della mail e invio
         MultiPartEmail email = new MultiPartEmail();
         email.setHostName(HOST_NAME);
         email.setSmtpPort(PORT);
-        System.out.println("DEBUG## La mail ha settato l'hostname e la porta");
-
         email.addTo(recipientEmailAddress);
         email.setFrom(cinemaUsername, "Cinema Universe", String.valueOf(StandardCharsets.UTF_8));
-                System.out.println("DEBUG## La mail ha settato l'intestatario");
-
-        
         email.setSubject("Biglietti - Cinema Universe");
-        email.setMsg("Biglietti - Cinema Universe\n\n"
-                    + "La prenotazione é avvenuta con successo in allegato puo' trovare i QRCode relativi ai biglietti");
+        email.setMsg("Biglietti - Cinema Universe\n\n" + "La prenotazione é avvenuta con successo in allegato puo' trovare i QRCode relativi ai biglietti");
         email.attach(biglietti);
-        System.out.println("DEBUG## La mail ha inserito l'attachment correttamente");
-
         email.setSSLOnConnect(true);
-        System.out.println("DEBUG## La mail si é connessa ad SSL");
-
         email.setAuthentication(cinemaUsername, cinemaPassword);
-        System.out.println("DEBUG## La mail ha fatto l'autenticazione");
-                        
         email.send();
-        System.out.println("DEBUG## La mail si é inviata");
-
     }
 
 }

@@ -12,7 +12,7 @@
         <title>Cinema Sign Up</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- Latest compiled and minified CSS -->
-        
+
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
 
@@ -34,7 +34,7 @@
                             <input type="password" id="password" name="password" class="form-control mb-2" placeholder="Password" required>
                             <label for="password">Riscrivi la Password</label>
                             <input type="password" id="password" name="passwordConfirm" class="form-control mb-2" placeholder="Ripeti la password" required>
-                            
+
                             <br/><br/>
 
                             <button class="btn btn-lg btn-primary btn-block" type="submit">REGISTRATI</button>

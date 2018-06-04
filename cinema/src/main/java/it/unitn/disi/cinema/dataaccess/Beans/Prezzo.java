@@ -8,6 +8,7 @@ package it.unitn.disi.cinema.dataaccess.Beans;
  * @author domenico
  */
 public class Prezzo {
+
     private Integer id_prezzo;
     private String tipo;
     private Float prezzo;
@@ -20,9 +21,9 @@ public class Prezzo {
         this.tipo = tipo;
         this.prezzo = prezzo;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Prezzo[" + getId() + "," + getTipo() + "," + getPrezzo() + "]";
     }
 
