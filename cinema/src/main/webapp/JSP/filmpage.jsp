@@ -57,15 +57,11 @@
                 <div class="container-fluid text-center">
                     <p><b>Spettacoli di oggi (<fmt:formatDate value="${calltime}" pattern="E dd/MM" />)</b></p>
                     <div class="wrapper">
-                        <c:forEach items="${requestScope.spettacoli}" var="spettacolo">
-                            <c:choose>
-                                <c:when test="${spettacolo.getDataOra().getDay() == calltime.getDay()}">
-                                    <form class="form-signin my-1" action="/cinema/" method="POST">
-                                        <input type="hidden" value="${spettacolo.getId()}" name="spettacolo_id"/>
-                                        <button class="btn btn-lg btn-dark btn-block" value="reservationpage" name="pageRequested" type="submit"><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm" /></button>
-                                    </form>  
-                                </c:when>
-                            </c:choose>
+                        <c:forEach items="${requestScope.spettacoliOggi}" var="spettacolo">
+                            <form class="form-signin my-1" action="/cinema/" method="POST">
+                                <input type="hidden" value="${spettacolo.getId()}" name="spettacolo_id"/>
+                                <button class="btn btn-lg btn-dark btn-block" value="reservationpage" name="pageRequested" type="submit"><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm" /></button>
+                            </form>  
                         </c:forEach>      
                     </div> 
                 </div>
@@ -77,15 +73,11 @@
                 <div id="hidden-shows" class="hidden container-fluid text-center">
                     <p><b>Spettacoli dei prossimi giorni:</b></p>
                     <div class="wrapper">
-                        <c:forEach items="${requestScope.spettacoli}" var="spettacolo">
-                            <c:choose>
-                                <c:when test="${spettacolo.getDataOra().getDay() != calltime.getDay()}">
-                                    <form class="form-signin my-1" action="/cinema/" method="POST">
-                                        <input type="hidden" value="${spettacolo.getId()}" name="spettacolo_id"/>
-                                        <button class="btn btn-lg btn-dark btn-block" value="reservationpage" name="pageRequested" type="submit"><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm - dd/MM" /></button>
-                                    </form>  
-                                </c:when>
-                            </c:choose>
+                        <c:forEach items="${requestScope.spettacoliDomani}" var="spettacolo">
+                            <form class="form-signin my-1" action="/cinema/" method="POST">
+                                <input type="hidden" value="${spettacolo.getId()}" name="spettacolo_id"/>
+                                <button class="btn btn-lg btn-dark btn-block" value="reservationpage" name="pageRequested" type="submit"><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm - dd/MM" /></button>
+                            </form>  
                         </c:forEach>
                     </div>
                 </div>

@@ -39,11 +39,11 @@
             </tr>
           </thead>
           <tbody>
-            <c:forEach items="${requestScope.film}" var="film">
-              <c:set var="tot" value="tot${film.getId()}" />
-              <c:set var="totGiorno" value="totGiorno${film.getId()}" />
+            <c:forEach items="${requestScope.film}" var="filmm">
+              <c:set var="tot" value="tot${filmm.getId()}" />
+              <c:set var="totGiorno" value="totGiorno${filmm.getId()}" />
               <tr>
-              <td>${film.getTitolo()}</td>
+              <td>${filmm.getTitolo()}</td>
               <td>${requestScope[totGiorno]}</td>
               <td>${requestScope[tot]}</td>
               </tr>

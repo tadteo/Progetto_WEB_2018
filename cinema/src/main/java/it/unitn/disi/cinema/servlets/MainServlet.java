@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -92,12 +93,31 @@ public class MainServlet extends HttpServlet {
                 Timestamp now = new Timestamp(millis);
                 
                 List<Spettacolo> spettacoliDisponibili = spd.getByFIlmAfter(idFilmRichiesto, now);
+                List<Spettacolo> spettacoliOggi = new ArrayList<Spettacolo>();
+                List<Spettacolo> spettacoliDomani = new ArrayList<Spettacolo>();
+
+                Calendar cal3 = Calendar.getInstance();
+                cal3.setTimeInMillis(now.getTime());
+                int today = cal3.get(Calendar.DAY_OF_YEAR);
                 
+                for (Spettacolo spettc : spettacoliDisponibili) {
+                    
+                    Calendar cal4 = Calendar.getInstance();
+                    cal4.setTimeInMillis((spettc.getDataOra().getTime()));
+                    int proiez = cal4.get(Calendar.DAY_OF_YEAR);
+
+                    if (proiez == today) {
+                        spettacoliOggi.add(spettc);
+                    } else {
+                        spettacoliDomani.add(spettc);
+                    }
+                }
+
                 request.setAttribute("film", film);
                 request.setAttribute("genere", genere);
-                request.setAttribute("spettacoli", spettacoliDisponibili);
+                request.setAttribute("spettacoliOggi", spettacoliOggi);
+                request.setAttribute("spettacoliDomani", spettacoliDomani);
                 request.setAttribute("calltime", now);/**/
-
                 
                 request.getRequestDispatcher("JSP/filmpage.jsp").forward(request, response);
             }catch(SQLException ex) {
@@ -451,6 +471,10 @@ public class MainServlet extends HttpServlet {
                 long millis = System.currentTimeMillis();
                 Timestamp now = new Timestamp(millis);
                 
+                Calendar cal1 = Calendar.getInstance();
+                cal1.setTimeInMillis(now.getTime());
+                int today = cal1.get(Calendar.DAY_OF_YEAR);
+
                 // incassi
                 for (Film filmc: fld.getAll()) {
                     double tot = 0.0;
@@ -459,7 +483,12 @@ public class MainServlet extends HttpServlet {
                     for (Spettacolo spettc: spd.getByFilm(filmc.getId())) {
                         for (Prenotazione prenc: prd.getBySpettacolo(spettc.getId())) {
                             tot += prz.getPrezzoById(prenc.getPrezzoId()).getPrezzo();
-                            if (prenc.getDataOraOperazione().getDay() == now.getDay()) {
+                            
+                            Calendar cal2 = Calendar.getInstance();
+                            cal2.setTimeInMillis(prenc.getDataOraOperazione().getTime());
+                            int operation = cal2.get(Calendar.DAY_OF_YEAR);
+
+                            if (operation == today) {
                                 totGiorno += prz.getPrezzoById(prenc.getPrezzoId()).getPrezzo();
                             }
                         }
