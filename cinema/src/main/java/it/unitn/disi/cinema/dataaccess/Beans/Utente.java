@@ -8,6 +8,7 @@ package it.unitn.disi.cinema.dataaccess.Beans;
  * @author domenico
  */
 public class Utente {
+
     private Integer id_utente;
     private Integer id_ruolo;
     private String email;
@@ -24,9 +25,9 @@ public class Utente {
         this.password = password;
         this.credito = credito;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Utente[" + getId() + "," + getRuoloId() + "," + getEmail() + "," + getPassword() + "," + getCredito() + "]";
     }
 
@@ -99,7 +100,5 @@ public class Utente {
     public void setCredito(Float credito) {
         this.credito = credito;
     }
-    
 
-    
 }

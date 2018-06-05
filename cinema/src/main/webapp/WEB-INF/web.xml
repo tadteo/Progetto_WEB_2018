@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>IsLogged</filter-name>
+        <filter-class>it.unitn.disi.cinema.filters.IsLogged</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>IsLogged</filter-name>
+        <url-pattern>/cinema/film/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>it.unitn.disi.cinema.servlets.LoginServlet</servlet-class>
@@ -28,6 +37,18 @@
         <servlet-name>RestoreServlet</servlet-name>
         <servlet-class>it.unitn.disi.cinema.servlets.RestoreServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReservationServlet</servlet-name>
+        <servlet-class>it.unitn.disi.cinema.servlets.ReservationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BuyPageServlet</servlet-name>
+        <servlet-class>it.unitn.disi.cinema.servlets.BuyPageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ConfirmationPageServlet</servlet-name>
+        <servlet-class>it.unitn.disi.cinema.servlets.ConfirmationPageServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login.do</url-pattern>
@@ -55,6 +76,18 @@
     <servlet-mapping>
         <servlet-name>RestoreServlet</servlet-name>
         <url-pattern>/restore.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReservationServlet</servlet-name>
+        <url-pattern>/prenotaspettacolo/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BuyPageServlet</servlet-name>
+        <url-pattern>/acquistabiglietti</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfirmationPageServlet</servlet-name>
+        <url-pattern>/acquistabiglietti/conferma</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

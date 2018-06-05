@@ -15,161 +15,166 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
- * CRUD
- * Metodi disponibili per Spettacolo:
- * 
- addSpettacolo(Spettacolo spettacolo)
- * 
- getSpettacoloById(Integer id)
- getAll() //In futuro si potrebbe mettere parametro limit
- getAfter(Timestamp time)
- getByFilm(Integer idFilm)
- getByFIlmAfter(Integer idFilm, Timestamp time)
- * 
+ * CRUD Metodi disponibili per Spettacolo:
+ *
+ * addSpettacolo(Spettacolo spettacolo)
+ *
+ * getSpettacoloById(Integer id) getAll() //In futuro si potrebbe mettere
+ * parametro limit getAfter(Timestamp time) getByFilm(Integer idFilm)
+ * getByFIlmAfter(Integer idFilm, Timestamp time)
+ *
  * //No update
- * 
+ *
  * deleteSpettacolo(Integer id);
- * 
- * 
+ *
+ *
  * @author domenico
  */
 public class SpettacoloDAO {
+
     Database db = Database.getInstance();   //Questa è l'istanza del database che serve per ottenere la connessione
     Connection conn = db.getConnection();
-    
-    public void addSpettacolo(Spettacolo spettacolo) throws SQLException{
+
+    public void addSpettacolo(Spettacolo spettacolo) throws SQLException {
         PreparedStatement st = conn.prepareStatement("insert into Spettacolo (id_film,id_sala,data_ora) values (?,?,?)");
         st.setInt(1, spettacolo.getFilmId());
         st.setInt(2, spettacolo.getSalaId());
         st.setTimestamp(3, spettacolo.getDataOra());
-        
+
         st.executeUpdate();
     }
-    
-    public Spettacolo getSpettacoloById(Integer id) throws SQLException{
+
+    public Spettacolo getSpettacoloById(Integer id) throws SQLException {
+        if (id == null || id == 0) {
+            throw new SQLException("getSpettacoloById was called with a null or 0 argument");
+        }
         Spettacolo result;
         PreparedStatement st = conn.prepareStatement("select * from Spettacolo where Spettacolo.id_spettacolo = ?");
         st.setInt(1, id);
-        
+
         ResultSet rs = st.executeQuery();
-        
-        if(rs.next()){
+
+        if (rs.next()) {
             result = new Spettacolo();
             result.setId(rs.getInt(1));
             result.setFilmId(rs.getInt(2));
             result.setSalaId(rs.getInt(3));
             result.setDataOra(rs.getTimestamp(4));
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 throw new SQLException("Result Set contiene più di un risultato per la stessa chiave primaria");
             }
-        }else{
+        } else {
             result = null;
         }
-        
+
         return result;
     }
-    
-    public List<Spettacolo> getAll() throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
+
+    public List<Spettacolo> getAll() throws SQLException {    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Spettacolo> result = new ArrayList<>();
-        
+
         PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo ORDER BY Spettacolo.data_ora");
         ResultSet rs = st.executeQuery();
-        
-        while(rs.next()){
+
+        while (rs.next()) {
             result.add(new Spettacolo(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getTimestamp(4)));
         }
         return result;
     }
-    
-    public List<Spettacolo> getAfter(Timestamp time)throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
+
+    public List<Spettacolo> getAfter(Timestamp time) throws SQLException {    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Spettacolo> result = new ArrayList<>();
-        
+
         PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.data_ora > ?  ORDER BY Spettacolo.data_ora");
         st.setTimestamp(1, time);
         ResultSet rs = st.executeQuery();
-        
-        while(rs.next()){
+
+        while (rs.next()) {
             result.add(new Spettacolo(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getTimestamp(4)));
         }
         return result;
     }
-    
-    public List<Spettacolo> getByFilm(Integer idFilm) throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
+
+    public List<Spettacolo> getByFilm(Integer idFilm) throws SQLException {    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Spettacolo> result = new ArrayList<>();
-        
+
         PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.id_film = ? ORDER BY Spettacolo.data_ora");
         st.setInt(1, idFilm);
         ResultSet rs = st.executeQuery();
-        
-        while(rs.next()){
+
+        while (rs.next()) {
             result.add(new Spettacolo(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getTimestamp(4)));
         }
         return result;
     }
-    public List<Spettacolo> getByFIlmAfter(Integer idFilm, Timestamp time) throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
+
+    public List<Spettacolo> getByFIlmAfter(Integer idFilm, Timestamp time) throws SQLException {    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Spettacolo> result = new ArrayList<>();
-        
+
         PreparedStatement st = conn.prepareStatement("SELECT * FROM Spettacolo WHERE Spettacolo.id_film = ? AND Spettacolo.data_ora > ? ORDER BY Spettacolo.data_ora");
         st.setInt(1, idFilm);
         st.setTimestamp(2, time);
         ResultSet rs = st.executeQuery();
-        
-        while(rs.next()){
+
+        while (rs.next()) {
             result.add(new Spettacolo(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getTimestamp(4)));
         }
         return result;
     }
-    
-    public void deleteSpettacolo(Integer id) throws SQLException{
-        if(id == null)
+
+    public void deleteSpettacolo(Integer id) throws SQLException {
+        if (id == null) {
             throw new SQLException("Id patamter is null");
-        
+        }
+
         PreparedStatement st = conn.prepareStatement("DELETE FROM Spettacolo WHERE Spettacolo.id_spettacolo = ?");
         st.setInt(1, id);
-        
+
         st.executeUpdate();
     }
-    
-    public int getAvailablePostiCount(Integer id)throws SQLException{
+
+    public int getAvailablePostiCount(Integer id) throws SQLException {
         int res = -1;
-        
-        PreparedStatement st = conn.prepareStatement("SELECT count(*) " +
-                                                        "FROM Spettacolo AS S,Posto AS P, Prenotazione AS R " +
-                                                        "WHERE  " +
-                                                        "S.id_spettacolo = ? AND " +
-                                                        "S.id_spettacolo = R.id_spettacolo AND " +
-                                                        "S.id_sala = P.id_sala AND " +
-                                                        "P.id_posto = R.id_posto AND " +
-                                                        "P.esiste ");
+
+        PreparedStatement st = conn.prepareStatement("SELECT count(*) "
+                + "FROM Spettacolo AS S,Posto AS P, Prenotazione AS R "
+                + "WHERE  "
+                + "S.id_spettacolo = ? AND "
+                + "S.id_spettacolo = R.id_spettacolo AND "
+                + "S.id_sala = P.id_sala AND "
+                + "P.id_posto = R.id_posto AND "
+                + "P.esiste ");
         st.setInt(1, id);
         ResultSet rs = st.executeQuery();
-        
-        if(rs.next())
+
+        if (rs.next()) {
             res = rs.getInt(1);
-        else
+        } else {
             throw new SQLException("Impossibile ottenere il conteggio dei posti disponibili per lo spettacolo");
-        
+        }
+
         return res;
     }
-    
-    public List<Posto> getReservedPosti(Integer id)throws SQLException{
+
+    public List<Posto> getReservedPosti(Integer id) throws SQLException {
         List<Posto> res = new ArrayList<>();
-        
-        PreparedStatement st = conn.prepareStatement("SELECT P.id_posto, P.id_sala, P.riga, P.poltrona, P.esiste " +
-                                                        "FROM Spettacolo AS S,Posto AS P, Prenotazione AS R " +
-                                                        "WHERE  " +
-                                                        "S.id_spettacolo = ? AND " +
-                                                        "S.id_spettacolo = R.id_spettacolo AND " +
-                                                        "S.id_sala = P.id_sala AND " +
-                                                        "P.id_posto = R.id_posto AND " +
-                                                        "P.esiste ");
+
+        PreparedStatement st = conn.prepareStatement("SELECT P.id_posto, P.id_sala, P.riga, P.poltrona, P.esiste "
+                + "FROM Spettacolo AS S,Posto AS P, Prenotazione AS R "
+                + "WHERE  "
+                + "S.id_spettacolo = ? AND "
+                + "S.id_spettacolo = R.id_spettacolo AND "
+                + "S.id_sala = P.id_sala AND "
+                + "P.id_posto = R.id_posto AND "
+                + "P.esiste ");
         st.setInt(1, id);
         ResultSet rs = st.executeQuery();
-        
+
         Posto currentPosto;
-        while(rs.next()){
+        while (rs.next()) {
             currentPosto = new Posto();
             currentPosto.setId(rs.getInt(1));
             currentPosto.setSalaId(rs.getInt(2));
@@ -178,7 +183,7 @@ public class SpettacoloDAO {
             currentPosto.setEsiste(rs.getBoolean(5));
             res.add(currentPosto);
         }
-        
+
         return res;
     }
 }

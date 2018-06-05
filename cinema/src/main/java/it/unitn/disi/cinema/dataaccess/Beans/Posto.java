@@ -8,6 +8,7 @@ package it.unitn.disi.cinema.dataaccess.Beans;
  * @author domenico
  */
 public class Posto {
+
     private Integer id_posto;
     private Integer id_sala;
     private Integer riga;
@@ -24,9 +25,9 @@ public class Posto {
         this.poltrona = poltrona;
         this.esiste = esiste;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Posto[" + getId() + "," + getSalaId() + "," + getRiga() + "," + getPoltrona() + "," + getEsiste() + "]";
     }
 
@@ -99,7 +100,5 @@ public class Posto {
     public void setEsiste(Boolean esiste) {
         this.esiste = esiste;
     }
-
-    
 
 }

@@ -13,26 +13,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Metodi disponibili per Film:
- * 
- * getFilmById(Integer id)
- * getAll() //In futuro si potrebbe mettere parametro limit
- * 
+ *
+ * getFilmById(Integer id) getAll() //In futuro si potrebbe mettere parametro
+ * limit
+ *
  * @author domenico
  */
 public class FilmDAO {
+
     Database db = Database.getInstance();   //Questa è l'istanza del database che serve per ottenere la connessione
     Connection conn = db.getConnection();
-    
-     public Film getFilmById (Integer id) throws SQLException{
+
+    public Film getFilmById(Integer id) throws SQLException {
         Film result;
         PreparedStatement st = conn.prepareStatement("select * from Film where Film.id_film = ?");
         st.setInt(1, id);
-        
+
         ResultSet rs = st.executeQuery();
-        
-        if(rs.next()){
+
+        if (rs.next()) {
             result = new Film();
             result.setId(rs.getInt(1));
             result.setTitolo(rs.getString(2));
@@ -41,24 +43,24 @@ public class FilmDAO {
             result.setUrlTrailer(rs.getString(5));
             result.setDurata(rs.getInt(6));
             result.setTrama(rs.getString(7));
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 throw new SQLException("Result Set contiene più di un risultato per la stessa chiave primaria");
             }
-        }else{
+        } else {
             result = null;
         }
-        
+
         return result;
     }
-    
-    public List<Film> getAll() throws SQLException{    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
+
+    public List<Film> getAll() throws SQLException {    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Film> result = new ArrayList<>();
-        
+
         PreparedStatement st = conn.prepareStatement("SELECT * FROM Film");
         ResultSet rs = st.executeQuery();
-        
-        while(rs.next()){
+
+        while (rs.next()) {
             result.add(new Film(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7)));
         }
         return result;

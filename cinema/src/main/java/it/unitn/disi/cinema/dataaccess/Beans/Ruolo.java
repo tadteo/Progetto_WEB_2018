@@ -8,6 +8,7 @@ package it.unitn.disi.cinema.dataaccess.Beans;
  * @author domenico
  */
 public class Ruolo {
+
     private Integer id_ruolo;
     private String ruolo;
 
@@ -18,9 +19,9 @@ public class Ruolo {
         this.id_ruolo = id_ruolo;
         this.ruolo = ruolo;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Ruolo[" + getId() + "," + getRuolo() + "]";
     }
 

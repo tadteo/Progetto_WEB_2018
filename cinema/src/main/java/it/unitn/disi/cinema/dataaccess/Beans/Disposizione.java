@@ -12,23 +12,31 @@ import java.util.List;
  *
  * @author matteo
  */
-public class Disposizione{
-	public List<String> dispo;
+public class Disposizione {
+
+    public List<String> dispo;
+
+    public Disposizione() {
+        this.dispo = new ArrayList();
+    }
+
+    ;
 	
-	public Disposizione(){
-		this.dispo = new ArrayList();
-	};
+	public void add(int pos, String testo) {
+        dispo.add(pos, testo);
+    }
+
+    ;
 	
-	public void add(int pos, String testo){
-		dispo.add(pos, testo);
-	};
-	
-	public void set( int pos, String testo){
-		dispo.set(pos, testo);
-	};
+	public void set(int pos, String testo) {
+        dispo.set(pos, testo);
+    }
+
+    ;
 	
 	
-	public String get( int pos ){
-		return dispo.get(pos);
-	};
+	public String get(int pos) {
+        return dispo.get(pos);
+    }
+;
 }

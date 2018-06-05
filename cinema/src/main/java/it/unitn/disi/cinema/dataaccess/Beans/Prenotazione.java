@@ -10,13 +10,14 @@ import java.sql.Timestamp;
  * @author domenico
  */
 public class Prenotazione {
+
     private Integer id_prenotazione;
     private Integer id_utente;
     private Integer id_spettacolo;
     private Integer id_prezzo;
     private Integer id_posto;
     private Timestamp data_ora_operazione;
-    
+
     public Prenotazione() { //Il costruttore standard può essere tranquillamente vuoto
     }
 
@@ -28,12 +29,12 @@ public class Prenotazione {
         this.id_posto = id_posto;
         this.data_ora_operazione = data_ora_operazione;
     }
-    
+
     @Override
-    public String toString(){
-        return "Prenotazione[" + getId() + "," + getUtenteId()+ "," + getSpettacoloId()+ "," + getPrezzoId() + "," + getPostoId() + "," + getDataOraOperazione() + "]";
+    public String toString() {
+        return "Prenotazione[" + getId() + "," + getUtenteId() + "," + getSpettacoloId() + "," + getPrezzoId() + "," + getPostoId() + "," + getDataOraOperazione() + "]";
     }
-    
+
     /**
      * @return the id_prenotazione
      */
@@ -116,5 +117,5 @@ public class Prenotazione {
      */
     public void setDataOraOperazione(Timestamp data_ora_operazione) {
         this.data_ora_operazione = data_ora_operazione;
-    }   
+    }
 }
