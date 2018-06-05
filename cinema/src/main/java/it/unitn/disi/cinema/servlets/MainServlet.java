@@ -450,14 +450,41 @@ public class MainServlet extends HttpServlet {
             request.getRequestDispatcher("JSP/confermationpage.jsp").forward(request, response);
                 
         } else if (pageRequested.equals("adminsituazione")) {
+    
+            SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
+            PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
+            SalaDAO sld = DAOFactory.getSalaDAO();
+            FilmDAO fld = DAOFactory.getFilmDAO();
+            PrezzoDAO prz = DAOFactory.getPrezzoDAO();
 
-            //try {               
-            //    request.setAttribute("pageCurrent","adminsituazione");
-            //    request.getRequestDispatcher("JSP/adminsituazione.jsp").forward(request, response);
-            //} catch (SQLException ex) {
-            //    System.out.println("Errore, inpossibile ottenere la pagina degli admin");
-            //    ex.printStackTrace();
-            //}      
+            try {               
+
+                long millis = System.currentTimeMillis();
+                Timestamp now = new Timestamp(millis);
+
+                for (Spettacolo spettc : spd.getAfter(now)) {
+                    int postiOccupati = sld.getAvailablePostiCount(spettc.getId());
+                    int postiTotali = sld.getPostiCount(spettc.getSalaId());
+
+                    request.setAttribute("postiOccupati"+spettc.getId(),postiOccupati);
+                    request.setAttribute("postiTotali"+spettc.getId(),postiTotali);
+                    request.setAttribute("film"+spettc.getId(),fld.getFilmById(spettc.getFilmId()).getTitolo());
+                
+                    int tot = 0;
+                    for (Prenotazione prenc: prd.getBySpettacolo(spettc.getId())) {
+                        tot += prz.getPrezzoById(prenc.getPrezzoId()).getPrezzo();
+                    }
+
+                    request.setAttribute("incasso"+spettc.getId(),tot);
+                }
+
+                request.setAttribute("spettacolo",spd.getAfter(now));
+                request.setAttribute("pageCurrent","adminsituazione");
+                request.getRequestDispatcher("JSP/adminsituazione.jsp").forward(request, response);
+            } catch (SQLException ex) {
+                System.out.println("Errore, inpossibile ottenere la pagina degli admin");
+                ex.printStackTrace();
+            }      
         } else if (pageRequested.equals("adminincassi")) {
             
             SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
@@ -537,9 +564,10 @@ public class MainServlet extends HttpServlet {
             }      
         } else if (pageRequested.equals("adminprenotazioni")) {
         
+                request.setAttribute("pageCurrent","adminprenotazioni");
+                request.getRequestDispatcher("JSP/adminprenotazioni.jsp").forward(request, response);
+
             //try {               
-            //    request.setAttribute("pageCurrent","adminprenotazioni");
-            //    request.getRequestDispatcher("JSP/adminprenotazioni.jsp").forward(request, response);
             //} catch (SQLException ex) {
             //    System.out.println("Errore, inpossibile ottenere la pagina degli admin");
             //    ex.printStackTrace();

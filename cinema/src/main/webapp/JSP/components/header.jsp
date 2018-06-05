@@ -55,10 +55,6 @@
                     <button class="astext nav-link ${activeInfopage}" type="submit" name="pageRequested" value="infopage">Info</button>
                 </form>
             </li>
-            
-            <li class="nav-item ${activePrezziPage}">
-                <a class="nav-link" href="#">Prezzi</a>
-            </li>
         </ul>
             
             
