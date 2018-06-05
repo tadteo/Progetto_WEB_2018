@@ -51,6 +51,7 @@
             </li>
 
             <li class="nav-item">
+              
                 <!--                <form action="/cinema/info" method="POST" class="form-inline" style="padding: .5rem">
                                     <button class="astext nav-link ${activeInfopage}" type="submit" name="pageRequested" value="infopage">Info</button>
                                 </form>-->
@@ -63,6 +64,7 @@
 <!--            <li class="nav-item ${activePrezziPage}">
     <a class="nav-link" href="#">Prezzi</a>
 </li>-->
+
         </ul>
 
 
@@ -86,10 +88,28 @@
                             <c:choose>
                                 <c:when test="${sessionScope.ruolo == 'admin'}">
                                     <div class="dropdown-divider"></div>
-                                    <form class="form-signin" id="form-admin-instance" action="/cinema/" method="POST">
-                                        <input type="hidden" name="pageRequested" value="adminpage">
-                                        <a class="dropdown-item" onclick="document.getElementById('form-admin-instance').submit();">Admin control panel</a>
+                                    <h3 class="dropdown-header"><b>Zona Admin</b></h3>
+
+                                    <form class="form-signin" id="form-admin-situazione" action="/cinema/" method="POST">
+                                        <input type="hidden" name="pageRequested" value="adminsituazione">
+                                        <a class="dropdown-item" onclick="document.getElementById('form-admin-situazione').submit();">Situazione delle programmazioni</a>
                                     </form>
+
+                                    <form class="form-signin" id="form-admin-incassi" action="/cinema/" method="POST">
+                                        <input type="hidden" name="pageRequested" value="adminincassi">
+                                        <a class="dropdown-item" onclick="document.getElementById('form-admin-incassi').submit();">Incassi dei film</a>
+                                    </form>
+
+                                    <form class="form-signin" id="form-admin-clienti" action="/cinema/" method="POST">
+                                        <input type="hidden" name="pageRequested" value="adminclientitop">
+                                        <a class="dropdown-item" onclick="document.getElementById('form-admin-clienti').submit();">Lista clienti top</a>
+                                    </form>
+
+                                    <form class="form-signin" id="form-admin-prenotazioni" action="/cinema/" method="POST">
+                                        <input type="hidden" name="pageRequested" value="adminprenotazioni">
+                                        <a class="dropdown-item" onclick="document.getElementById('form-admin-prenotazioni').submit();">Gestione delle prenotazioni</a>
+                                    </form>
+
                                 </c:when>
                             </c:choose>
                             <div class="dropdown-divider"></div>

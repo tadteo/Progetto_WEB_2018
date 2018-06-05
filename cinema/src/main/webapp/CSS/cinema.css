@@ -135,6 +135,9 @@ and open the template in the editor.
     margin-bottom: 100px;
 }
 
+.margin-admin {
+    margin:50px;
+
 .posti{
     min-width: 400px;
     padding-left: 0px;
@@ -161,4 +164,5 @@ and open the template in the editor.
     .seatCharts-container{
         padding: 0px !important; 
     }
+
 }

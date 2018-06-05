@@ -43,6 +43,7 @@
                             <div class="front-indicator">Schermo</div>
                         </div>
                     </div>
+
                     <div class="col-12 col-md-6">
                         <div class="booking-details">
                             <h2>Dettagli</h2>

@@ -40,9 +40,6 @@
                         <p><b>Genere:</b> ${requestScope.genere.getDescrizione()}</p>
                         <p><b>Durata:</b> ${requestScope.film.getDurata()} minuti</p>
                         <p><b>Trama:</b> ${requestScope.film.getTrama()}</p>
-
-
-
                     </div>
                         <br />
                     <div class="col-12 col-md-4">

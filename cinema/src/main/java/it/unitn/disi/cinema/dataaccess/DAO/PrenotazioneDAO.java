@@ -32,6 +32,7 @@ import java.util.List;
  * getBySpettacoloAfter(Integer idSpettacolo, Timestamp time)
  *
  * //No update
+
  *
  * deletePrenotazione(Integer id);
  *
@@ -134,7 +135,9 @@ public class PrenotazioneDAO {
         return result;
     }
 
+
     public List<Prenotazione> getByUtenteAfter(Integer idUtente, Timestamp time) throws SQLException {
+
         List<Prenotazione> result = new ArrayList<>();
 
         PreparedStatement st = conn.prepareStatement("SELECT * FROM Prenotazione WHERE Prenotazione.id_utente = ? AND Prenotazione.data_ora_operazione > ?");
@@ -176,6 +179,7 @@ public class PrenotazioneDAO {
     }
 
     public List<Prenotazione> getBySpettacolo(Integer idSpettacolo) throws SQLException {
+
         List<Prenotazione> result = new ArrayList<>();
 
         PreparedStatement st = conn.prepareStatement("SELECT * FROM Prenotazione WHERE Prenotazione.id_spettacolo = ?");
