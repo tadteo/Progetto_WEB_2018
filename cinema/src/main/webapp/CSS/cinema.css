@@ -150,7 +150,7 @@ and open the template in the editor.
 
 
 
-/*@media screen and(max-width: 480px){
+@media screen and(max-width: 480px){
     .booking-details{
         margin-left: 0px !important;
     }
@@ -165,4 +165,4 @@ and open the template in the editor.
         padding: 0px !important; 
     }
 
-}*/
+}
