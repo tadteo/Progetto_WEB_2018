@@ -10,11 +10,12 @@ import java.sql.Timestamp;
  * @author domenico
  */
 public class Spettacolo {
+
     private Integer id_spettacolo;
     private Integer id_film;
     private Integer id_sala;
     private Timestamp data_ora;
-    
+
     public Spettacolo() { //Il costruttore standard può essere tranquillamente vuoto
     }
 
@@ -24,10 +25,10 @@ public class Spettacolo {
         this.id_sala = id_sala;
         this.data_ora = data_ora;
     }
-    
+
     @Override
-    public String toString(){
-        return "Spettacolo[" + getId() + "," + getFilmId()+ "," + getSalaId() + "," + getDataOra() + "]";
+    public String toString() {
+        return "Spettacolo[" + getId() + "," + getFilmId() + "," + getSalaId() + "," + getDataOra() + "]";
     }
 
     /**
@@ -86,5 +87,4 @@ public class Spettacolo {
         this.data_ora = data_ora;
     }
 
-   
 }

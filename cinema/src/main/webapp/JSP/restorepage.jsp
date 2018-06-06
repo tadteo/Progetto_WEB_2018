@@ -18,7 +18,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body class="collage">
-        
+
         <div class="layer">
             <div class="container my-2">
                 <div class="row">

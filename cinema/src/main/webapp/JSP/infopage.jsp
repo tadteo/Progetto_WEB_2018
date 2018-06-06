@@ -16,7 +16,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
 
@@ -25,9 +25,8 @@
 
         <title>Info page</title>
     </head>
-	
-    <body>
-        
+
+    <body>        
         
     <jsp:include page='components/header.jsp'/>
     
@@ -82,5 +81,6 @@
       }
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPY7IgJv-v0U6cYTLlr2WCjeq4m6CSbG8&callback=initMap"></script>
+
     </body>
 </html>

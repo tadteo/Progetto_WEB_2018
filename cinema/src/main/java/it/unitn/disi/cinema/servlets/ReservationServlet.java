@@ -37,46 +37,50 @@ public class ReservationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         final boolean DEBUG = false;
         final boolean DELIMITERS = false;
-        
+
         PrintWriter out;
-        if(DEBUG)
+        if (DEBUG) {
             out = response.getWriter();
-        
+        }
+
         SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
         SalaDAO sld = DAOFactory.getSalaDAO();
         PostoDAO psd = DAOFactory.getPostoDAO();
         FilmDAO fld = DAOFactory.getFilmDAO();
         PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
-        
-        try{
+
+        try {
             sld.getAll();
-                    
-                    
+
             String idReq_str = request.getPathInfo(); //QUESTO PRENDE L'ULTIMO PARAMETRO DELL'URL
-            if(idReq_str == null){
+            if (idReq_str == null) {
                 request.setAttribute("errorcode", "404");
                 request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
             }
             idReq_str = idReq_str.substring(1);
-            if(idReq_str == null || idReq_str.equals("") || idReq_str.equals("prenotaspettacolo")){
+            if (idReq_str == null || idReq_str.equals("") || idReq_str.equals("prenotaspettacolo")) {
                 request.setAttribute("errorcode", "404");
                 request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
             }
-            
+
             String[] parts_str = idReq_str.split("-");
-            if(parts_str.length < 1){
+            if (parts_str.length < 1) {
                 request.setAttribute("errorcode", "404");
                 request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
-            }else{
+            } else {
                 Integer idReq = null;
-                try{
-                    if(DEBUG)out.println("trying to decode \"" + parts_str[0] + "\"");
+                try {
+                    if (DEBUG) {
+                        out.println("trying to decode \"" + parts_str[0] + "\"");
+                    }
                     idReq = Integer.parseInt(parts_str[0]);
-                    if(DEBUG)out.println("decoded int(" + idReq + ")");
-                }catch(NumberFormatException nfe){
+                    if (DEBUG) {
+                        out.println("decoded int(" + idReq + ")");
+                    }
+                } catch (NumberFormatException nfe) {
                     request.setAttribute("errorcode", "401");
                     request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
                     System.err.println("ERRORE! impossibile fare il parse ad integer di \"" + parts_str[0] + "\"");
@@ -85,17 +89,17 @@ public class ReservationServlet extends HttpServlet {
 
                 Spettacolo spettacolo = spd.getSpettacoloById(idReq);
 
-                if(spettacolo != null){
+                if (spettacolo != null) {
                     Sala sala = sld.getSalaById(spettacolo.getSalaId());
                     List<Posto> posti = psd.getPostoBySalaId(sala.getId());
                     Film film = fld.getFilmById(spettacolo.getFilmId());
                     List<Prenotazione> prenotazioni = prd.getBySpettacolo(spettacolo.getId());
 
-                    if(DEBUG){
+                    if (DEBUG) {
                         out.println("ReservationPage");
                         out.println("Film: " + film.getTitolo());
                         out.println("Spettacolo: " + spettacolo.getId());
-                        out.println("Sala: " + sala.getDescrizione() + " "+ sala.getId());
+                        out.println("Sala: " + sala.getDescrizione() + " " + sala.getId());
                         out.println("Posti: " + sld.getPostiCount(sala.getId()));
                         out.println("Posti Disponibili: " + (sld.getPostiCount(sala.getId()) - spd.getAvailablePostiCount(spettacolo.getId())));
                     }
@@ -109,61 +113,66 @@ public class ReservationServlet extends HttpServlet {
                     final char letterForReserved = 'b';
                     final char letterForNotExists = '_';
 
-
                     int currentRiga = 1;
                     String currentStringa = new String();
-                    if(DELIMITERS)
+                    if (DELIMITERS) {
                         currentStringa = currentStringa + "'";  //aggiunge delimitatore
-
-                    for(int j = 0; j<posti.size(); j++){
-                        if(posti.get(j).getRiga() > currentRiga){
-                            if(DELIMITERS)
+                    }
+                    for (int j = 0; j < posti.size(); j++) {
+                        if (posti.get(j).getRiga() > currentRiga) {
+                            if (DELIMITERS) {
                                 currentStringa = currentStringa + "'";  //aggiunge delimitatore
+                            }
                             mappa.add(currentStringa);
                             currentStringa = new String();
-                            if(DELIMITERS)
+                            if (DELIMITERS) {
                                 currentStringa = currentStringa + "'";  //aggiunge delimitatore
+                            }
                             currentRiga++;
                         }
 
                         char seatChar = '0';
-                        if(posti.get(j).getEsiste() == false)
-                            seatChar=letterForNotExists;
-                        else if(psd.isReserved(spettacolo.getId(), posti.get(j).getId())){
+                        if (posti.get(j).getEsiste() == false) {
+                            seatChar = letterForNotExists;
+                        } else if (psd.isReserved(spettacolo.getId(), posti.get(j).getId())) {
                             //prenotato
-                            seatChar=letterForReserved;
-                        }else{
+                            seatChar = letterForReserved;
+                        } else {
                             //libero
-                            seatChar=letterForAvailable;
+                            seatChar = letterForAvailable;
                         }
                         currentStringa = currentStringa + seatChar;
                     }
 
-                    if(DELIMITERS)
+                    if (DELIMITERS) {
                         currentStringa = currentStringa + "'";  //aggiunge delimitatore
+                    }
                     mappa.add(currentStringa);
 
                     /*--Reserved String--*/
                     String reservedString = "";
                     List<Posto> reserved = spd.getReservedPosti(spettacolo.getId());
                     Posto p;
-                    for(int i = 0; i < reserved.size(); i++){
+                    for (int i = 0; i < reserved.size(); i++) {
                         p = reserved.get(i);
                         reservedString += (p.getRiga() + "_" + p.getPoltrona());
-                        if(i != reserved.size()-1)
+                        if (i != reserved.size() - 1) {
                             reservedString += ",";
+                        }
                     }
-                    if(DEBUG)
+                    if (DEBUG) {
                         out.println("\nPosti Non disponibili: \n" + reservedString);
+                    }
 
-                    if(DEBUG){
+                    if (DEBUG) {
                         out.println("\n\nArraylist:");
-                        for(String s : mappa)
+                        for (String s : mappa) {
                             out.println(s);
+                        }
                         out.println("");
                     }
 
-                    if(!DEBUG){
+                    if (!DEBUG) {
                         request.setAttribute("spettacolo", spettacolo);
                         request.setAttribute("sala", sala);
                         request.setAttribute("film", film);
@@ -173,8 +182,8 @@ public class ReservationServlet extends HttpServlet {
                         request.setAttribute("reserved", reservedString);
                         request.getRequestDispatcher("/JSP/reservationpage.jsp").forward(request, response);
                     }
-                    
-                }else{
+
+                } else {
                     //SORRY PAGE NOT AVAILABLE
                 }
             }
@@ -183,7 +192,7 @@ public class ReservationServlet extends HttpServlet {
             request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
         }
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

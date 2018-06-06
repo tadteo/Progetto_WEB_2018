@@ -8,6 +8,7 @@ package it.unitn.disi.cinema.dataaccess.Beans;
  * @author domenico
  */
 public class Film {
+
     private Integer id_film;
     private String titolo;
     private Integer id_genere;
@@ -30,8 +31,8 @@ public class Film {
     }
 
     @Override
-    public String toString(){
-        return "Film[" + getId() + "," + getTitolo()+ "," + getGenereId() + "," + getUrlLocandina() + "," + getUrlTrailer() + "," + getDurata() + "," + "<TramaOmessa>" + "]";
+    public String toString() {
+        return "Film[" + getId() + "," + getTitolo() + "," + getGenereId() + "," + getUrlLocandina() + "," + getUrlTrailer() + "," + getDurata() + "," + "<TramaOmessa>" + "]";
     }
 
     /**

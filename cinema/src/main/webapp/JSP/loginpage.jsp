@@ -42,7 +42,7 @@
                             <p>Non sei ancora registrato? <a href="/cinema/signup.do">REGISTRATI ora!</a></p>
                             <a href="${pageContext.request.contextPath}/restore.do">Hai dimenticato la password?</a>
                         </form>
-                        
+
                     </div>
                 </div>
                 <div class="col-3"></div>
