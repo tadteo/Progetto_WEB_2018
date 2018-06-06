@@ -39,6 +39,12 @@
                         <label>Numero Proiezioni per film - (1-20)</label>
                         <input type="number" id="proiezioni" name="proiezioni" class="form-control" placeholder="Proiezioni" value="10" min="1" max="20" required autofocus>
                         <br/>
+                        <div class="form-check my-3">
+                          <input class="form-check-input" type="checkbox" value="" id="random-check" name="random-check">
+                          <label class="form-check-label" for="random-check">
+                            Impostazione random sale
+                          </label>
+                        </div>
                         <button class="btn btn-lg btn-primary btn-block" type="submit">Start</button>
                     </form>
                 </div> 

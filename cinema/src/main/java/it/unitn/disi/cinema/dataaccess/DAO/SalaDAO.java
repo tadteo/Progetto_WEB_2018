@@ -72,7 +72,7 @@ public class SalaDAO {
     public List<Sala> getAll() throws SQLException {    //Non consigliato per tabelle grandi, conviene mettere un LIMIT per prendere pochi record
         List<Sala> result = new ArrayList<>();
 
-        PreparedStatement st = conn.prepareStatement("SELECT * FROM Sala");
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM Sala ORDER BY id_sala");
         ResultSet rs = st.executeQuery();
 
         while (rs.next()) {

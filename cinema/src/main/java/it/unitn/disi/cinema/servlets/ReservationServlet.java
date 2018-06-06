@@ -6,7 +6,6 @@
 package it.unitn.disi.cinema.servlets;
 
 import it.unitn.disi.cinema.dataaccess.Beans.Film;
-import it.unitn.disi.cinema.dataaccess.Beans.Genere;
 import it.unitn.disi.cinema.dataaccess.Beans.Posto;
 import it.unitn.disi.cinema.dataaccess.Beans.Prenotazione;
 import it.unitn.disi.cinema.dataaccess.Beans.Sala;
@@ -20,7 +19,6 @@ import it.unitn.disi.cinema.dataaccess.DAO.SpettacoloDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;

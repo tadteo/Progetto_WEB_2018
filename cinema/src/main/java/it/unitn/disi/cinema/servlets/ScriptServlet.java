@@ -16,6 +16,8 @@ import java.time.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +46,17 @@ public class ScriptServlet extends HttpServlet {
             if (request.getParameter("proiezioni") != null) {
                 numeroProiezioni = Integer.parseInt(request.getParameter("proiezioni"));
             }
+            
+            out.print("Random sale = ");
+            boolean randomCheck = false;
+            if (request.getParameter("random-check") ==null) {
+                out.println("false");
+            }else{
+                out.println("true");
+                randomCheck = true;
+            }
+            
+            
 
             out.println("Richieste " + numeroProiezioni + " proiezioni per film, ognuna di durata " + durata + " minuti");
 
@@ -64,8 +77,8 @@ public class ScriptServlet extends HttpServlet {
                     int base = rnd.nextInt(durata);
 
                     Timestamp timeIterator = addMinutesToTimestamp(base, current);
-                    for (int i = 1; i < numeroProiezioni; i++) {
-                        createNewSpettacolo(film.getId(), timeIterator);
+                    for (int i = 0; i < numeroProiezioni; i++) {
+                        createNewSpettacolo(film.getId(), timeIterator, randomCheck);
                         out.print(printTime(timeIterator) + " ");
                         timeIterator = addMinutesToTimestamp(durata, timeIterator);
                     }
@@ -96,14 +109,22 @@ public class ScriptServlet extends HttpServlet {
         }
     }
 
-    private void createNewSpettacolo(Integer idFilm, Timestamp time) {
+    private void createNewSpettacolo(Integer idFilm, Timestamp time, boolean random) {
         SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
         SalaDAO sld = DAOFactory.getSalaDAO();
-
+        
         try {
             List<Sala> sale = sld.getAll();
-
-            Integer idSala = sale.get(0).getId(); //------------------------------------------------------------Questo andrà modificato
+            int salaToUse = 0;
+            
+            if(random){
+                Random rnd = new Random();
+                salaToUse = rnd.nextInt(sale.size());
+            }else{
+                salaToUse = (idFilm-1) % sale.size();
+            }
+            
+            Integer idSala = sale.get(salaToUse).getId();
             Spettacolo s = new Spettacolo(null, idFilm, idSala, time);
             spd.addSpettacolo(s);
         } catch (SQLException ex) {
