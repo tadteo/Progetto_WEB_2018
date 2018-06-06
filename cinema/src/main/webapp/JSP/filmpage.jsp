@@ -49,54 +49,53 @@
                         </div>
                     </div>
                 </div>
-                        <br>
-                <div class="row">
-                    <div class="container-fluid text-center">
-                        <p><b>Spettacoli di oggi (<fmt:formatDate value="${calltime}" pattern="E dd/MM" />)</b></p>
-                        <div class="wrapper">
-                            <c:forEach items="${requestScope.spettacoli}" var="spettacolo">
-                                <c:choose>
-                                    <c:when test="${spettacolo.getDataOra().getDay() == calltime.getDay()}">
-                                        <!--                                    <form class="form-signin my-1" action="/cinema/" method="POST">
-                                                                                <input type="hidden" value="${spettacolo.getId()}" name="spettacolo_id"/>
-                                                                                <button class="btn btn-lg btn-dark btn-block" value="reservationpage" name="pageRequested" type="submit"><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm" /></button>
-                                                                            </form>  -->
-                                        <div class="form-signin my-1">
+			</div>
+            <div class="row">
+                <div class="container-fluid text-center">
+                    <p><b>Spettacoli di oggi (<fmt:formatDate value="${calltime}" pattern="E dd/MM" />)</b></p>
+                    <div class="wrapper">
+                        <c:forEach items="${requestScope.spettacoli}" var="spettacolo">
+                            <c:choose>
+                                <c:when test="${spettacolo.getDataOra().getDay() == calltime.getDay()}">  
+                                    <div class="form-signin my-1">
+                                      <c:set var="title" value="${film.getTitolo()}"/>
+                                      <c:set var="title" value="${fn:replace(title,' ', '')}"/>
+                                      <c:set var="title" value="${fn:toLowerCase(title)}"/>
+                                      <a href="../prenotaspettacolo/${spettacolo.getId()}-${title}" class="btn btn-lg btn-dark btn-block" >
+                                        <fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm" />
+                                      </a>
+                                    </div>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>      
+                    </div> 
+                </div>
 
-                                            <c:set var="title" value="${film.getTitolo()}"/>
-                                            <c:set var="title" value="${fn:replace(title,' ', '')}"/>
-                                            <c:set var="title" value="${fn:toLowerCase(title)}"/>
 
-                                            <a href="../prenotaspettacolo/${spettacolo.getId()}-${title}" class="btn btn-lg btn-dark btn-block" >
-                                                <fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm" />
-                                            </a>
-                                        </div>
-
-
-                                    </c:when>
-                                </c:choose>
-                            </c:forEach>      
-                        </div> 
-                    </div>
-
-                    <div id="hide-button" class="container-fluid text-center" >
-                        <button class="btn btn-outline-success" onclick="showHidden()">Mostra prossimi giorni</button>
-                    </div>
-
-                    <div id="hidden-shows" class="hidden container-fluid text-center">
-                        <p><b>Spettacoli dei prossimi giorni:</b></p>
-                        <div class="wrapper">
-                            <c:forEach items="${requestScope.spettacoli}" var="spettacolo">
-                                <c:choose>
-                                    <c:when test="${spettacolo.getDataOra().getDay() != calltime.getDay()}">
-                                        <form class="form-signin my-1" action="/cinema/" method="POST">
-                                            <input type="hidden" value="${spettacolo.getId()}" name="spettacolo_id"/>
-                                            <button class="btn btn-lg btn-dark btn-block" value="reservationpage" name="pageRequested" type="submit"><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm - dd/MM" /></button>
-                                        </form>  
-                                    </c:when>
-                                </c:choose>
-                            </c:forEach>
-                        </div>
+               <div id="hide-button" class="container-fluid text-center" >
+                    <button class="btn btn-outline-success" onclick="showHidden()">Mostra prossimi giorni</button>
+                </div>
+                <div id="hidden-shows" class="hidden container-fluid text-center">
+                    <p><b>Spettacoli dei prossimi giorni:</b></p>
+                    <div class="wrapper">
+                        <c:forEach items="${requestScope.spettacoli}" var="spettacolo">
+                            <c:choose>
+                                <c:when test="${spettacolo.getDataOra().getDay() != calltime.getDay()}">
+<!--                                    <form class="form-signin my-1" action="/cinema/" method="POST">
+                                        <input type="hidden" value="${spettacolo.getId()}" name="spettacolo_id"/>
+                                        <button class="btn btn-lg btn-dark btn-block" value="reservationpage" name="pageRequested" type="submit"><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm - dd/MM" /></button>
+                                    </form>  -->
+                                    <div class="form-signin my-1">
+                                      <c:set var="title" value="${film.getTitolo()}"/>
+                                      <c:set var="title" value="${fn:replace(title,' ', '')}"/>
+                                      <c:set var="title" value="${fn:toLowerCase(title)}"/>
+                                      <a href="../prenotaspettacolo/${spettacolo.getId()}-${title}" class="btn btn-lg btn-dark btn-block" >
+                                        <fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm" />
+                                      </a>
+                                    </div>
+                                </c:when>
+                            </c:choose>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
