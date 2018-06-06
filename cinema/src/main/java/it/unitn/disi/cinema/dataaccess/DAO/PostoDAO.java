@@ -127,11 +127,8 @@ public class PostoDAO {
         return result;
     }
 
-    void updatePosto(Posto posto) throws SQLException {
-        throw new NotImplemented();
-    }
 
-    void deletePosto(Integer id) throws SQLException {
+    public void deletePosto(Integer id) throws SQLException {
 
         PreparedStatement st = conn.prepareStatement("DELETE FROM Posto WHERE Posto.id_posto = ?");
         st.setInt(1, id);
@@ -139,7 +136,7 @@ public class PostoDAO {
         st.executeUpdate();
     }
 
-    void setAvailability(Integer id, Boolean available) throws SQLException {
+    public void setAvailability(Integer id, Boolean available) throws SQLException {
         PreparedStatement st;
 
         if (available == null) {
@@ -153,7 +150,7 @@ public class PostoDAO {
         st.executeUpdate();
     }
 
-    Boolean isAvailableForReservation(Integer id) throws SQLException {
+    public Boolean isAvailableForReservation(Integer id) throws SQLException {
         Boolean result = null;
 
         PreparedStatement st = conn.prepareStatement("select Posto.esiste from Posto where Posto.id_posto = ?");
@@ -167,7 +164,7 @@ public class PostoDAO {
         return result;
     }
 
-    List<Boolean> getSalaMap(Integer salaId) throws SQLException {
+    public List<Boolean> getSalaMap(Integer salaId) throws SQLException {
         List<Boolean> result = new ArrayList<>();
 
         PreparedStatement st = conn.prepareStatement("select Posto.esiste from Posto where Posto.id_sala = ?");

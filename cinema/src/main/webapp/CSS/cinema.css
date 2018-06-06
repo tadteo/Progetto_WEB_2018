@@ -101,11 +101,19 @@ and open the template in the editor.
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;
 }
+.mwrapper{
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-gap: 1px;
+}
 
 .collage{
     background-image: url("/cinema/images/collage.jpg");
 }
-
+.padding-0{
+    padding-right:0;
+    padding-left:0;
+}
 .layer {
     background-color: rgba(252, 251, 237, 0.3);
     position: absolute;
@@ -148,7 +156,14 @@ and open the template in the editor.
     min-width: 400px;
 }
 
-
+.mseat {
+    background-color: green;
+    color: white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    cursor: default;
+}
 
 @media screen and(max-width: 480px){
     .booking-details{
@@ -166,3 +181,4 @@ and open the template in the editor.
     }
 
 }
+
