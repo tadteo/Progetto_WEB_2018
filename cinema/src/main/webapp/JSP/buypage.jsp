@@ -21,6 +21,9 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/yesOrNo.css">
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/payments.css">
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <title>Cinema-Homepage</title>
     </head>
     <body class="collage">
