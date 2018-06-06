@@ -48,6 +48,7 @@
             <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${prezzi.getPrezzo()}"/> € (Euro)
           </p>
 				</c:forEach>
+          <p>Il prezzo <b>ridotto</b> è applicabile a persone con disabilità e studenti muniti di badge.</p>
 					<hr>
 				<h5>Informazioni:</h5>
 				<p><b>Telefono:</b> +39 0123 123123</p>

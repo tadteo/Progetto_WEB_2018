@@ -57,23 +57,15 @@
                     <div class="wrapper">
                         <c:forEach items="${requestScope.spettacoli}" var="spettacolo">
                             <c:choose>
-                                <c:when test="${spettacolo.getDataOra().getDay() == calltime.getDay()}">
-<!--                                    <form class="form-signin my-1" action="/cinema/" method="POST">
-                                        <input type="hidden" value="${spettacolo.getId()}" name="spettacolo_id"/>
-                                        <button class="btn btn-lg btn-dark btn-block" value="reservationpage" name="pageRequested" type="submit"><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm" /></button>
-                                    </form>  -->
+                                <c:when test="${spettacolo.getDataOra().getDay() == calltime.getDay()}">  
                                     <div class="form-signin my-1">
-                                  
-                                    <c:set var="title" value="${film.getTitolo()}"/>
-                                    <c:set var="title" value="${fn:replace(title,' ', '')}"/>
-                                    <c:set var="title" value="${fn:toLowerCase(title)}"/>
-
+                                      <c:set var="title" value="${film.getTitolo()}"/>
+                                      <c:set var="title" value="${fn:replace(title,' ', '')}"/>
+                                      <c:set var="title" value="${fn:toLowerCase(title)}"/>
                                       <a href="../prenotaspettacolo/${spettacolo.getId()}-${title}" class="btn btn-lg btn-dark btn-block" >
                                         <fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm" />
                                       </a>
                                     </div>
-
-
                                 </c:when>
                             </c:choose>
                         </c:forEach>      
@@ -90,10 +82,18 @@
                         <c:forEach items="${requestScope.spettacoli}" var="spettacolo">
                             <c:choose>
                                 <c:when test="${spettacolo.getDataOra().getDay() != calltime.getDay()}">
-                                    <form class="form-signin my-1" action="/cinema/" method="POST">
+<!--                                    <form class="form-signin my-1" action="/cinema/" method="POST">
                                         <input type="hidden" value="${spettacolo.getId()}" name="spettacolo_id"/>
                                         <button class="btn btn-lg btn-dark btn-block" value="reservationpage" name="pageRequested" type="submit"><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm - dd/MM" /></button>
-                                    </form>  
+                                    </form>  -->
+                                    <div class="form-signin my-1">
+                                      <c:set var="title" value="${film.getTitolo()}"/>
+                                      <c:set var="title" value="${fn:replace(title,' ', '')}"/>
+                                      <c:set var="title" value="${fn:toLowerCase(title)}"/>
+                                      <a href="../prenotaspettacolo/${spettacolo.getId()}-${title}" class="btn btn-lg btn-dark btn-block" >
+                                        <fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm" />
+                                      </a>
+                                    </div>
                                 </c:when>
                             </c:choose>
                         </c:forEach>

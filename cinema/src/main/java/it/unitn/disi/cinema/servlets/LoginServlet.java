@@ -27,10 +27,9 @@ public class LoginServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         if(session.getAttribute("email") == null)
-            request.getRequestDispatcher("/JSP/loginpage.jsp").forward(request, response);//            response.sendRedirect(request.getContextPath() + "/JSP/loginpage.jsp");
+            request.getRequestDispatcher("/JSP/loginpage.jsp").forward(request, response);
         else
             response.setStatus(500);
-        
     }
 
     @Override
@@ -51,7 +50,7 @@ public class LoginServlet extends HttpServlet {
                 Utente currentUser = utd.getUtenteByEmail(email);
                 
                 /**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**/
-                /**//**//**//**//**//**//**//**//*Qui ci va la crittatura MD5 *//**//**//**//**//**//**//**//**/
+                /**//**//**//**//* Qui ci va la creazione di un hash per le password  *//**//**//**//**//**//**/
                 /**//**//**//* Ci andrebbe se non memorizzassimo in chiaro le psd per rimandarle  *//**//**//**/
                 /**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**/
                 
@@ -60,7 +59,20 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("ruolo", rud.getRuoloById(currentUser.getRuoloId()).getRuolo());
                     
                     session.removeAttribute("errorMessage");
-                    response.sendRedirect(request.getContextPath() + "/");
+                    
+                    Object filterSavedRequestPage = session.getAttribute("filterSavedRequest");
+                    if(filterSavedRequestPage != null){
+                        try{
+                            String fsrStr = (String)filterSavedRequestPage;
+                            session.removeAttribute("filterSavedRequest");
+                            
+                            response.sendRedirect(fsrStr);
+                        }catch(Exception e){
+                            System.out.println("ERROR with filterSavedRequest in LoginServlet!!!!");
+                        }
+                    }else{
+                        response.sendRedirect(request.getContextPath() + "/");
+                    }
                 }else{
                     session.setAttribute("errorMessage", "La combinazione email/password è sbagliata");
                     response.sendRedirect(request.getContextPath() + "/login.do");

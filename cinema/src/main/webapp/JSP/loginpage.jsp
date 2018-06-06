@@ -36,7 +36,7 @@
                             <label for="password">Password</label>
                             <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
                             <br/><br/>
-
+                            
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Accedi</button>
                             <br />
                             <p>Non sei ancora registrato? <a href="/cinema/signup.do">REGISTRATI ora!</a></p>

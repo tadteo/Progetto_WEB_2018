@@ -33,7 +33,6 @@
         
         <div class="container jumbotron reservation">
             <h3 class="my-2 text-center">${requestScope.film.getTitolo()} - ${requestScope.sala.getDescrizione()} - Proiezione delle: <span><fmt:formatDate value="${requestScope.spettacolo.getDataOra()}" pattern="HH:mm (dd/MM/yyyy)" /></span></h3>
-			<h4 class="my-2 text-center">Ricordarsi di loggare prima di selezionare i posti</h4>
             <!--
             <c:forEach items="${requestScope.mappa}" var="riga">
                 <p>${riga}</p>
@@ -57,19 +56,17 @@
 					  <c:choose>
 						  <c:when test="${sessionScope.email != null}">
                 <c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
-<!--                <form class="form-signin" action="/cinema/" method="POST" onsubmit="setValue(this.posti)">-->
                 <form class="form-signin" action="/cinema/acquistabiglietti" method="POST" onsubmit="setValue(this.posti)">
                   <input type="hidden" name="pageRequested" value="buypage">
                   <input type="hidden" name="sala" value="${requestScope.sala.getId()}">	
                   <input type="hidden" name="posti" value="">			
-                  <input type="hidden" name="spettacolo" value="${requestScope.spettacolo.getId()}">				
-                  <button class="btn btn-lg btn-primary btn-block btn-outline-primary my-2" type="submit">Acquisto &raquo;</button>
+                  <input type="hidden" name="spettacolo" value="${requestScope.spettacolo.getId()}">
+                  <button id="acquista" class="btn btn-lg btn-primary btn-block btn-outline-primary my-2" type="submit" disabled>Acquisto &raquo;</button>
                 </form>
               </c:when>
               <c:otherwise>
-                <p> Per continuare con la prenotazione bisogna loggarsi </p>
                 <form class="form-signin">
-                  <button class="btn btn-lg btn-primary btn-block btn-outline-primary my-2" type="submit" disabled>Acquisto &raquo;</button>
+                  <button class="btn btn-lg btn-primary btn-block btn-outline-primary my-2" type="submit" disabled>Errore Login &raquo;</button>
                 </form>
               </c:otherwise>
 					  </c:choose>
@@ -145,6 +142,9 @@
               },
               click: function () {
                 if (this.status() == 'available') {
+                  //Abilitiamo subito l'acquisto
+                  $('#acquista').prop('disabled', false);
+                   
                   //let's create a new <li> which we'll add to the cart items
                   $('<li>Posto N: '+this.settings.label+' - '+this.data().category+'  <a href="#" class="cancel-cart-item">[annulla]</a></li>')
                     .attr('id', 'cart-item-'+this.settings.id)
@@ -161,8 +161,15 @@
                   $total.text(recalculateTotal(sc)+this.data().price);
                   return 'selected';
                 } else if (this.status() == 'selected') {
+                  
+                  
                   //update the counter
                   $counter.text(sc.find('selected').length-1);
+                  
+                  if($counter.text() == "0")
+                    $('#acquista').prop('disabled', true);
+                  
+                  
                   //and total
                   $total.text(recalculateTotal(sc)-this.data().price);
 
