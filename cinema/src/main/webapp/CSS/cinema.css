@@ -15,10 +15,12 @@ and open the template in the editor.
 .films{
     margin-bottom: 20px;
 }
+
 .login{
     margin-top: auto;
     margin-bottom: auto;
 }
+
 .locandina{
     box-shadow: 0 0 5px rgba(0,0,0,.9);
     border-radius: 5px;
@@ -27,11 +29,12 @@ and open the template in the editor.
     margin-bottom: 5px;
     max-width: 10rem;
 }
-.locandina-filpage{
-    margin-bottom: 15px;
+
+.locandina-film-page{
     box-shadow: 0 0 3px rgba(0,0,0,.9);
     border-radius: 5px;
 }
+
 .astext {
     border: none;
     background-color:inherit;
@@ -48,9 +51,7 @@ and open the template in the editor.
     padding-top: 20px;
 }
 
-
-
-.videoWrapper {
+.videoWrapper{
     background-color: gray;
     position: relative;
     margin-bottom: 15px;
@@ -58,7 +59,8 @@ and open the template in the editor.
     padding-top: 25px;
     height: 0;
 }
-.videoWrapper iframe {
+
+.videoWrapper iframe{
     border-radius: 0.5rem;
     position: absolute;
     top: 0;
@@ -79,14 +81,9 @@ and open the template in the editor.
 
 .onefilm {
     background-color: #fff;
-
-
-    /*    border: 10px solid #000;*/
-
     -webkit-box-shadow: -8px 9px 30px -1px rgba(138,138,138,1);
     -moz-box-shadow: -8px 9px 30px -1px rgba(138,138,138,1);
     box-shadow: -8px 9px 30px -1px rgba(138,138,138,1);
-
     border-radius: 0.5rem;
     padding: 1rem;
     margin: 1rem;
@@ -97,10 +94,12 @@ and open the template in the editor.
 }
 
 .wrapper {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+
 }
+
 .mwrapper{
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -110,10 +109,12 @@ and open the template in the editor.
 .collage{
     background-image: url("/cinema/images/collage.jpg");
 }
+
 .padding-0{
     padding-right:0;
     padding-left:0;
 }
+
 .layer {
     background-color: rgba(252, 251, 237, 0.3);
     position: absolute;
@@ -123,6 +124,7 @@ and open the template in the editor.
     height: 100%;
 }
 
+/*
 .accordion-margin {
     margin-left: 100px;
     margin-right: 100px;
@@ -141,6 +143,12 @@ and open the template in the editor.
 .accordion-marginBottom {
     margin-top: 20px;
     margin-bottom: 100px;
+}
+
+*/
+
+.reservation{
+    min-width: 360px;
 }
 
 .margin-admin {
@@ -166,23 +174,6 @@ and open the template in the editor.
     cursor: default;
 }
 
-@media screen and(max-width: 480px){
-    .booking-details{
-        margin-left: 0px !important;
-    }
-    .page-footer{
-        width: 480px;
-    }
-    .seatCharts-space{
-        visibility: hidden;
-    }
-
-    .seatCharts-container{
-        padding: 0px !important; 
-    }
-
-}
-
 .marginbtn {
     margin:2px;
 }
@@ -196,4 +187,9 @@ and open the template in the editor.
     top: 0;
     left: 100%;
     margin-top: -1px;
+
+}
+
+.overflow-card{
+    overflow: scroll;
 }

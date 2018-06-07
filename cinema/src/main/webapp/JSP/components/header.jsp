@@ -70,7 +70,9 @@
             </c:choose>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-<!--              <a class="dropdown-item" href="#">Action</a>-->
+              <a class="dropdown-item" href="/cinema/lemieprenotazioni/${sessionScope.email}">Le mie prenotazioni</a>
+              <div class="dropdown-divider"></div>
+
               <c:choose>
                 <c:when test="${sessionScope.ruolo == 'admin'}">
 
@@ -148,7 +150,8 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script>
 $(document).ready(function(){
   $('.dropleft a.test').on("click", function(e){
@@ -158,3 +161,4 @@ $(document).ready(function(){
   });
 });
 </script>
+

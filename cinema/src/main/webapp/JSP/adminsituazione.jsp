@@ -24,12 +24,12 @@
 
     <body class="collage">
     <div class="card margin-admin">
-      <div class="card-body">
+      <div class="card-body overflow-card">
         SITUAZIONE DELLE PROGRAMMAZIONI
       </div>
     </div>
     <div class="card margin-admin">
-      <div class="card-body">
+      <div class="card-body overflow-card">
        <table class="table  table-striped">
           <thead class="thead-dark">
             <tr>
@@ -61,6 +61,7 @@
                 <td>${postiLiberi}</td>
                 <td>${requestScope[incasso]}</td>
              </tr>
+
             </c:forEach>
           </tbody>
         </table>

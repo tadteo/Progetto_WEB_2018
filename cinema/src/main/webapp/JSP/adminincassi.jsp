@@ -24,12 +24,12 @@
     <jsp:include page='components/header.jsp'/>
 
     <div class="card margin-admin">
-      <div class="card-body">
+      <div class="card-body overflow-card">
         INCASSI DEI FILM
       </div>
     </div>
     <div class="card margin-admin">
-      <div class="card-body">
+      <div class="card-body overflow-card">
         <table class="table  table-striped">
           <thead class="thead-dark">
             <tr>

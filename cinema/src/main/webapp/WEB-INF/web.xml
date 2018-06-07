@@ -4,6 +4,10 @@
         <filter-name>RegularUserFilter</filter-name>
         <filter-class>it.unitn.disi.cinema.filters.RegularUserFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>AdminUserFilter</filter-name>
+        <filter-class>it.unitn.disi.cinema.filters.AdminUserFilter</filter-class>
+    </filter>
     <filter-mapping>
         <filter-name>RegularUserFilter</filter-name>
         <url-pattern>/acquistabiglietti/*</url-pattern>
@@ -12,6 +16,15 @@
         <filter-name>RegularUserFilter</filter-name>
         <url-pattern>/prenotaspettacolo/*</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>RegularUserFilter</filter-name>
+        <url-pattern>/lemieprenotazioni/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminUserFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+    
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>it.unitn.disi.cinema.servlets.LoginServlet</servlet-class>
@@ -65,9 +78,14 @@
         <servlet-class>it.unitn.disi.cinema.servlets.AddRemovePosti</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>MyReservationsServlet</servlet-name>
+        <servlet-class>it.unitn.disi.cinema.servlets.MyReservationsServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AdminSituazioniServlet</servlet-name>
         <servlet-class>it.unitn.disi.cinema.servlets.AdminSituazioniServlet</servlet-class>
     </servlet>
+
     <servlet>
         <servlet-name>AdminPrenotazioniServlet</servlet-name>
         <servlet-class>it.unitn.disi.cinema.servlets.AdminPrenotazioniServlet</servlet-class>
@@ -130,8 +148,12 @@
         <url-pattern>/admin/modificasala/remove/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>MyReservationsServlet</servlet-name>
+        <url-pattern>/lemieprenotazioni/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AdminSituazioniServlet</servlet-name>
-        <url-pattern>/situazione/*</url-pattern>
+        <url-pattern>/admin/situazione/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminPrenotazioniServlet</servlet-name>

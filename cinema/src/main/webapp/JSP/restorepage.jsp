@@ -12,7 +12,7 @@
         <title>Cinema Sign Up</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"  crossorigin="anonymous">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,8 +22,8 @@
         <div class="layer">
             <div class="container my-2">
                 <div class="row">
-                    <div class="col-3"></div>
-                    <div class="col-6">
+                    <div class="col-md-3"></div>
+                    <div class="col-12 col-md-6">
                         <div class="jumbotron">
                             <form class="form-signin text-center" action="/cinema/restore.do" method="POST">
                                 <h2 class="form-signin-heading">Inserisci il tuo indirizzo email</h2>
@@ -36,12 +36,12 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-3"></div>
+                    <div class="col-md-3"></div>
                 </div>
             </div> <!-- /container0 -->
         </div>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
     </body>
 </html>
 
