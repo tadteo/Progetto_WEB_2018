@@ -108,6 +108,7 @@ and open the template in the editor.
     height: 100%;
 }
 
+/*
 .accordion-margin {
     margin-left: 100px;
     margin-right: 100px;
@@ -127,7 +128,7 @@ and open the template in the editor.
     margin-top: 20px;
     margin-bottom: 100px;
 }
-
+*/
 .reservation{
     min-width: 360px;
 }

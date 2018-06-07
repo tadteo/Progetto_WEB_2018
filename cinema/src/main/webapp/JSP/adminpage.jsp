@@ -23,8 +23,12 @@
 	
     <body class="collage">
         <jsp:include page='components/header.jsp'/>
-
-            <div class="accordion accordion-margin accordion-marginTop" id="accordionProgrammazioni">
+        <div class="container">
+            
+            <div class="row">
+                <div class="col-12 col-md-3"></div>
+                <div class="col-12 col-md-6">
+                    <div class="accordion accordion-margin accordion-marginTop" id="accordionProgrammazioni">
                 <div class="card">
                   <div class="card-header" id="headingProgrammazioni">
                     <h5 class="mb-0">
@@ -40,8 +44,13 @@
                   </div>
                 </div>
               </div>
-
-              <div class="accordion accordion-margin accordion-marginMiddle" id="accordionIncassi">
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-3"></div>
+                <div class="col-12 col-md-6">
+                    <div class="accordion accordion-margin accordion-marginMiddle" id="accordionIncassi">
                 <div class="card">
                   <div class="card-header" id="headingIncassi">
                     <h5 class="mb-0">
@@ -57,8 +66,13 @@
                   </div>
                 </div>
               </div>
-
-              <div class="accordion accordion-margin accordion-marginMiddle" id="accordionClienti">
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-3"></div>
+                <div class="col-12 col-md-6">
+                    <div class="accordion accordion-margin accordion-marginMiddle" id="accordionClienti">
                 <div class="card">
                   <div class="card-header" id="headingClienti">
                     <h5 class="mb-0">
@@ -74,8 +88,13 @@
                   </div>
                 </div>
               </div>
-        
-              <div class="accordion accordion-margin accordion-marginBottom" id="accordionPrenotazioni">
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-3"></div>
+                <div class="col-12 col-md-6">
+                    <div class="accordion accordion-margin accordion-marginBottom" id="accordionPrenotazioni">
                  <div class="card">
                   <div class="card-header" id="headingPrenotazioni">
                     <h5 class="mb-0">
@@ -91,6 +110,17 @@
                   </div>
                 </div>
 </div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+            
+
+              
+
+              
+        
+              
     
 	<jsp:include page='components/footer.jsp'/>
     </body>
