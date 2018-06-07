@@ -15,10 +15,12 @@ and open the template in the editor.
 .films{
     margin-bottom: 20px;
 }
+
 .login{
     margin-top: auto;
     margin-bottom: auto;
 }
+
 .locandina{
     box-shadow: 0 0 5px rgba(0,0,0,.9);
     border-radius: 5px;
@@ -26,11 +28,6 @@ and open the template in the editor.
     margin: 0 auto;
     margin-bottom: 5px;
     max-width: 10rem;
-}
-.locandina-filpage{
-    margin-bottom: 15px;
-    box-shadow: 0 0 3px rgba(0,0,0,.9);
-    border-radius: 5px;
 }
 
 .locandina-film-page{
@@ -54,8 +51,6 @@ and open the template in the editor.
     padding-top: 20px;
 }
 
-
-
 .videoWrapper {
     background-color: gray;
     position: relative;
@@ -64,6 +59,7 @@ and open the template in the editor.
     padding-top: 25px;
     height: 0;
 }
+
 .videoWrapper iframe {
     border-radius: 0.5rem;
     position: absolute;
@@ -85,14 +81,9 @@ and open the template in the editor.
 
 .onefilm {
     background-color: #fff;
-
-
-    /*    border: 10px solid #000;*/
-
     -webkit-box-shadow: -8px 9px 30px -1px rgba(138,138,138,1);
     -moz-box-shadow: -8px 9px 30px -1px rgba(138,138,138,1);
     box-shadow: -8px 9px 30px -1px rgba(138,138,138,1);
-
     border-radius: 0.5rem;
     padding: 1rem;
     margin: 1rem;
@@ -119,10 +110,12 @@ and open the template in the editor.
 .collage{
     background-image: url("/cinema/images/collage.jpg");
 }
+
 .padding-0{
     padding-right:0;
     padding-left:0;
 }
+
 .layer {
     background-color: rgba(252, 251, 237, 0.3);
     position: absolute;
@@ -154,6 +147,7 @@ and open the template in the editor.
 }
 
 */
+
 .reservation{
     min-width: 360px;
 
@@ -181,23 +175,6 @@ and open the template in the editor.
     cursor: default;
 }
 
-@media screen and(max-width: 480px){
-    .booking-details{
-        margin-left: 0px !important;
-    }
-    .page-footer{
-        width: 480px;
-    }
-    .seatCharts-space{
-        visibility: hidden;
-    }
-
-    .seatCharts-container{
-        padding: 0px !important; 
-    }
-
-}
-
 .marginbtn {
     margin:2px;
 }
@@ -212,4 +189,8 @@ and open the template in the editor.
     left: 100%;
     margin-top: -1px;
 
+}
+
+.overflow-card{
+    overflow: scroll;
 }

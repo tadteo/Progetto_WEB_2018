@@ -39,7 +39,7 @@
                     </h5>
                   </div>
                   <div id="collapseProgrammazioni" class="collapse show" aria-labelledby="headingProgrammazioni" data-parent="#accordionProgrammazioni">
-                    <div class="card-body">
+                    <div class="card-body overflow-card">
                       <!--Gestione programmazioni-->
                     </div>
                   </div>
@@ -61,7 +61,7 @@
                     </h5>
                   </div>
                   <div id="collapseIncassi" class="collapse" aria-labelledby="headingIncassi" data-parent="#accordionIncassi">
-                    <div class="card-body">
+                    <div class="card-body overflow-card">
                       <!--Gestione Incassi-->
                     </div>
                   </div>
@@ -83,7 +83,7 @@
                     </h5>
                   </div>
                   <div id="collapseClienti" class="collapse" aria-labelledby="headingClienti" data-parent="#accordionClienti">
-                    <div class="card-body">
+                    <div class="card-body overflow-card">
                     <!--Gestione Clienti-->
                     </div>
                   </div>
@@ -105,7 +105,7 @@
                     </h5>
                   </div>
                   <div id="collapsePrenotazioni" class="collapse" aria-labelledby="headingPrenotazioni" data-parent="#accordionPrenotazioni">
-                    <div class="card-body">
+                    <div class="card-body overflow-card">
                       <!--Gestione Prenotazioni-->
                     </div>
                   </div>

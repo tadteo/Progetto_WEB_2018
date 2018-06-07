@@ -80,16 +80,12 @@
                         </c:forEach>      
                     </div> 
                 </div>
-
-                <div id="hide-button" class="container-fluid text-center col-12" >
-                    <button class="btn btn-outline-success" onclick="showHidden()">Mostra prossimi giorni</button>
-                </div>
-
-        <div class="row">  
-          <div id="hide-button" class="container-fluid text-center" >
-            <button class="btn btn-outline-success" onclick="showHidden()">Mostra prossimi giorni</button>
-          </div>
-        </div>
+            </div>
+            <div class="row">  
+              <div id="hide-button" class="container-fluid text-center col-12" >
+                <button class="btn btn-outline-success" onclick="showHidden()">Mostra prossimi giorni</button>
+              </div>
+            </div>
             
         <div class="row">    
           <div id="hidden-shows" class="hidden container-fluid text-center">

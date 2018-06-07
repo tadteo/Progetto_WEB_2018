@@ -24,12 +24,12 @@
 
     <body class="collage">
     <div class="card margin-admin">
-      <div class="card-body">
+      <div class="card-body overflow-card">
         GESTIONE DELLE PRENOTAZIONI
       </div>
     </div>
     <div class="card margin-admin">
-      <div class="card-body">
+      <div class="card-body overflow-card">
        
       </div>
     </div>
