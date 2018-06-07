@@ -97,25 +97,24 @@
                   </form>
 
                   <div class="dropdown-divider"></div>
-                  
-                  <div class="form-signin">
-                    <a class="dropdown-item" href="/cinema/admin/modificasala/1">Modifica Sala 1</a>
+
+                  <div class="dropleft dropdown-submenu">
+                    <a class="test dropdown-item" href="#">Modifica sala<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><a  class="dropdown-item" href="/cinema/admin/modificasala/1">Modifica Sala 1</a></li>
+                      <li><a  class="dropdown-item" href="/cinema/admin/modificasala/2">Modifica Sala 2</a></li>
+                      <li><a  class="dropdown-item" href="/cinema/admin/modificasala/3">Modifica Sala 3</a></li>
+                      <li><a  class="dropdown-item" href="/cinema/admin/modificasala/4">Modifica Sala 4</a></li>
+                    </ul>
                   </div>
-                  <div class="form-signin">
-                    <a class="dropdown-item" href="/cinema/admin/modificasala/2">Modifica Sala 2</a>
-                  </div>
-                  <div class="form-signin">
-                    <a class="dropdown-item" href="/cinema/admin/modificasala/3">Modifica Sala 3</a>
-                  </div>
-                  <div class="form-signin">
-                    <a class="dropdown-item" href="/cinema/admin/modificasala/4">Modifica Sala 4</a>
-                  </div>
-                  
+
                   <div class="dropdown-divider"></div>
+
                 </c:when>
               </c:choose>
               
-                                      
+              <h3 class="dropdown-header"><b>Zona Utente</b></h3>
+                     
               <form class="form-signin" id="form-logout-instance" action="/cinema/logout.do" method="POST">
                 <a class="dropdown-item text-white bg-danger" href="#" onclick="document.getElementById('form-logout-instance').submit();">Logout</a>
               </form>
@@ -153,3 +152,12 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+</script>

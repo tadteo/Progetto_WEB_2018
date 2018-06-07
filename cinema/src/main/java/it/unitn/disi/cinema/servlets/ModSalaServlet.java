@@ -58,10 +58,6 @@ public class ModSalaServlet extends HttpServlet {
             if(sala != null){
                 
                 List<Posto> posti = psd.getPostoBySalaId(sala.getId());
-
-                
-                
-                
                
                 request.setAttribute("sala", sala);
                 request.setAttribute("posti", posti);
