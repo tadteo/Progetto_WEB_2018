@@ -70,7 +70,9 @@
             </c:choose>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-<!--              <a class="dropdown-item" href="#">Action</a>-->
+              <a class="dropdown-item" href="/cinema/lemieprenotazioni/${sessionScope.email}">Le mie prenotazioni</a>
+              <div class="dropdown-divider"></div>
+
               <c:choose>
                 <c:when test="${sessionScope.ruolo == 'admin'}">
 

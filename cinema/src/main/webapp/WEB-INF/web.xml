@@ -12,6 +12,10 @@
         <filter-name>RegularUserFilter</filter-name>
         <url-pattern>/prenotaspettacolo/*</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>RegularUserFilter</filter-name>
+        <url-pattern>/lemieprenotazioni/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>it.unitn.disi.cinema.servlets.LoginServlet</servlet-class>
@@ -63,6 +67,10 @@
     <servlet>
         <servlet-name>AddRemovePosti</servlet-name>
         <servlet-class>it.unitn.disi.cinema.servlets.AddRemovePosti</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyReservationsServlet</servlet-name>
+        <servlet-class>it.unitn.disi.cinema.servlets.MyReservationsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -119,6 +127,10 @@
     <servlet-mapping>
         <servlet-name>AddRemovePosti</servlet-name>
         <url-pattern>/admin/modificasala/remove/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyReservationsServlet</servlet-name>
+        <url-pattern>/lemieprenotazioni/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
