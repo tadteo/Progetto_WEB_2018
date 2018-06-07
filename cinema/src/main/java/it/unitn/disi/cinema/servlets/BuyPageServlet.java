@@ -4,11 +4,15 @@ import it.unitn.disi.cinema.dataaccess.Beans.Posto;
 import it.unitn.disi.cinema.dataaccess.Beans.Prezzo;
 import it.unitn.disi.cinema.dataaccess.DAO.DAOFactory;
 import it.unitn.disi.cinema.dataaccess.DAO.PostoDAO;
+import it.unitn.disi.cinema.dataaccess.DAO.PrenotazioneDAO;
 import it.unitn.disi.cinema.dataaccess.DAO.PrezzoDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +35,7 @@ public class BuyPageServlet extends HttpServlet {
         //DAOs
         PostoDAO psd = DAOFactory.getPostoDAO();
         PrezzoDAO pzd = DAOFactory.getPrezzoDAO();
+        PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
 
         try {
             List<Prezzo> prezzi = pzd.getAll();
@@ -81,17 +86,45 @@ public class BuyPageServlet extends HttpServlet {
                     ridotto = allprz.get(1);
                 }
             }
+            
+            
+            
+            Integer spettacolo_id;
+            try{
+                spettacolo_id = Integer.parseInt(spettacolo.trim());
+                
+                
 
-            request.setAttribute("selezionati", selezionati);
-            request.setAttribute("spettacolo", spettacolo);
-            request.setAttribute("prezzi", prezzi);
-            request.setAttribute("posti", posti);
+                
+                for(Posto posto: posti){
 
-            request.setAttribute("intero", intero);
-            request.setAttribute("ridotto", ridotto);
+                    if(psd.isReserved(spettacolo_id,posto.getId())){
+                        request.setAttribute("mmessage", "Siamo spiacenti, un utente ha prenotato uno dei suoi posti mentre lei li stava scegliendo, la preghiamo di riprovare.");
+                        
+                        request.setAttribute("errorcode", "409");
+                        request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
+                    }
 
-            request.setAttribute("pageCurrent", "buypage");
-            request.getRequestDispatcher("JSP/buypage.jsp").forward(request, response);
+                }   
+                
+                
+                request.setAttribute("selezionati", selezionati);
+                request.setAttribute("spettacolo", spettacolo);
+                request.setAttribute("prezzi", prezzi);
+                request.setAttribute("posti", posti);
+
+                request.setAttribute("intero", intero);
+                request.setAttribute("ridotto", ridotto);
+
+                request.setAttribute("pageCurrent", "buypage");
+                
+                
+                request.getRequestDispatcher("JSP/buypage.jsp").forward(request, response);
+                
+            }catch(NumberFormatException nfe){
+                System.err.println("ERRORE! Impossibile convertire in int la stringa spettacolo");
+            }
+            
         } catch (SQLException ex) {
             System.out.println("Errore, impossibile ottenere la lista dei film");
             ex.printStackTrace();
