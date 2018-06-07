@@ -2,7 +2,6 @@ package it.unitn.disi.cinema.servlets;
 
 import it.unitn.disi.cinema.dataaccess.Beans.Posto;
 import it.unitn.disi.cinema.dataaccess.Beans.Prenotazione;
-
 import it.unitn.disi.cinema.dataaccess.Beans.Spettacolo;
 import it.unitn.disi.cinema.dataaccess.Beans.Utente;
 
@@ -17,6 +16,8 @@ import it.unitn.disi.cinema.dataaccess.DAO.UtenteDAO;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,15 +39,14 @@ public class AdminPrenotazioniServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
-
         String idReq_str = request.getPathInfo(); //QUESTO PRENDE L'ULTIMO PARAMETRO DELL'URL
+        
         if (idReq_str == null) {
             request.setAttribute("errorcode", "404");
             request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
         }
-        idReq_str = idReq_str.substring(1);
 
-        if (idReq_str.equals("")) {
+        else if (idReq_str.substring(1).equals("")) {
 
             SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
             PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
@@ -84,12 +84,12 @@ public class AdminPrenotazioniServlet extends HttpServlet {
             }      
         }
 
-        if (isNumeric(idReq_str)) {
+        else if (isNumeric(idReq_str.substring(1))) {
             //good, target                
             Integer idReq = null;
             
             try {
-                idReq = Integer.parseInt(idReq_str);
+                idReq = Integer.parseInt(idReq_str.substring(1));
             } catch (NumberFormatException nfe) {
                 request.setAttribute("errorcode", "400");
                 request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
@@ -124,10 +124,39 @@ public class AdminPrenotazioniServlet extends HttpServlet {
             }
 
 
-        }          
+        }  else  {
+            request.setAttribute("errorcode", "410");
+            request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
+        }         
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        String idReq_str = request.getPathInfo(); //QUESTO PRENDE L'ULTIMO PARAMETRO DELL'URL
+        PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
+        PrezzoDAO prz = DAOFactory.getPrezzoDAO();
+        UtenteDAO utd = DAOFactory.getUtenteDAO();
+
+        if (idReq_str.substring(1).equals("rimozione")) {
+            try {
+                //good, rimuovere
+                double value = 0.0;
+                int user = 0;
+                user = (prd.getPrenotazioneById(Integer.parseInt(request.getParameter("delete")))).getUtenteId();
+                value = prz.getPrezzoById(prd.getPrenotazioneById(Integer.parseInt(request.getParameter("delete"))).getPrezzoId()).getPrezzo();
+                value = value * 0.8;
+                
+                prd.deletePrenotazione(Integer.parseInt(request.getParameter("delete")));
+                //utd.addcredito(value)?
+            } catch (SQLException ex) {
+                request.setAttribute("errorcode", "410");
+                request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);   
+            }
+            response.sendRedirect("./"+request.getParameter("redirect"));
+        } else {
+            request.setAttribute("errorcode", "404");
+            request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);            
+        }
     }
 }

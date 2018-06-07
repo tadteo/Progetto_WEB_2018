@@ -32,10 +32,9 @@
         GESTIONE DELLE PRENOTAZIONI --- <b>Spettacolo:</b> ${spettacolo.getId()} - <b>Film:</b> ${film.getTitolo()} <b>(${sala.getDescrizione()})</b>
       </div>
     </div>
-    <form target="#" method="GET">
     <div class="card margin-admin">
       <div class="card-body">
-		<table class="table  table-striped">
+		    <table class="table  table-striped">
           <thead class="thead-dark">
             <tr>
               <th scope="col">ID prenotazione</th>
@@ -57,15 +56,18 @@
               <td>${requestScope[utente]}</td>
               <td>${requestScope[mail]}</td>  
               <td>${requestScope[posto]}</td>
-              <td><input type="checkbox" class="form-check-input" id="check${pren.getId()}"></td>
+              <td><form action="${pageContext.request.contextPath}/prenotazione/rimozione" method="post">
+                <input type="hidden" name="delete" value="${pren.getId()}">
+                <input type="hidden" name="redirect" value="${spettacolo.getId()}">
+                <button type="submit" class="btn btn-outline-danger" onclick="">Cancella</button>
+              </form></td>
+
               </tr>
             </c:forEach>
           </tbody>
         </table>
-    	<button type="submit" class="btn btn-outline-danger">Cancella</button>
       </div>
     </div>
-    </form>
     </body>
     <jsp:include page='components/footer.jsp' />
 </html>

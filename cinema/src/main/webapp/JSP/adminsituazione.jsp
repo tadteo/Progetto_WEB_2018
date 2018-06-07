@@ -53,16 +53,14 @@
               <c:set var="postiLiberi" value="${requestScope[postiTotali]-requestScope[postiOccupati]}" />
 
               <tr>
-              <td>${spettacoloo.getId()}</td>
-              <td><a href="./situazione/${spettacoloo.getId()}">${requestScope[film]} - (${spettacoloo.getDataOra()})</a></td> 
-              <td>${spettacoloo.getSalaId()}</td>
-              <td>${requestScope[postiTotali]}</td>
-              <td>${requestScope[postiOccupati]}</td>
-              <td>${postiLiberi}</td>
-              <td>${requestScope[incasso]}</td>
-
-
-              </tr>
+                <td>${spettacoloo.getId()}</td>
+                <td><a href="./situazione/${spettacoloo.getId()}">${requestScope[film]} - (${spettacoloo.getDataOra()})</a></td> 
+                <td>${spettacoloo.getSalaId()}</td>
+                <td>${requestScope[postiTotali]}</td>
+                <td>${requestScope[postiOccupati]}</td>
+                <td>${postiLiberi}</td>
+                <td>${requestScope[incasso]}</td>
+             </tr>
             </c:forEach>
           </tbody>
         </table>
