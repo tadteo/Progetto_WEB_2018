@@ -83,6 +83,9 @@ public class UtenteDAO {
 
     public Utente getUtenteById(Integer id) throws SQLException {
         Utente result;
+        
+        if(id == null)
+            return null;
         PreparedStatement st = conn.prepareStatement("select * from Utente where Utente.id_utente = ?");
         st.setInt(1, id);
 
