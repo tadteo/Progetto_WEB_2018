@@ -32,6 +32,12 @@ and open the template in the editor.
     box-shadow: 0 0 3px rgba(0,0,0,.9);
     border-radius: 5px;
 }
+
+.locandina-film-page{
+    box-shadow: 0 0 3px rgba(0,0,0,.9);
+    border-radius: 5px;
+}
+
 .astext {
     border: none;
     background-color:inherit;
@@ -97,10 +103,13 @@ and open the template in the editor.
 }
 
 .wrapper {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+
 }
+
 .mwrapper{
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -123,6 +132,7 @@ and open the template in the editor.
     height: 100%;
 }
 
+/*
 .accordion-margin {
     margin-left: 100px;
     margin-right: 100px;
@@ -142,6 +152,11 @@ and open the template in the editor.
     margin-top: 20px;
     margin-bottom: 100px;
 }
+
+*/
+.reservation{
+    min-width: 360px;
+
 
 .margin-admin {
     margin:50px;
@@ -196,4 +211,5 @@ and open the template in the editor.
     top: 0;
     left: 100%;
     margin-top: -1px;
+
 }

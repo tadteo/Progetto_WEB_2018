@@ -16,57 +16,73 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"  crossorigin="anonymous">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/jquery-seat-charts.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cinema-Homepage</title>
-  </head>
-  <body class="collage" data-mappa="${requestScope.mappa}" data-reserved-list="${requestScope.reserved}">
-    <jsp:include page='components/header.jsp'/>   
-
-    <br>
-    <div class="container jumbotron reservation">
-      <h3 class="my-2 text-center">${requestScope.film.getTitolo()} - ${requestScope.sala.getDescrizione()} - Proiezione delle: <span><fmt:formatDate value="${requestScope.spettacolo.getDataOra()}" pattern="HH:mm (dd/MM/yyyy)" /></span></h3>
-
-      <div class="container posti">
-        <div class="row">
-          <div class="col-md-6 col-12">
-            <div id="seat-map">
-              <div class="front-indicator">Schermo</div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="booking-details">
-              <h2>Dettagli</h2>
-              <h3> Posti selezionati (<span id="counter">0</span>):</h3>
-              <ul id="selected-seats">
-              </ul>
-              <c:choose>
-                <c:when test="${sessionScope.email != null}">
-                  <c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
-                  <form class="form-signin" action="/cinema/acquistabiglietti" method="POST" onsubmit="setValue(this.posti)">
-                    <input type="hidden" name="pageRequested" value="buypage">
-                    <input type="hidden" name="sala" value="${requestScope.sala.getId()}">	
-                    <input type="hidden" name="posti" value="">			
-                    <input type="hidden" name="spettacolo" value="${requestScope.spettacolo.getId()}">
-                    <button id="acquista" class="btn btn-lg btn-primary btn-block btn-outline-primary my-2" type="submit" disabled>Acquisto &raquo;</button>
-                  </form>
-                </c:when>
-                <c:otherwise>
-                  <form class="form-signin">
-                    <button class="btn btn-lg btn-primary btn-block btn-outline-primary my-2" type="submit" disabled>Errore Login &raquo;</button>
-                  </form>
-                </c:otherwise>
-              </c:choose>
-
-              <div id="legend"></div>
-
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
+		    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/jquery-seat-charts.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Cinema-Homepage</title>
+    </head>
+    <body class="collage" data-mappa="${requestScope.mappa}" data-reserved-list="${requestScope.reserved}">
+        <jsp:include page='components/header.jsp'/>   
+      
+        <br>
+        
+        <div class="container jumbotron reservation">
+            <h3 class="my-2 text-center">${requestScope.film.getTitolo()} - ${requestScope.sala.getDescrizione()} - Proiezione delle: <span><fmt:formatDate value="${requestScope.spettacolo.getDataOra()}" pattern="HH:mm (dd/MM/yyyy)" /></span></h3>
+			      <h4 class="my-2 text-center">Ricordarsi di loggare prima di selezionare i posti</h4>
+            <!--
+            <c:forEach items="${requestScope.mappa}" var="riga">
+                <p>${riga}</p>
+            </c:forEach>
+            -->
+                
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-1" ></div>
+                  <div class="col-12 col-md-4 " align="center">
+                    <div id="seat-map">
+                      <div class="front-indicator">Schermo</div>
+                      <br/>
+                    </div>
+                  </div>
+                     <div class="col-lg-1" ></div>
+                  <div class="col-12 col-md-6" align="center">
+                    <div class="booking-details">
+                      <h2>Dettagli</h2>
+                      <h3> Posti selezionati (<span id="counter">0</span>):</h3>
+                      <ul id="selected-seats">
+                      </ul>
+					  <c:choose>
+						  <c:when test="${sessionScope.email != null}">
+                <c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
+<!--                <form class="form-signin" action="/cinema/" method="POST" onsubmit="setValue(this.posti)">-->
+                <form class="form-signin" action="/cinema/acquistabiglietti" method="POST" onsubmit="setValue(this.posti)">
+                  <input type="hidden" name="pageRequested" value="buypage">
+                  <input type="hidden" name="sala" value="${requestScope.sala.getId()}">	
+                  <input type="hidden" name="posti" value="">			
+                  <input type="hidden" name="spettacolo" value="${requestScope.spettacolo.getId()}">				
+                  <button class="btn btn-lg btn-primary btn-block btn-outline-primary my-2" type="submit">Acquisto &raquo;</button>
+                </form>
+              </c:when>
+              <c:otherwise>
+                <p> Per continuare con la prenotazione bisogna loggarsi </p>
+                <form class="form-signin">
+                  <button class="btn btn-lg btn-primary btn-block btn-outline-primary my-2" type="submit" disabled>Acquisto &raquo;</button>
+                </form>
+              </c:otherwise>
+					  </c:choose>
+					  
+					  
+                      
+                      <div id="legend"></div>
+                    </div>
+                  </div>
+                </div>
             </div>
           </div>
       </div>
@@ -152,7 +168,6 @@
               return this.style();
               }
               }
-
       });
       //this will handle "[cancel]" link clicks
       $('#selected-seats').on('click', '.cancel-cart-item', function () {

@@ -6,6 +6,7 @@
  * Released under the MIT license
  */
 
+
 (function ($) {
 
     //'use strict';	
@@ -622,6 +623,5 @@
 
         return fn.data('seatCharts');
     }
-
 
 })(jQuery);
