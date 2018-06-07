@@ -1,5 +1,6 @@
 package it.unitn.disi.cinema.servlets;
 
+import it.unitn.disi.cinema.dataaccess.Beans.PackagePosto;
 import it.unitn.disi.cinema.dataaccess.Beans.Posto;
 import it.unitn.disi.cinema.dataaccess.Beans.Prenotazione;
 import it.unitn.disi.cinema.dataaccess.Beans.Sala;
@@ -12,6 +13,7 @@ import it.unitn.disi.cinema.dataaccess.DAO.PrenotazioneDAO;
 import it.unitn.disi.cinema.dataaccess.DAO.PostoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -66,13 +68,30 @@ public class AdminSituazioniServlet extends HttpServlet {
 
                 Spettacolo spettacolo = spd.getSpettacoloById(idReq);
 
-                Sala sala = sld.getSalaById(spettacolo.getSalaId());
-                List<Posto> posti = psd.getPostoBySalaId(sala.getId());
-                List<Prenotazione> prenotazioni = prd.getBySpettacolo(spettacolo.getId());
-
                 if (spettacolo != null) {
 
+                    Sala sala = sld.getSalaById(spettacolo.getSalaId());
+                    List<Prenotazione> prenotazioni = prd.getBySpettacolo(spettacolo.getId());
+                    
+                    List<Posto> posti = psd.getPostoBySalaId(sala.getId());                    
+                    
+                    List<PackagePosto> tosend = new ArrayList<>();
+                    
+                    PackagePosto temp;
+                    for(Posto posto : posti){
+                        temp = new PackagePosto(posto, null);
+                        for(Prenotazione prenotazione : prenotazioni){
+                            if(prenotazione.getPostoId().equals(posto.getId())){
+                                temp.setPrenotazione(prenotazione);
+                            }
+                        }
+                        
+                        tosend.add(temp);
+                    }
+                    
                     request.setAttribute("spettacolo", spettacolo);
+                    request.setAttribute("sala", sala);
+                    request.setAttribute("packageposti", tosend);
                     request.getRequestDispatcher("/JSP/adminsituazionespecifico.jsp").forward(request, response);
                 } else {
                     request.setAttribute("errorcode", "410");

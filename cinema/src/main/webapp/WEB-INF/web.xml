@@ -4,6 +4,10 @@
         <filter-name>RegularUserFilter</filter-name>
         <filter-class>it.unitn.disi.cinema.filters.RegularUserFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>AdminUserFilter</filter-name>
+        <filter-class>it.unitn.disi.cinema.filters.AdminUserFilter</filter-class>
+    </filter>
     <filter-mapping>
         <filter-name>RegularUserFilter</filter-name>
         <url-pattern>/acquistabiglietti/*</url-pattern>
@@ -15,6 +19,10 @@
     <filter-mapping>
         <filter-name>RegularUserFilter</filter-name>
         <url-pattern>/lemieprenotazioni/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AdminUserFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
     
     <servlet>
@@ -140,7 +148,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AdminSituazioniServlet</servlet-name>
-        <url-pattern>/situazione/*</url-pattern>
+        <url-pattern>/admin/situazione/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
