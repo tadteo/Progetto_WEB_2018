@@ -16,6 +16,7 @@
         <filter-name>RegularUserFilter</filter-name>
         <url-pattern>/lemieprenotazioni/*</url-pattern>
     </filter-mapping>
+    
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>it.unitn.disi.cinema.servlets.LoginServlet</servlet-class>
@@ -76,6 +77,7 @@
         <servlet-name>AdminSituazioniServlet</servlet-name>
         <servlet-class>it.unitn.disi.cinema.servlets.AdminSituazioniServlet</servlet-class>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login.do</url-pattern>
@@ -136,6 +138,7 @@
         <servlet-name>MyReservationsServlet</servlet-name>
         <url-pattern>/lemieprenotazioni/*</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AdminSituazioniServlet</servlet-name>
         <url-pattern>/situazione/*</url-pattern>
     </servlet-mapping>
