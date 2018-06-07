@@ -36,47 +36,53 @@
             <div class="col-6">
               <div class="row">
                 
-          <c:set var="lastRow" value="0"/>
-          <c:set var="firstId" value="${posti.get(0).getId()}"/>
-          <c:forEach items="${posti}" var="posto">
-            <c:choose>
-              <c:when test="${posto.getRiga() != lastRow}">
-                </div>
-                <div class="row">
-              </c:when>
-            </c:choose>
-                  
-            <div class="col-1 .padding-0">
-              <c:choose>
-                <c:when test="${posto.getEsiste() == true}">
-                   <form action="/cinema/admin/modificasala/remove/${posto.getId()}">
-                </c:when>
-                <c:otherwise>
-                   <form action="/cinema/admin/modificasala/add/${posto.getId()}">
-                </c:otherwise>
-              </c:choose>
-                   
-                <c:set var="pst_id" value="${posto.getId() - firstId + 1}"/>
+              <c:set var="lastRow" value="0"/>
+              <c:set var="firstId" value="${posti.get(0).getId()}"/>
+              <c:forEach items="${posti}" var="posto">
                 <c:choose>
-                  <c:when test="${pst_id < 10}">
-                    <c:set var="pst_id" value="${pst_id}"/>
+                  <c:when test="${posto.getRiga() != lastRow}">
+                    </div>
+                    <div class="row">
                   </c:when>
                 </c:choose>
-                
+                    
+                <div class="col-1 padding-0 marginbtn">
                 <c:choose>
                   <c:when test="${posto.getEsiste() == true}">
-                     <button type="submit" class="btn exists" disabled>${pst_id}</button>
+                     <form action="/cinema/admin/modificasala/remove/${posto.getId()}">
                   </c:when>
                   <c:otherwise>
-                     <button type="submit" class="btn notexists" disabled>${pst_id}</button>
+                     <form action="/cinema/admin/modificasala/add/${posto.getId()}">
                   </c:otherwise>
                 </c:choose>
+                     
+                  <c:set var="pst_id" value="${posto.getId() - firstId + 1}"/>
+                  <c:choose>
+                    <c:when test="${pst_id < 10}">
+                      <c:set var="pst_id" value="${pst_id}"/>
+                    </c:when>
+                  </c:choose>
+
+                  <c:choose>
+                    <c:when test="${pst_id < 10}">
+                      <c:set var="space" value="0" />   
+                    </c:when>
+                    <c:otherwise>
+                      <c:set var="space" value="" />   
+                    </c:otherwise>
+                  </c:choose>
+
+                  <c:choose>
+                    <c:when test="${posto.getEsiste() == true}">
+                       <button type="submit" class="btn exists" disabled>${space}${pst_id}</button>
+                    </c:when>
+                    <c:otherwise>
+                       <button type="submit" class="btn notexists" disabled>${space}${pst_id}</button>
+                    </c:otherwise>
+                  </c:choose>
               </form>
-            </div>
-                  
-            
-                  
-            <c:set var="lastRow" value="${posto.getRiga()}"/>
+              </div>     
+              <c:set var="lastRow" value="${posto.getRiga()}"/>
           </c:forEach>
               </div>
             </div>

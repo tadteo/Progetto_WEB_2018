@@ -1,15 +1,17 @@
 package it.unitn.disi.cinema.servlets;
 
-import it.unitn.disi.cinema.dataaccess.Beans.Film;
-import it.unitn.disi.cinema.dataaccess.Beans.Genere;
+import it.unitn.disi.cinema.dataaccess.Beans.Posto;
+import it.unitn.disi.cinema.dataaccess.Beans.Prenotazione;
+import it.unitn.disi.cinema.dataaccess.Beans.Sala;
 import it.unitn.disi.cinema.dataaccess.Beans.Spettacolo;
+
 import it.unitn.disi.cinema.dataaccess.DAO.DAOFactory;
-import it.unitn.disi.cinema.dataaccess.DAO.FilmDAO;
-import it.unitn.disi.cinema.dataaccess.DAO.GenereDAO;
 import it.unitn.disi.cinema.dataaccess.DAO.SpettacoloDAO;
+import it.unitn.disi.cinema.dataaccess.DAO.SalaDAO;
+import it.unitn.disi.cinema.dataaccess.DAO.PrenotazioneDAO;
+import it.unitn.disi.cinema.dataaccess.DAO.PostoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,7 +34,11 @@ public class AdminSituazioniServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
+        SalaDAO sld = DAOFactory.getSalaDAO();
+        PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
+        PostoDAO psd = DAOFactory.getPostoDAO();
 
+        
         response.setContentType("text/html;charset=UTF-8");
         try {
 
