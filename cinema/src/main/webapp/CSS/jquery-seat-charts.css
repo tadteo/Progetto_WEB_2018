@@ -45,7 +45,7 @@ div.seatCharts-seat:focus {
 */
 
 div.seatCharts-space {
-	background: none;
+	display: none;
 }
 div.seatCharts-row {
 	height: 30px;
@@ -101,7 +101,6 @@ li.seatCharts-legendItem {
 }*/
 .booking-details {
 	text-align: left;
-	margin-left: 35px;
 	font-size: 12px;
 	height: 401px;
 }
@@ -121,10 +120,13 @@ div.seatCharts-cell {
 }
 div.seatCharts-seat {
 	color: #FFFFFF;
-	cursor: pointer;	
+	cursor: pointer;
+        
 }
 div.seatCharts-row {
 	height: 35px;
+        min-width: 310px;
+        text-align: center;
 }
 div.seatCharts-seat.available {
 	background-color: #B9DEA0;
@@ -142,9 +144,7 @@ div.seatCharts-seat.unavailable {
 	background-color: #472B34;
 }
 div.seatCharts-container {
-	padding: 20px;
-	float: left;
-    min-width: 340px; /*Domenico Stefani*/
+        min-width: 340px; /*Domenico Stefani*/
 }
 div.seatCharts-legend {
 	padding-left: 0px;
@@ -164,6 +164,6 @@ span.seatCharts-legendDescription {
 	font-size: 14px;
 }
 #selected-seats {
-	max-height: 160px;
+	max-height: 140px;
 	overflow-y: scroll;
 }

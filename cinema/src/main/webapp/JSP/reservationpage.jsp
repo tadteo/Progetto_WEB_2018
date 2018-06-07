@@ -19,7 +19,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"  crossorigin="anonymous">
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/jquery-seat-charts.css">
@@ -43,12 +43,15 @@
             
             <div class="container">
                 <div class="row">
-                  <div class="col">
+                    <div class="col-lg-1" ></div>
+                  <div class="col-12 col-md-4 " align="center">
                     <div id="seat-map">
                       <div class="front-indicator">Schermo</div>
+                      <br/>
                     </div>
                   </div>
-                  <div class="col">
+                     <div class="col-lg-1" ></div>
+                  <div class="col-12 col-md-6" align="center">
                     <div class="booking-details">
                       <h2>Dettagli</h2>
                       <h3> Posti selezionati (<span id="counter">0</span>):</h3>
@@ -268,12 +271,18 @@
 
 
         </script>
-		<script>
-			function setValue(hiddenInput){
-				$("li[id^='cart-item']").each( function(){         
-					hiddenInput.value += $(this).attr('id').substr(9,)+"!";
-				});
-			}
-		</script>	
+        <script>
+                function setValue(hiddenInput){
+                        $("li[id^='cart-item']").each( function(){         
+                                hiddenInput.value += $(this).attr('id').substr(9,)+"!";
+                        });
+                }
+        </script>
+        <!--<script>
+            var x = document.getElementsByClassName("reservation");
+                    for(var c=0 ; c < x.length; c++){
+                        x[c].style.width= $(window).width()+"px";
+                    }
+        </script>-->
     </body>
 </html>

@@ -349,6 +349,7 @@
 						.text(value)
 				);
 			});
+                        
 		}
 		
 		fn.append($headerRow);
@@ -621,7 +622,6 @@
 		});
 		
 		return fn.data('seatCharts');
-	}
-	
-	
+	};
+        	
 })(jQuery);

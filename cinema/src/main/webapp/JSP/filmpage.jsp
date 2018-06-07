@@ -18,7 +18,7 @@
 <html>
     <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"  crossorigin="anonymous">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -31,20 +31,21 @@
 
     <div class="container">
 		<div class="jumbotron">
-			<div class="row  justify-content-center">
-                <div class="col-3">
-                    <img src="${pageContext.request.contextPath}/images${requestScope.film.getUrlLocandina()}" alt="" style="width:100%"/>
+		<div class="row  justify-content-center">
+                <div class="col-12 col-md-4">
+                    <img class="locandina-film-page" src="${pageContext.request.contextPath}/images${requestScope.film.getUrlLocandina()}" alt="" style="width:100%"/>
                 </div>
-				<div class="col-5 justify-content-center">
-					<h2><b>${requestScope.film.getTitolo()}</b></h2>
-					<p><b>Genere:</b> ${requestScope.genere.getDescrizione()}</p>
-					<p><b>Durata:</b> ${requestScope.film.getDurata()} minuti</p>
-					<p><b>Trama:</b> ${requestScope.film.getTrama()}</p>
-                    
-                    
-                    
-				</div>	
-                <div class="col-4">
+                <br/>
+                <div class="col-12 col-md-4 justify-content-center">
+                        <h2><b>${requestScope.film.getTitolo()}</b></h2>
+                        <p><b>Genere:</b> ${requestScope.genere.getDescrizione()}</p>
+                        <p><b>Durata:</b> ${requestScope.film.getDurata()} minuti</p>
+                        <p><b>Trama:</b> ${requestScope.film.getTrama()}</p>
+
+
+
+                </div>	
+                <div class="col-12 col-md-4">
                     <div class="videoWrapper">
                         <!--width="420" height="315"-->
                         <iframe  src="${film.getUrlTrailer()}" frameborder="0" allowfullscreen></iframe>
@@ -52,7 +53,7 @@
                 </div>
 			</div>
             <div class="row">
-                <div class="container-fluid text-center">
+                <div class="container-fluid text-center col-12">
                     <p><b>Spettacoli di oggi (<fmt:formatDate value="${calltime}" pattern="E dd/MM" />)</b></p>
                     <div class="wrapper">
                         <c:forEach items="${requestScope.spettacoli}" var="spettacolo">
@@ -80,7 +81,7 @@
                     </div> 
                 </div>
 
-                <div id="hide-button" class="container-fluid text-center" >
+                <div id="hide-button" class="container-fluid text-center col-12" >
                     <button class="btn btn-outline-success" onclick="showHidden()">Mostra prossimi giorni</button>
                 </div>
 
