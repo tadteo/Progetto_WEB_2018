@@ -45,8 +45,8 @@ div.seatCharts-seat:focus {
 */
 
 div.seatCharts-space {
-	display: none;
-
+	/*display: none;*/
+        background: none;
 }
 div.seatCharts-row {
     height: 30px;
@@ -128,7 +128,7 @@ div.seatCharts-seat {
 }
 div.seatCharts-row {
 	height: 35px;
-        min-width: 310px;
+        min-width: 341px;
 
     color: #FFFFFF;
     cursor: pointer;	
