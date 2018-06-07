@@ -27,21 +27,20 @@ public class InfoServlet extends HttpServlet {
             throws ServletException, IOException {
         PrezzoDAO prd = DAOFactory.getPrezzoDAO();
         try {
-            List<Prezzo> prezzi = prd.getAll();            
-            request.setAttribute("prezzi", prezzi);		
+            List<Prezzo> prezzi = prd.getAll();
+            request.setAttribute("prezzi", prezzi);
             request.setAttribute("hideInfos", "true");
-            request.setAttribute("pageCurrent","infopage");
-            request.getRequestDispatcher("JSP/infopage.jsp").forward(request, response);			
+            request.setAttribute("pageCurrent", "infopage");
+            request.getRequestDispatcher("JSP/infopage.jsp").forward(request, response);
         } catch (SQLException ex) {
             System.out.println("Errore, impossibile ottenere i prezzi");
             ex.printStackTrace();
-        }    
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
-
 
 }

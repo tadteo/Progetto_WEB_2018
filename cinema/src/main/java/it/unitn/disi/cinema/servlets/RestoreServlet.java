@@ -17,15 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-
 /**
  *
  * @author domenico
  */
 public class RestoreServlet extends HttpServlet {
+
     private final boolean MAIL_DEBUG = false;
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -35,24 +34,32 @@ public class RestoreServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession();
-                
+
         PrintWriter out;
-        if(MAIL_DEBUG)out = response.getWriter();
-        
+        if (MAIL_DEBUG) {
+            out = response.getWriter();
+        }
+
         String email = request.getParameter("email");
-        
+
         UtenteDAO utd = DAOFactory.getUtenteDAO();
         try {
-            if((email != null)&&(utd.isUsed(email))){
-                if(MAIL_DEBUG)out.println("Ready to send message...");
+            if ((email != null) && (utd.isUsed(email))) {
+                if (MAIL_DEBUG) {
+                    out.println("Ready to send message...");
+                }
                 session.removeAttribute("restoreErrorMessage");
-                MailSender.sendPassword(utd.getUtenteByEmail(email).getPassword(),email);
-                if(MAIL_DEBUG)out.println("Message Send.....");
-                
-                if(!MAIL_DEBUG)request.getRequestDispatcher("/JSP/restoresuccesspage.jsp").forward(request, response);
-            }else{
+                MailSender.sendPassword(utd.getUtenteByEmail(email).getPassword(), email);
+                if (MAIL_DEBUG) {
+                    out.println("Message Send.....");
+                }
+
+                if (!MAIL_DEBUG) {
+                    request.getRequestDispatcher("/JSP/restoresuccesspage.jsp").forward(request, response);
+                }
+            } else {
                 session.setAttribute("restoreErrorMessage", "Errore, la mail specificata non risulta iscritta");
                 response.sendRedirect(request.getContextPath() + "/restore.do");
             }
@@ -64,8 +71,5 @@ public class RestoreServlet extends HttpServlet {
             ex.printStackTrace();
         }
     }
-    
-    
-    
-}
 
+}

@@ -36,13 +36,13 @@
                             <label for="password">Password</label>
                             <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
                             <br/><br/>
-
+                            
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Accedi</button>
                             <br />
                             <p>Non sei ancora registrato? <a href="/cinema/signup.do">REGISTRATI ora!</a></p>
                             <a href="${pageContext.request.contextPath}/restore.do">Hai dimenticato la password?</a>
                         </form>
-                        
+
                     </div>
                 </div>
                 <div class="col-md-3"></div>

@@ -9,78 +9,91 @@ and open the template in the editor.
 */
 
 .header{
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
 .films{
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 .login{
-	margin-top: auto;
-	margin-bottom: auto;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 .locandina{
-	box-shadow: 0 0 3px rgba(0,0,0,.9);
-	border-radius: 5px;
-	display: block;
+    box-shadow: 0 0 5px rgba(0,0,0,.9);
+    border-radius: 5px;
+    display: block;
     margin: 0 auto;
-	margin-bottom: 5px;
-	max-width: 10rem;
+    margin-bottom: 5px;
+    max-width: 10rem;
 }
+.locandina-filpage{
+    margin-bottom: 15px;
+    box-shadow: 0 0 3px rgba(0,0,0,.9);
+    border-radius: 5px;
+}
+
 .locandina-film-page{
     box-shadow: 0 0 3px rgba(0,0,0,.9);
     border-radius: 5px;
 }
+
 .astext {
-	border: none;
+    border: none;
     background-color:inherit;
     margin:0;
     padding:0;
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .astext:focus{
-	outline-style: none;
-} 
+    outline-style: none;
+}
+
+.film-container{
+    padding-top: 20px;
+}
+
+
 
 .videoWrapper {
-	border-radius: 5px;
-	background-color: gray;
-	position: relative;
-	padding-bottom: 56.25%; /* 16:9 */
-	padding-top: 25px;
-	height: 0;
+    background-color: gray;
+    position: relative;
+    margin-bottom: 15px;
+    padding-bottom: 56.25%; /* 16:9 */
+    padding-top: 25px;
+    height: 0;
 }
 .videoWrapper iframe {
-	border-radius: 5px;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
+    border-radius: 0.5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 #map {
-	width: auto;
-	min-height: 300px;
-	max-height: 400px;
+    width: auto;
+    min-height: 300px;
+    max-height: 400px;
 }
 
 .copyright {
-	text-align: center;
+    text-align: center;
 }
 
 .onefilm {
     background-color: #fff;
-    
-    
-/*    border: 10px solid #000;*/
+
+
+    /*    border: 10px solid #000;*/
 
     -webkit-box-shadow: -8px 9px 30px -1px rgba(138,138,138,1);
     -moz-box-shadow: -8px 9px 30px -1px rgba(138,138,138,1);
     box-shadow: -8px 9px 30px -1px rgba(138,138,138,1);
-    
-    border-radius: 0.1rem;
+
+    border-radius: 0.5rem;
     padding: 1rem;
     margin: 1rem;
 }
@@ -90,15 +103,26 @@ and open the template in the editor.
 }
 
 .wrapper {
+
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
+
+}
+
+.mwrapper{
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-gap: 1px;
 }
 
 .collage{
     background-image: url("/cinema/images/collage.jpg");
 }
-
+.padding-0{
+    padding-right:0;
+    padding-left:0;
+}
 .layer {
     background-color: rgba(252, 251, 237, 0.3);
     position: absolute;
@@ -128,7 +152,64 @@ and open the template in the editor.
     margin-top: 20px;
     margin-bottom: 100px;
 }
+
 */
 .reservation{
     min-width: 360px;
+
+
+.margin-admin {
+    margin:50px;
+}
+
+.posti{
+    min-width: 400px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.reservation{
+    min-width: 400px;
+}
+
+.mseat {
+    background-color: green;
+    color: white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    cursor: default;
+}
+
+@media screen and(max-width: 480px){
+    .booking-details{
+        margin-left: 0px !important;
+    }
+    .page-footer{
+        width: 480px;
+    }
+    .seatCharts-space{
+        visibility: hidden;
+    }
+
+    .seatCharts-container{
+        padding: 0px !important; 
+    }
+
+}
+
+.marginbtn {
+    margin:2px;
+}
+
+/*SUB DROPDOWN MENU*/
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+
 }

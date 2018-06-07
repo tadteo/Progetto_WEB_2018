@@ -8,6 +8,7 @@ package it.unitn.disi.cinema.dataaccess.Beans;
  * @author domenico
  */
 public class Sala {
+
     private Integer id_sala;
     private String descrizione;
 
@@ -20,7 +21,7 @@ public class Sala {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Sala[" + getId() + "," + getDescrizione() + "]";
     }
 
@@ -52,5 +53,4 @@ public class Sala {
         this.descrizione = descrizione;
     }
 
-    
 }

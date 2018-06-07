@@ -14,6 +14,7 @@
         <!-- Latest compiled and minified CSS -->
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"  crossorigin="anonymous">
+
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,7 +35,7 @@
                             <input type="password" id="password" name="password" class="form-control mb-2" placeholder="Password" required>
                             <label for="password">Riscrivi la Password</label>
                             <input type="password" id="password" name="passwordConfirm" class="form-control mb-2" placeholder="Ripeti la password" required>
-                            
+
                             <br/><br/>
 
                             <button class="btn btn-lg btn-primary btn-block" type="submit">REGISTRATI</button>

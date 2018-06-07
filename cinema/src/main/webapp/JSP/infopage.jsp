@@ -16,7 +16,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"  crossorigin="anonymous">
 
@@ -25,9 +25,8 @@
 
         <title>Info page</title>
     </head>
-	
-    <body>
-        
+
+    <body>        
         
     <jsp:include page='components/header.jsp'/>
     
@@ -48,6 +47,7 @@
             <fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${prezzi.getPrezzo()}"/> € (Euro)
           </p>
 				</c:forEach>
+          <p>Il prezzo <b>ridotto</b> è applicabile a persone con disabilità e studenti muniti di badge.</p>
 					<hr>
 				<h5>Informazioni:</h5>
 				<p><b>Telefono:</b> +39 0123 123123</p>
@@ -81,5 +81,6 @@
       }
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPY7IgJv-v0U6cYTLlr2WCjeq4m6CSbG8&callback=initMap"></script>
+
     </body>
 </html>

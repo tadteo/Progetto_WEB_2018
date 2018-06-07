@@ -10,8 +10,9 @@
 <%@page import="java.util.StringTokenizer" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
+<!--NON UTILIZZARE!-->
 <html>
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"  crossorigin="anonymous">
@@ -124,4 +125,7 @@
     
 	<jsp:include page='components/footer.jsp'/>
     </body>
+
+   <!--PAGE INUTILIZZATA-->
+
 </html>

@@ -16,16 +16,16 @@
 <%--<c:set var="context" value="${pageContext.request.contextPath}" />--%>
 
 <html>
+
     <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"  crossorigin="anonymous">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Film</title>
-    </head>
-	
-    <body class="collage">
+
+    <title>Film</title>
+  </head>
 
         <jsp:include page='components/header.jsp'/>
 
@@ -85,36 +85,46 @@
                     <button class="btn btn-outline-success" onclick="showHidden()">Mostra prossimi giorni</button>
                 </div>
 
-                <div id="hidden-shows" class="hidden container-fluid text-center">
-                    <p><b>Spettacoli dei prossimi giorni:</b></p>
-                    <div class="wrapper">
-                        <c:forEach items="${requestScope.spettacoli}" var="spettacolo">
-                            <c:choose>
-                                <c:when test="${spettacolo.getDataOra().getDay() != calltime.getDay()}">
-                                    <form class="form-signin my-1" action="/cinema/" method="POST">
-                                        <input type="hidden" value="${spettacolo.getId()}" name="spettacolo_id"/>
-                                        <button class="btn btn-lg btn-dark btn-block" value="reservationpage" name="pageRequested" type="submit"><fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm - dd/MM" /></button>
-                                    </form>  
-                                </c:when>
-                            </c:choose>
-                        </c:forEach>
-                    </div>
-                </div>
-            </div>
-		</div>
-    </div>
-    <br />
-    
-    
-	<jsp:include page='components/footer.jsp'/>
-    <script>
-        function showHidden(){
-            var hiddenShows = document.getElementById("hidden-shows");
-            hiddenShows.classList.remove("hidden");
+        <div class="row">  
+          <div id="hide-button" class="container-fluid text-center" >
+            <button class="btn btn-outline-success" onclick="showHidden()">Mostra prossimi giorni</button>
+          </div>
+        </div>
             
-            var button = document.getElementById("hide-button");
-            button.classList.add("hidden");
-        }
+        <div class="row">    
+          <div id="hidden-shows" class="hidden container-fluid text-center">
+              <p><b>Spettacoli dei prossimi giorni:</b></p>
+              <div class="wrapper">
+                  <c:forEach items="${requestScope.spettacoli}" var="spettacolo">
+                      <c:choose>
+                          <c:when test="${spettacolo.getDataOra().getDay() != calltime.getDay()}">
+                              <div class="form-signin my-1">
+                                <c:set var="title" value="${film.getTitolo()}"/>
+                                <c:set var="title" value="${fn:replace(title,' ', '')}"/>
+                                <c:set var="title" value="${fn:toLowerCase(title)}"/>
+                                <a href="../prenotaspettacolo/${spettacolo.getId()}-${title}" class="btn btn-lg btn-dark btn-block" >
+                                  <fmt:formatDate value="${spettacolo.getDataOra()}" pattern="HH:mm" />
+                                  (<fmt:formatDate value="${spettacolo.getDataOra()}" pattern="E dd/MM" />)
+                                </a>
+                              </div>
+                          </c:when>
+                      </c:choose>
+                  </c:forEach>
+              </div>
+          </div>
+        </div>
+      </div>
+      <br />
+    </div>
+    <jsp:include page='components/footer.jsp'/>
+    <script>
+      function showHidden() {
+        var hiddenShows = document.getElementById("hidden-shows");
+        hiddenShows.classList.remove("hidden");
+
+        var button = document.getElementById("hide-button");
+        button.classList.add("hidden");
+      }
     </script>
-    </body>
+  </body>
 </html>
