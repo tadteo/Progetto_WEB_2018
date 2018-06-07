@@ -54,7 +54,7 @@
 
               <tr>
               <td>${spettacoloo.getId()}</td>
-              <td><a>${requestScope[film]} - (${spettacoloo.getDataOra()})</a></td> 
+              <td><a href="./situazione/${spettacoloo.getId()}">${requestScope[film]} - (${spettacoloo.getDataOra()})</a></td> 
               <td>${spettacoloo.getSalaId()}</td>
               <td>${requestScope[postiTotali]}</td>
               <td>${requestScope[postiOccupati]}</td>
