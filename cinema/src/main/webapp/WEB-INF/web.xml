@@ -68,6 +68,10 @@
         <servlet-name>AdminSituazioniServlet</servlet-name>
         <servlet-class>it.unitn.disi.cinema.servlets.AdminSituazioniServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminPrenotazioniServlet</servlet-name>
+        <servlet-class>it.unitn.disi.cinema.servlets.AdminPrenotazioniServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -128,6 +132,10 @@
     <servlet-mapping>
         <servlet-name>AdminSituazioniServlet</servlet-name>
         <url-pattern>/situazione/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminPrenotazioniServlet</servlet-name>
+        <url-pattern>/prenotazione/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

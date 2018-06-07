@@ -178,17 +178,6 @@ public class MainServlet extends HttpServlet {
                 System.out.println("Errore, inpossibile ottenere la pagina degli admin");
                 ex.printStackTrace();
             }      
-        } else if (pageRequested.equals("adminprenotazioni")) {
-        
-                request.setAttribute("pageCurrent","adminprenotazioni");
-                request.getRequestDispatcher("JSP/adminprenotazioni.jsp").forward(request, response);
-
-            //try {               
-            //} catch (SQLException ex) {
-            //    System.out.println("Errore, inpossibile ottenere la pagina degli admin");
-            //    ex.printStackTrace();
-            //}      
-
         }
     }
 }
