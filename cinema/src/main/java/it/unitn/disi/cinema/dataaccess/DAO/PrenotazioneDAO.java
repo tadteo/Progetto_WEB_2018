@@ -135,6 +135,19 @@ public class PrenotazioneDAO {
         return result;
     }
 
+    public List<Prenotazione> getByUtenteReverseOrder(Integer idUtente) throws SQLException {
+        List<Prenotazione> result = new ArrayList<>();
+
+        PreparedStatement st = conn.prepareStatement("SELECT * FROM Prenotazione WHERE Prenotazione.id_utente = ? ORDER BY Prenotazione.id_prenotazione DESC");
+        st.setInt(1, idUtente);
+        ResultSet rs = st.executeQuery();
+
+        while (rs.next()) {
+            result.add(new Prenotazione(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getTimestamp(6)));
+        }
+        return result;
+    }
+
 
     public List<Prenotazione> getByUtenteAfter(Integer idUtente, Timestamp time) throws SQLException {
 
