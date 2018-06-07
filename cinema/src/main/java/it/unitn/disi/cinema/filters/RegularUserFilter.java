@@ -6,9 +6,7 @@
 package it.unitn.disi.cinema.filters;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.io.StringWriter;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -40,7 +38,7 @@ public class RegularUserFilter implements Filter {
         HttpSession session = httprequest.getSession(false); 
         
         PrintWriter out = httpresponse.getWriter();
-        out.println("I'm the almighty filter");
+        out.println("Load page error");
         String email = (String)session.getAttribute("email");
         if(email == null){
             out.println("Requested is: " + httprequest.getRequestURI());

@@ -180,7 +180,7 @@ public class PostoDAO {
     }
 
     public Boolean isReserved(Integer idSpettacolo, Integer idPosto) throws SQLException {
-        Boolean res = null;
+        Boolean res = true;
 
         PreparedStatement st = conn.prepareStatement("SELECT * FROM Prenotazione WHERE Prenotazione.id_spettacolo = ? AND Prenotazione.id_posto = ?");
         st.setInt(1, idSpettacolo);
@@ -191,7 +191,7 @@ public class PostoDAO {
             System.out.println("PRENOTAZIONE:" + rs.getInt(1));
             if (rs.next()) {
 
-                System.out.println("PRENOTAZIONE:" + rs.getInt(1));
+                System.out.println("Too much reservation for the same Spettacolo-Posto, ID:" + rs.getInt(1));
                 throw new SQLException("Too much reservation for the same Spettacolo-Posto");
             } else {
 

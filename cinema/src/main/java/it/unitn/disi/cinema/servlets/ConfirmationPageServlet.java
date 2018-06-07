@@ -20,8 +20,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -75,6 +73,37 @@ public class ConfirmationPageServlet extends HttpServlet {
         }
         //</editor-fold>
 
+        
+        int spettacoloid = Integer.parseInt(request.getParameter("spettacolo"));
+        Spettacolo spettacolo = null;
+        try {
+            spettacolo = spd.getSpettacoloById(spettacoloid);
+
+            
+            if(spettacolo != null){
+                for(Posto posto: posti){
+
+                        if(psd.isReserved(spettacolo.getId(),posto.getId())){
+                            request.setAttribute("mmessage", "Siamo spiacenti, un utente ha prenotato uno dei suoi posti mentre lei completava l'acquisto,"
+                                    + " la preghiamo di riprovare."
+                                    + "(eventuali accrediti su carta di credito saranno rimborsati immediatamente)");
+
+                            request.setAttribute("errorcode", "409");
+                            request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
+                        }
+
+                    } 
+            }
+            
+            
+            
+            
+        } catch (SQLException ex) {
+            System.err.println("Errore, impossibile ottenere info sullo spettacolo");
+            ex.printStackTrace();
+        }
+
+        
         //<editor-fold defaultstate="collapsed" desc="gestione utente">
         Utente currentUser = null;
 
@@ -122,16 +151,7 @@ public class ConfirmationPageServlet extends HttpServlet {
         //DEBUG //out.println("TotalePagato: " + request.getParameter("totalePagato"));
         //</editor-fold>
         //<editor-fold defaultstate="collapsed" desc="Inserimento prenotazione">
-        int spettacoloid = Integer.parseInt(request.getParameter("spettacolo"));
-        Spettacolo spettacolo = null;
-        try {
-            spettacolo = spd.getSpettacoloById(spettacoloid);
-
-        } catch (SQLException ex) {
-            System.err.println("Errore, impossibile ottenere info sullo spettacolo");
-            ex.printStackTrace();
-        }
-
+        
         //retrieving current time
         long millis = System.currentTimeMillis();
         Timestamp now = new Timestamp(millis);

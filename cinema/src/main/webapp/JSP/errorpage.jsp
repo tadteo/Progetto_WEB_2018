@@ -42,8 +42,16 @@
                     <div class="col-7 justify-content-center">
                         <div style="text-align: center">
                             <h1><b>Errore ${code}</b></h1>
-                            <p>La pagina che stai cercando non è disponibile.</p>
-                            <p>Nessun problema, puoi ripartire dalla nostra homepage...</p>
+                            
+                            <p class="my-4">${requestScope.mmessage}</p>
+                            
+                            <c:choose>
+                              <c:when test="${empty requestScope.mmessage}">
+                                
+                                <p>La pagina che stai cercando non è disponibile.</p>
+                                <p>Nessun problema, puoi ripartire dalla nostra homepage...</p>
+                              </c:when>
+                            </c:choose>
                             <a class="btn btn-primary" href="${pageContext.request.contextPath}">Vai alla homepage</a>
                         </div>
                     </div>
