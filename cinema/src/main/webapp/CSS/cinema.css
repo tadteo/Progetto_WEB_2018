@@ -51,7 +51,7 @@ and open the template in the editor.
     padding-top: 20px;
 }
 
-.videoWrapper {
+.videoWrapper{
     background-color: gray;
     position: relative;
     margin-bottom: 15px;
@@ -60,7 +60,7 @@ and open the template in the editor.
     height: 0;
 }
 
-.videoWrapper iframe {
+.videoWrapper iframe{
     border-radius: 0.5rem;
     position: absolute;
     top: 0;
@@ -94,7 +94,6 @@ and open the template in the editor.
 }
 
 .wrapper {
-
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 10px;
@@ -150,7 +149,7 @@ and open the template in the editor.
 
 .reservation{
     min-width: 360px;
-
+}
 
 .margin-admin {
     margin:50px;
