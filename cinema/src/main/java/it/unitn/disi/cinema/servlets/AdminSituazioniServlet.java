@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author domenico
+ * @author ivan
  */
 @WebServlet(name = "AdminSituazioniServlet", urlPatterns = {"/situazione/*"})
 public class AdminSituazioniServlet extends HttpServlet {
@@ -67,6 +67,11 @@ public class AdminSituazioniServlet extends HttpServlet {
                 }
 
                 Spettacolo spettacolo = spd.getSpettacoloById(idReq);
+
+                Sala sala = sld.getSalaById(spettacolo.getSalaId());
+                List<Posto> posti = psd.getPostoBySalaId(sala.getId());
+                List<Prenotazione> prenotazioni = prd.getBySpettacolo(spettacolo.getId());
+
 
                 if (spettacolo != null) {
 

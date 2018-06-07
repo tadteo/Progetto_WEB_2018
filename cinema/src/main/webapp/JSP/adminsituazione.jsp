@@ -53,22 +53,21 @@
               <c:set var="postiLiberi" value="${requestScope[postiTotali]-requestScope[postiOccupati]}" />
 
               <tr>
-              <td>${spettacoloo.getId()}</td>
-              <td><a href="./admin/situazione/${spettacoloo.getId()}">${requestScope[film]} - (${spettacoloo.getDataOra()})</a></td> 
-              <td>${spettacoloo.getSalaId()}</td>
-              <td>${requestScope[postiTotali]}</td>
-              <td>${requestScope[postiOccupati]}</td>
-              <td>${postiLiberi}</td>
-              <td>${requestScope[incasso]}</td>
+                <td>${spettacoloo.getId()}</td>
+                <td><a href="./situazione/${spettacoloo.getId()}">${requestScope[film]} - (${spettacoloo.getDataOra()})</a></td> 
+                <td>${spettacoloo.getSalaId()}</td>
+                <td>${requestScope[postiTotali]}</td>
+                <td>${requestScope[postiOccupati]}</td>
+                <td>${postiLiberi}</td>
+                <td>${requestScope[incasso]}</td>
+             </tr>
 
-
-              </tr>
             </c:forEach>
           </tbody>
         </table>
       </div>
     </div>
 
-    <jsp:include page='components/footer.jsp'/>
     </body>
+    <jsp:include page='components/footer.jsp'/>
 </html>

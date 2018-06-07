@@ -93,15 +93,12 @@
                     <a class="dropdown-item" onclick="document.getElementById('form-admin-clienti').submit();">Lista clienti top</a>
                   </form>
 
-                  <form class="form-signin" id="form-admin-prenotazioni" action="/cinema/" method="POST">
-                    <input type="hidden" name="pageRequested" value="adminprenotazioni">
-                    <a class="dropdown-item" onclick="document.getElementById('form-admin-prenotazioni').submit();">Gestione delle prenotazioni</a>
-                  </form>
+                  <a class="dropdown-item" href="/cinema/prenotazione/">Gestione delle prenotazioni</a>
 
                   <div class="dropdown-divider"></div>
 
-                  <div class="dropleft dropdown-submenu">
-                    <a class="test dropdown-item" href="#">Modifica sala<span class="caret"></span></a>
+                  <div class="dropleft">
+                    <a class="test dropdown-item">Modifica sala</a>
                     <ul class="dropdown-menu">
                       <li><a  class="dropdown-item" href="/cinema/admin/modificasala/1">Modifica Sala 1</a></li>
                       <li><a  class="dropdown-item" href="/cinema/admin/modificasala/2">Modifica Sala 2</a></li>
@@ -157,7 +154,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script>
 $(document).ready(function(){
-  $('.dropdown-submenu a.test').on("click", function(e){
+  $('.dropleft a.test').on("click", function(e){
     $(this).next('ul').toggle();
     e.stopPropagation();
     e.preventDefault();
