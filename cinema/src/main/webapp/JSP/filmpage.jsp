@@ -26,8 +26,8 @@
 
     <title>Film</title>
   </head>
-
-        <jsp:include page='components/header.jsp'/>
+  <body class="collage">
+    <jsp:include page='components/header.jsp'/>
 
     <div class="container">
 		<div class="jumbotron">

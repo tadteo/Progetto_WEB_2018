@@ -25,12 +25,12 @@
         <jsp:include page='components/header.jsp'/>
         
         <div class="card margin-admin">
-          <div class="card-body">
+          <div class="card-body overflow-card">
             <h3>PRENOTAZIONI EFFETTUATE</h3>
           </div>
         </div>
         <div class="card my-4">
-          <div class="card-body">
+          <div class="card-body overflow-card">
             <table id="clientitable" class="table  table-striped">
               <thead class="thead-dark">
                 <tr>
