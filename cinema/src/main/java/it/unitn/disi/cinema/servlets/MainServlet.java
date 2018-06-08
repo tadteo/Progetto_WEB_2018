@@ -31,7 +31,7 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+       
         /*Accesso db*/    //Perchè questa soluzione non funziona? non posso leggere da homepage.jsp gli attributi di request
         FilmDAO fld = DAOFactory.getFilmDAO();
         GenereDAO gnd = DAOFactory.getGenereDAO();

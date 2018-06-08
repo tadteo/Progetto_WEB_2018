@@ -56,6 +56,24 @@ public class UtenteDAO {
         st.executeUpdate();
     }
 
+    public void updateUtente(Utente utente) throws SQLException{
+        if((utente.getId() == null)||(utente.getEmail()== null))
+            return;
+        
+        PreparedStatement st = conn.prepareStatement("UPDATE Utente\n" +
+                                                    "SET id_ruolo = ?,\n" +
+                                                    "    password = ?,\n" +
+                                                    "    credito = ? \n" +
+                                                    "WHERE id_utente=?");
+        st.setInt(1, utente.getRuoloId());
+        st.setString(2, utente.getPassword());
+        st.setFloat(3, utente.getCredito());
+        
+        st.setInt(4, utente.getId());
+        
+        st.executeUpdate();
+    }
+    
     public Utente getUtenteByEmail(String email) throws SQLException {
         Utente result;
         PreparedStatement st = conn.prepareStatement("select * from Utente where Utente.email = ?");

@@ -68,9 +68,9 @@ public class AdminSituazioniServlet extends HttpServlet {
 
                 Spettacolo spettacolo = spd.getSpettacoloById(idReq);
 
-                Sala sala = sld.getSalaById(spettacolo.getSalaId());
-                List<Posto> posti = psd.getPostoBySalaId(sala.getId());
-                List<Prenotazione> prenotazioni = prd.getBySpettacolo(spettacolo.getId());
+//                Sala sala = sld.getSalaById(spettacolo.getSalaId());
+//                List<Posto> posti = psd.getPostoBySalaId(sala.getId());
+//                List<Prenotazione> prenotazioni = prd.getBySpettacolo(spettacolo.getId());
 
 
                 if (spettacolo != null) {
