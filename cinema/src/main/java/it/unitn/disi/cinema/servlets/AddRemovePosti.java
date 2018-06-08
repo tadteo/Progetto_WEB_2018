@@ -13,7 +13,6 @@
  *
  * See <http://www.gnu.org/licenses/>.
  */
-
 package it.unitn.disi.cinema.servlets;
 
 import it.unitn.disi.cinema.dataaccess.Beans.Posto;
@@ -31,29 +30,30 @@ import javax.servlet.http.HttpServletResponse;
  * @author domenico
  */
 public class AddRemovePosti extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
+
         PostoDAO psd = DAOFactory.getPostoDAO();
-        
+
         String idReq_str = request.getPathInfo();
         if (idReq_str == null) {
             request.setAttribute("errorcode", "404");
             request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
         }
         idReq_str = idReq_str.substring(1);
-        if (idReq_str.equals("")){
+        if (idReq_str.equals("")) {
             request.setAttribute("errorcode", "404");
             request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
         }
-        
+
         Integer idReq = null;
         try {
             idReq = Integer.parseInt(idReq_str);
-            if(idReq <= 0)
+            if (idReq <= 0) {
                 throw new NumberFormatException();
+            }
         } catch (NumberFormatException nfe) {
             request.setAttribute("errorcode", "400");
             request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
@@ -61,20 +61,20 @@ public class AddRemovePosti extends HttpServlet {
 
         try {
             Posto posto = psd.getPostoById(idReq);
-            if(posto != null){
-                
+            if (posto != null) {
+
                 String pieces[] = request.getRequestURI().split("/");
-                
-                if(pieces[pieces.length -2].equals("add")){
-                    
+
+                if (pieces[pieces.length - 2].equals("add")) {
+
                     psd.setAvailability(posto.getId(), Boolean.TRUE);
-                    
+
                     Integer salaid = posto.getSalaId();
                     response.sendRedirect("/cinema/admin/modificasala/" + salaid.toString());
-                }else if(pieces[pieces.length -2].equals("remove")){
-                    
+                } else if (pieces[pieces.length - 2].equals("remove")) {
+
                     psd.setAvailability(posto.getId(), Boolean.FALSE);
-                    
+
                     Integer salaid = posto.getSalaId();
                     response.sendRedirect("/cinema/admin/modificasala/" + salaid.toString());
                 }
@@ -90,6 +90,5 @@ public class AddRemovePosti extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
-
 
 }

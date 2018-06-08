@@ -13,7 +13,6 @@
  *
  * See <http://www.gnu.org/licenses/>.
  */
-
 package it.unitn.disi.cinema.servlets;
 
 import java.io.IOException;

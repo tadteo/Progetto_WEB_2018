@@ -23,7 +23,6 @@ import java.sql.Timestamp;
  */
 public class PackagePrenotazione {
 
-    
     private Integer prenotazione;
     private String titoloFilm;
     private Timestamp oraPrenotazione;
@@ -38,8 +37,6 @@ public class PackagePrenotazione {
         this.posto = posto;
     }
 
-    
-    
     /**
      * @return the prenotazione
      */
@@ -53,8 +50,6 @@ public class PackagePrenotazione {
     public void setPrenotazione(Integer prenotazione) {
         this.prenotazione = prenotazione;
     }
-
-    
 
     /**
      * @return the posto

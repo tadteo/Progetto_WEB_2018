@@ -13,7 +13,6 @@
  *
  * See <http://www.gnu.org/licenses/>.
  */
-
 package it.unitn.disi.cinema.filters;
 
 import java.io.IOException;
@@ -33,33 +32,31 @@ import javax.servlet.http.HttpSession;
  * @author domenico
  */
 public class AdminUserFilter implements Filter {
-    
+
     public AdminUserFilter() {
-    }    
-    
-    
-    
+    }
+
     public void doFilter(ServletRequest req, ServletResponse res,
             FilterChain chain)
             throws IOException, ServletException {
-        
+
         HttpServletRequest httprequest = (HttpServletRequest) req;
-		HttpServletResponse httpresponse = (HttpServletResponse) res;
-        
-        HttpSession session = httprequest.getSession(false); 
-        
+        HttpServletResponse httpresponse = (HttpServletResponse) res;
+
+        HttpSession session = httprequest.getSession(false);
+
         PrintWriter out = httpresponse.getWriter();
         out.println("Load page error");
-        String email = (String)session.getAttribute("email");
-        if(email == null){
+        String email = (String) session.getAttribute("email");
+        if (email == null) {
             out.println("Requested is: " + httprequest.getRequestURI());
             session.setAttribute("filterSavedRequest", httprequest.getRequestURI());
-            
+
             httprequest.getRequestDispatcher("/login.do").forward(httprequest, httpresponse);
-        }else{
-            if(session.getAttribute("ruolo").equals("admin")){
+        } else {
+            if (session.getAttribute("ruolo").equals("admin")) {
                 chain.doFilter(req, res);
-            }else{
+            } else {
                 httprequest.setAttribute("errorcode", "401");
                 httprequest.setAttribute("mmessage", "Questa pagina è riservata agli amministratori, non sei autorizzato.");
                 httprequest.getRequestDispatcher("/JSP/errorpage.jsp").forward(httprequest, httpresponse);
@@ -70,7 +67,7 @@ public class AdminUserFilter implements Filter {
     /**
      * Destroy method for this filter
      */
-    public void destroy() {        
+    public void destroy() {
     }
 
     @Override

@@ -13,7 +13,6 @@
  *
  * See <http://www.gnu.org/licenses/>.
  */
-
 package it.unitn.disi.cinema.servlets;
 
 import it.unitn.disi.cinema.dataaccess.Beans.Film;
@@ -42,17 +41,14 @@ import javax.servlet.http.HttpSession;
  *
  * @author domenico
  */
-
 public class MyReservationsServlet extends HttpServlet {
-
-
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession();
-        
+
         UtenteDAO utd = DAOFactory.getUtenteDAO();
         PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
         SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
@@ -71,34 +67,33 @@ public class MyReservationsServlet extends HttpServlet {
                 request.setAttribute("errorcode", "404");
                 request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
             }
-            
+
             System.out.println("idreq: " + idReq_str.trim());
             System.out.println("session: " + session.getAttribute("email"));
 
-            
-            if(idReq_str.trim().equals(session.getAttribute("email"))){
+            if (idReq_str.trim().equals(session.getAttribute("email"))) {
                 Utente utente = utd.getUtenteByEmail(idReq_str);
 
                 if (utente != null) {
 
                     List<PackagePrenotazione> packprenotazioni = new ArrayList<>();
-                    
+
                     List<Prenotazione> prenotazioni = prd.getByUtenteReverseOrder(utente.getId());
-                    
+
                     Posto posto;
                     Spettacolo spett;
                     Film film;
                     String postoString;
-                    
-                    for(Prenotazione prenotazione : prenotazioni){
+
+                    for (Prenotazione prenotazione : prenotazioni) {
                         posto = psd.getPostoById(prenotazione.getPostoId());
-                        if(posto != null){
+                        if (posto != null) {
                             spett = spd.getSpettacoloById(prenotazione.getSpettacoloId());
-                            if(spett != null){
+                            if (spett != null) {
                                 film = fld.getFilmById(spett.getFilmId());
-                                if(film != null){
-                                    postoString = "<b>Riga:</b> " + posto.getRiga() + " <b>Poltrona:</b> " + posto.getPoltrona() ;
-                                    
+                                if (film != null) {
+                                    postoString = "<b>Riga:</b> " + posto.getRiga() + " <b>Poltrona:</b> " + posto.getPoltrona();
+
                                     packprenotazioni.add(new PackagePrenotazione(prenotazione.getId(),
                                             film.getTitolo(),
                                             prenotazione.getDataOraOperazione(),
@@ -109,11 +104,10 @@ public class MyReservationsServlet extends HttpServlet {
                         }
                     }
 
-
                     request.setAttribute("packprenotazioni", packprenotazioni);
                     request.getRequestDispatcher("/JSP/myreservations.jsp").forward(request, response);
 
-                }else{
+                } else {
                     request.setAttribute("errorcode", "401");
                     request.setAttribute("mmessage", "Questa pagina è relativa ad un altro utente, non sei autorizzato.");
                     request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
@@ -129,15 +123,10 @@ public class MyReservationsServlet extends HttpServlet {
         }
 
     }
-        
-        
-    
 
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
-
 
 }

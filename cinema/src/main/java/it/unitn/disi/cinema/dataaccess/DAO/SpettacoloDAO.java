@@ -14,7 +14,7 @@
  * See <http://www.gnu.org/licenses/>.
  */
 
-/*
+ /*
  * Questo è un DAO per la tabella Spettacolo
  * Quì vanno definiti dei metodi CRUD per potere accedere al db e gestire record della tabella user
  * Create, Retrieve, Update, Delete

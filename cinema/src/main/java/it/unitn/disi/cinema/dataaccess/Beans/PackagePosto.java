@@ -15,7 +15,6 @@
  */
 package it.unitn.disi.cinema.dataaccess.Beans;
 
-
 /**
  *
  * @author domenico
@@ -29,7 +28,7 @@ public class PackagePosto {
         this.posto = posto;
         this.prenotazione = prenotazione;
     }
-    
+
     /**
      * @return the posto
      */
@@ -58,5 +57,4 @@ public class PackagePosto {
         this.prenotazione = prenotazione;
     }
 
-    
 }

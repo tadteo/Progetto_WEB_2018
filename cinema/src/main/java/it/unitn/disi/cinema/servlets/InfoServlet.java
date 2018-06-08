@@ -13,7 +13,6 @@
  *
  * See <http://www.gnu.org/licenses/>.
  */
-
 package it.unitn.disi.cinema.servlets;
 
 import it.unitn.disi.cinema.dataaccess.Beans.Prezzo;

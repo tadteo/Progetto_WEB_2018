@@ -13,7 +13,7 @@
  *
  * See <http://www.gnu.org/licenses/>.
  */
-/*
+ /*
  * Questo è un DAO per la tabella Users
  * Quì vanno definiti dei metodi CRUD per potere accedere al db e gestire record della tabella user
  * Create, Retrieve, Update, Delete
@@ -51,7 +51,6 @@ public class UtenteDAO {
         nel programma.
         La sua unica istanza è una variabile statica al suo interno e può essere ottenuta con Database.getInstance();
      */
-
     Database db = Database.getInstance();   //Questa è l'istanza del database che serve per ottenere la connessione
     Connection conn = db.getConnection();
 
@@ -71,24 +70,25 @@ public class UtenteDAO {
         st.executeUpdate();
     }
 
-    public void updateUtente(Utente utente) throws SQLException{
-        if((utente.getId() == null)||(utente.getEmail()== null))
+    public void updateUtente(Utente utente) throws SQLException {
+        if ((utente.getId() == null) || (utente.getEmail() == null)) {
             return;
-        
-        PreparedStatement st = conn.prepareStatement("UPDATE Utente\n" +
-                                                    "SET id_ruolo = ?,\n" +
-                                                    "    password = ?,\n" +
-                                                    "    credito = ? \n" +
-                                                    "WHERE id_utente=?");
+        }
+
+        PreparedStatement st = conn.prepareStatement("UPDATE Utente\n"
+                + "SET id_ruolo = ?,\n"
+                + "    password = ?,\n"
+                + "    credito = ? \n"
+                + "WHERE id_utente=?");
         st.setInt(1, utente.getRuoloId());
         st.setString(2, utente.getPassword());
         st.setFloat(3, utente.getCredito());
-        
+
         st.setInt(4, utente.getId());
-        
+
         st.executeUpdate();
     }
-    
+
     public Utente getUtenteByEmail(String email) throws SQLException {
         Utente result;
         PreparedStatement st = conn.prepareStatement("select * from Utente where Utente.email = ?");
@@ -116,9 +116,10 @@ public class UtenteDAO {
 
     public Utente getUtenteById(Integer id) throws SQLException {
         Utente result;
-        
-        if(id == null)
+
+        if (id == null) {
             return null;
+        }
         PreparedStatement st = conn.prepareStatement("select * from Utente where Utente.id_utente = ?");
         st.setInt(1, id);
 

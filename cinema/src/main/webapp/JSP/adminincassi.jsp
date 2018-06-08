@@ -27,15 +27,15 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Zona Admin - incassi</title>
-    </head>
-    <body class="collage">
+    <title>Zona Admin - incassi</title>
+  </head>
+  <body class="collage">
     <jsp:include page='components/header.jsp'/>
 
     <div class="card margin-admin">
@@ -58,9 +58,9 @@
               <c:set var="tot" value="tot${filmm.getId()}" />
               <c:set var="totGiorno" value="totGiorno${filmm.getId()}" />
               <tr>
-              <td>${filmm.getTitolo()}</td>
-              <td>${requestScope[totGiorno]}</td>
-              <td>${requestScope[tot]}</td>
+                <td>${filmm.getTitolo()}</td>
+                <td>${requestScope[totGiorno]}</td>
+                <td>${requestScope[tot]}</td>
               </tr>
             </c:forEach>
           </tbody>
@@ -69,5 +69,5 @@
     </div>
 
     <jsp:include page='components/footer.jsp'/>
-    </body>
+  </body>
 </html>

@@ -13,7 +13,6 @@
  *
  * See <http://www.gnu.org/licenses/>.
  */
-
 package it.unitn.disi.cinema.servlets;
 
 import it.unitn.disi.cinema.common.PrettyPrintFilmGenere;
@@ -39,7 +38,7 @@ public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
         /*Accesso db*/    //Perchè questa soluzione non funziona? non posso leggere da homepage.jsp gli attributi di request
         FilmDAO fld = DAOFactory.getFilmDAO();
         GenereDAO gnd = DAOFactory.getGenereDAO();
@@ -74,14 +73,14 @@ public class MainServlet extends HttpServlet {
         String pageRequested = request.getParameter("pageRequested");
 
         if (pageRequested.equals("adminsituazione")) {
-    
+
             SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
             PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
             SalaDAO sld = DAOFactory.getSalaDAO();
             FilmDAO fld = DAOFactory.getFilmDAO();
             PrezzoDAO prz = DAOFactory.getPrezzoDAO();
 
-            try {               
+            try {
 
                 long millis = System.currentTimeMillis();
                 Timestamp now = new Timestamp(millis);
@@ -90,51 +89,51 @@ public class MainServlet extends HttpServlet {
                     int postiOccupati = sld.getAvailablePostiCount(spettc.getId());
                     int postiTotali = sld.getPostiCount(spettc.getSalaId());
 
-                    request.setAttribute("postiOccupati"+spettc.getId(),postiOccupati);
-                    request.setAttribute("postiTotali"+spettc.getId(),postiTotali);
-                    request.setAttribute("film"+spettc.getId(),fld.getFilmById(spettc.getFilmId()).getTitolo());
-                
+                    request.setAttribute("postiOccupati" + spettc.getId(), postiOccupati);
+                    request.setAttribute("postiTotali" + spettc.getId(), postiTotali);
+                    request.setAttribute("film" + spettc.getId(), fld.getFilmById(spettc.getFilmId()).getTitolo());
+
                     int tot = 0;
-                    for (Prenotazione prenc: prd.getBySpettacolo(spettc.getId())) {
+                    for (Prenotazione prenc : prd.getBySpettacolo(spettc.getId())) {
                         tot += prz.getPrezzoById(prenc.getPrezzoId()).getPrezzo();
                     }
 
-                    request.setAttribute("incasso"+spettc.getId(),tot);
+                    request.setAttribute("incasso" + spettc.getId(), tot);
                 }
 
-                request.setAttribute("spettacolo",spd.getAfter(now));
-                request.setAttribute("pageCurrent","adminsituazione");
+                request.setAttribute("spettacolo", spd.getAfter(now));
+                request.setAttribute("pageCurrent", "adminsituazione");
                 request.getRequestDispatcher("JSP/adminsituazione.jsp").forward(request, response);
             } catch (SQLException ex) {
                 System.out.println("Errore, inpossibile ottenere la pagina degli admin");
                 ex.printStackTrace();
-            }      
+            }
         } else if (pageRequested.equals("adminincassi")) {
-            
+
             SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
             FilmDAO fld = DAOFactory.getFilmDAO();
             PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
             PrezzoDAO prz = DAOFactory.getPrezzoDAO();
 
-            try {               
+            try {
                 List<Prezzo> prezzo = prz.getAll();
-                
+
                 long millis = System.currentTimeMillis();
                 Timestamp now = new Timestamp(millis);
-                
+
                 Calendar cal1 = Calendar.getInstance();
                 cal1.setTimeInMillis(now.getTime());
                 int today = cal1.get(Calendar.DAY_OF_YEAR);
 
                 // incassi
-                for (Film filmc: fld.getAll()) {
+                for (Film filmc : fld.getAll()) {
                     double tot = 0.0;
                     double totGiorno = 0.0;
-                    
-                    for (Spettacolo spettc: spd.getByFilm(filmc.getId())) {
-                        for (Prenotazione prenc: prd.getBySpettacolo(spettc.getId())) {
+
+                    for (Spettacolo spettc : spd.getByFilm(filmc.getId())) {
+                        for (Prenotazione prenc : prd.getBySpettacolo(spettc.getId())) {
                             tot += prz.getPrezzoById(prenc.getPrezzoId()).getPrezzo();
-                            
+
                             Calendar cal2 = Calendar.getInstance();
                             cal2.setTimeInMillis(prenc.getDataOraOperazione().getTime());
                             int operation = cal2.get(Calendar.DAY_OF_YEAR);
@@ -144,33 +143,33 @@ public class MainServlet extends HttpServlet {
                             }
                         }
                     }
-                    
+
                     request.setAttribute("tot" + filmc.getId(), tot);
                     request.setAttribute("totGiorno" + filmc.getId(), totGiorno);
                 }
 
                 request.setAttribute("film", fld.getAll());
-                request.setAttribute("pageCurrent","adminincassi");
+                request.setAttribute("pageCurrent", "adminincassi");
                 request.getRequestDispatcher("JSP/adminincassi.jsp").forward(request, response);
             } catch (SQLException ex) {
                 System.out.println("Errore, inpossibile ottenere la pagina degli admin");
                 ex.printStackTrace();
-            }      
+            }
         } else if (pageRequested.equals("adminclientitop")) {
 
             PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
             PrezzoDAO prz = DAOFactory.getPrezzoDAO();
             UtenteDAO utd = DAOFactory.getUtenteDAO();
 
-            try {    
+            try {
                 List<Prezzo> prezzo = prz.getAll();
 
                 //utenti
-                for (Utente utentec: utd.getAll()) {
+                for (Utente utentec : utd.getAll()) {
                     double tot = 0.0;
                     int totPren = 0;
 
-                    for (Prenotazione prenc: prd.getByUtente(utentec.getId())) {
+                    for (Prenotazione prenc : prd.getByUtente(utentec.getId())) {
                         tot += prz.getPrezzoById(prenc.getPrezzoId()).getPrezzo();
                         totPren += 1;
                     }
@@ -179,14 +178,13 @@ public class MainServlet extends HttpServlet {
                     request.setAttribute("totPren" + utentec.getId(), totPren);
                 }
 
-                request.setAttribute("utenti", utd.getAll());     
-                request.setAttribute("pageCurrent","adminclientitop");
+                request.setAttribute("utenti", utd.getAll());
+                request.setAttribute("pageCurrent", "adminclientitop");
                 request.getRequestDispatcher("JSP/adminclientitop.jsp").forward(request, response);
             } catch (SQLException ex) {
                 System.out.println("Errore, inpossibile ottenere la pagina degli admin");
                 ex.printStackTrace();
-            }      
+            }
         }
     }
 }
-

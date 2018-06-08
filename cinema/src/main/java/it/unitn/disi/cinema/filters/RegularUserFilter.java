@@ -13,7 +13,6 @@
  *
  * See <http://www.gnu.org/licenses/>.
  */
-
 package it.unitn.disi.cinema.filters;
 
 import java.io.IOException;
@@ -33,30 +32,28 @@ import javax.servlet.http.HttpSession;
  * @author domenico
  */
 public class RegularUserFilter implements Filter {
-    
+
     public RegularUserFilter() {
-    }    
-    
-    
-    
+    }
+
     public void doFilter(ServletRequest req, ServletResponse res,
             FilterChain chain)
             throws IOException, ServletException {
-        
+
         HttpServletRequest httprequest = (HttpServletRequest) req;
-		HttpServletResponse httpresponse = (HttpServletResponse) res;
-        
-        HttpSession session = httprequest.getSession(false); 
-        
+        HttpServletResponse httpresponse = (HttpServletResponse) res;
+
+        HttpSession session = httprequest.getSession(false);
+
         PrintWriter out = httpresponse.getWriter();
         out.println("Load page error");
-        String email = (String)session.getAttribute("email");
-        if(email == null){
+        String email = (String) session.getAttribute("email");
+        if (email == null) {
             out.println("Requested is: " + httprequest.getRequestURI());
             session.setAttribute("filterSavedRequest", httprequest.getRequestURI());
-            
+
             httprequest.getRequestDispatcher("/login.do").forward(httprequest, httpresponse);
-        }else{
+        } else {
             chain.doFilter(req, res);
         }
     }
@@ -64,7 +61,7 @@ public class RegularUserFilter implements Filter {
     /**
      * Destroy method for this filter
      */
-    public void destroy() {        
+    public void destroy() {
     }
 
     @Override

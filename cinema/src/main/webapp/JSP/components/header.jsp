@@ -12,15 +12,15 @@
 <c:set var="pageCurrent" value="${requestScope.pageCurrent}" />
 
 <c:choose>
-    <c:when test="${pageCurrent=='homepage'}">
-        <c:set var="activeHomepage" value="active"></c:set>
-    </c:when>
-    <c:when test="${pageCurrent=='infopage'}">
-        <c:set var="activeInfopage" value="active"></c:set>
-    </c:when>
-    <c:when test="${pageCurrent=='reservationpage'}">
-        <c:set var="activeReservationpage" value="active"></c:set>
-    </c:when>
+  <c:when test="${pageCurrent=='homepage'}">
+    <c:set var="activeHomepage" value="active"></c:set>
+  </c:when>
+  <c:when test="${pageCurrent=='infopage'}">
+    <c:set var="activeInfopage" value="active"></c:set>
+  </c:when>
+  <c:when test="${pageCurrent=='reservationpage'}">
+    <c:set var="activeReservationpage" value="active"></c:set>
+  </c:when>
 </c:choose>
 
 
@@ -29,7 +29,7 @@
 
 
 <header class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand flex-row" style="font-family: 'Gugi', cursive;">CINEMA UNIVERSE</a>
+  <a class="navbar-brand flex-row" style="font-family: 'Gugi', cursive;">CINEMA UNIVERSE</a>
 </header>
 <header class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <!--<header class="navbar navbar-expand navbar-dark bg-dark flex-column flex-md-row bd-navbar">-->
@@ -60,14 +60,14 @@
           <c:set var="emailParts" value="${fn:split(sessionScope.email, '@')}" />
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <c:choose>
-              <c:when test="${sessionScope.ruolo == 'admin'}">
-                <i class="fa fa-user"></i> <b>${emailParts[0]}</b> (${sessionScope.ruolo})
-              </c:when>
-              <c:otherwise>
-                <i class="fa fa-user"></i> <b>${emailParts[0]}</b>
-              </c:otherwise>
-            </c:choose>
+              <c:choose>
+                <c:when test="${sessionScope.ruolo == 'admin'}">
+                  <i class="fa fa-user"></i> <b>${emailParts[0]}</b> (${sessionScope.ruolo})
+                </c:when>
+                <c:otherwise>
+                  <i class="fa fa-user"></i> <b>${emailParts[0]}</b>
+                </c:otherwise>
+              </c:choose>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="/cinema/lemieprenotazioni/${sessionScope.email}">Le mie prenotazioni</a>
@@ -111,7 +111,7 @@
 
                 </c:when>
               </c:choose>
-              
+
               <h3 class="dropdown-header"><b>Zona Utente</b></h3>
               <a class="dropdown-item disabled" href="#">Credito Residuo: €${sessionScope.credito}</a>       
               <form class="form-signin" id="form-logout-instance" action="/cinema/logout.do" method="POST">
@@ -129,10 +129,10 @@
               </button>
             </form>
           </li>
-          
+
           <li style="margin-left: 1rem">
           </li>
-          
+
           <li>
             <form class="form-inline " action="/cinema/signup.do" method="GET">
               <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">
@@ -153,12 +153,12 @@
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script>
-$(document).ready(function(){
-  $('.dropleft a.test').on("click", function(e){
-    $(this).next('ul').toggle();
-    e.stopPropagation();
-    e.preventDefault();
-  });
-});
+                  $(document).ready(function () {
+                    $('.dropleft a.test').on("click", function (e) {
+                      $(this).next('ul').toggle();
+                      e.stopPropagation();
+                      e.preventDefault();
+                    });
+                  });
 </script>
 

@@ -13,7 +13,6 @@
  *
  * See <http://www.gnu.org/licenses/>.
  */
-
 package it.unitn.disi.cinema.servlets;
 
 import it.unitn.disi.cinema.dataaccess.Beans.*;
@@ -55,17 +54,15 @@ public class ScriptServlet extends HttpServlet {
             if (request.getParameter("proiezioni") != null) {
                 numeroProiezioni = Integer.parseInt(request.getParameter("proiezioni"));
             }
-            
+
             out.print("Random sale = ");
             boolean randomCheck = false;
-            if (request.getParameter("random-check") ==null) {
+            if (request.getParameter("random-check") == null) {
                 out.println("false");
-            }else{
+            } else {
                 out.println("true");
                 randomCheck = true;
             }
-            
-            
 
             out.println("Richieste " + numeroProiezioni + " proiezioni per film, ognuna di durata " + durata + " minuti");
 
@@ -121,18 +118,18 @@ public class ScriptServlet extends HttpServlet {
     private void createNewSpettacolo(Integer idFilm, Timestamp time, boolean random) {
         SpettacoloDAO spd = DAOFactory.getSpettacoloDAO();
         SalaDAO sld = DAOFactory.getSalaDAO();
-        
+
         try {
             List<Sala> sale = sld.getAll();
             int salaToUse = 0;
-            
-            if(random){
+
+            if (random) {
                 Random rnd = new Random();
                 salaToUse = rnd.nextInt(sale.size());
-            }else{
-                salaToUse = (idFilm-1) % sale.size();
+            } else {
+                salaToUse = (idFilm - 1) % sale.size();
             }
-            
+
             Integer idSala = sale.get(salaToUse).getId();
             Spettacolo s = new Spettacolo(null, idFilm, idSala, time);
             spd.addSpettacolo(s);

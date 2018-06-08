@@ -13,7 +13,6 @@
  *
  * See <http://www.gnu.org/licenses/>.
  */
-
 package it.unitn.disi.cinema.servlets;
 
 import it.unitn.disi.cinema.dataaccess.Beans.*;
@@ -38,10 +37,11 @@ public class LoginServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        if(session.getAttribute("email") == null)
+        if (session.getAttribute("email") == null) {
             request.getRequestDispatcher("/JSP/loginpage.jsp").forward(request, response);
-        else
+        } else {
             response.setStatus(500);
+        }
     }
 
     @Override
@@ -60,32 +60,32 @@ public class LoginServlet extends HttpServlet {
         try {
             if (utd.isUsed(email)) {
                 Utente currentUser = utd.getUtenteByEmail(email);
-                
+
                 /**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**/
-                /**//**//**//**//* Qui ci va la creazione di un hash per le password  *//**//**//**//**//**//**/
-                /**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**/
-                
+ /**//**//**//**//* Qui ci va la creazione di un hash per le password  *//**//**//**//**//**//**/
+ /**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**//**/
+
 
                 if (password.equals(currentUser.getPassword())) {
                     session.setAttribute("email", email);
                     session.setAttribute("ruolo", rud.getRuoloById(currentUser.getRuoloId()).getRuolo());
                     session.setAttribute("credito", currentUser.getCredito());
                     session.removeAttribute("errorMessage");
-                    
+
                     Object filterSavedRequestPage = session.getAttribute("filterSavedRequest");
-                    if(filterSavedRequestPage != null){
-                        try{
-                            String fsrStr = (String)filterSavedRequestPage;
+                    if (filterSavedRequestPage != null) {
+                        try {
+                            String fsrStr = (String) filterSavedRequestPage;
                             session.removeAttribute("filterSavedRequest");
-                            
+
                             response.sendRedirect(fsrStr);
-                        }catch(Exception e){
+                        } catch (Exception e) {
                             System.out.println("ERROR with filterSavedRequest in LoginServlet!!!!");
                         }
-                    }else{
+                    } else {
                         response.sendRedirect(request.getContextPath() + "/");
                     }
-                }else{
+                } else {
                     session.setAttribute("errorMessage", "La combinazione email/password è sbagliata");
                     response.sendRedirect(request.getContextPath() + "/login.do");
                 }

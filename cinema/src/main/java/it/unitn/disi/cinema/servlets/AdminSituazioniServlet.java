@@ -43,10 +43,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "AdminSituazioniServlet", urlPatterns = {"/situazione/*"})
 public class AdminSituazioniServlet extends HttpServlet {
 
-    private boolean isNumeric(String s) {  
-        return s != null && s.matches("[-+]?\\d*\\.?\\d+");  
-    }  
-    
+    private boolean isNumeric(String s) {
+        return s != null && s.matches("[-+]?\\d*\\.?\\d+");
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -55,7 +55,6 @@ public class AdminSituazioniServlet extends HttpServlet {
         PrenotazioneDAO prd = DAOFactory.getPrenotazioneDAO();
         PostoDAO psd = DAOFactory.getPostoDAO();
 
-        
         response.setContentType("text/html;charset=UTF-8");
         try {
 
@@ -86,29 +85,27 @@ public class AdminSituazioniServlet extends HttpServlet {
 //                Sala sala = sld.getSalaById(spettacolo.getSalaId());
 //                List<Posto> posti = psd.getPostoBySalaId(sala.getId());
 //                List<Prenotazione> prenotazioni = prd.getBySpettacolo(spettacolo.getId());
-
-
                 if (spettacolo != null) {
 
                     Sala sala = sld.getSalaById(spettacolo.getSalaId());
                     List<Prenotazione> prenotazioni = prd.getBySpettacolo(spettacolo.getId());
-                    
-                    List<Posto> posti = psd.getPostoBySalaId(sala.getId());                    
-                    
+
+                    List<Posto> posti = psd.getPostoBySalaId(sala.getId());
+
                     List<PackagePosto> tosend = new ArrayList<>();
-                    
+
                     PackagePosto temp;
-                    for(Posto posto : posti){
+                    for (Posto posto : posti) {
                         temp = new PackagePosto(posto, null);
-                        for(Prenotazione prenotazione : prenotazioni){
-                            if(prenotazione.getPostoId().equals(posto.getId())){
+                        for (Prenotazione prenotazione : prenotazioni) {
+                            if (prenotazione.getPostoId().equals(posto.getId())) {
                                 temp.setPrenotazione(prenotazione);
                             }
                         }
-                        
+
                         tosend.add(temp);
                     }
-                    
+
                     request.setAttribute("spettacolo", spettacolo);
                     request.setAttribute("sala", sala);
                     request.setAttribute("packageposti", tosend);
@@ -117,7 +114,7 @@ public class AdminSituazioniServlet extends HttpServlet {
                     request.setAttribute("errorcode", "410");
                     request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
                 }
-            }          
+            }
         } catch (SQLException ex) {
             request.setAttribute("errorcode", "410");
             request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);

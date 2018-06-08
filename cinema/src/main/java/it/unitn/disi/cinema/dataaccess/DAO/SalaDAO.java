@@ -13,7 +13,7 @@
  *
  * See <http://www.gnu.org/licenses/>.
  */
-/*
+ /*
  * Questo è un DAO per la tabella Sala
  * Quì vanno definiti dei metodi CRUD per potere accedere al db e gestire record della tabella user
  * Create, Retrieve, Update, Delete
@@ -53,7 +53,6 @@ public class SalaDAO {
         nel programma.
         La sua unica istanza è una variabile statica al suo interno e può essere ottenuta con Database.getInstance();
      */
-
     Database db = Database.getInstance();   //Questa è l'istanza del database che serve per ottenere la connessione
     Connection conn = db.getConnection();
 

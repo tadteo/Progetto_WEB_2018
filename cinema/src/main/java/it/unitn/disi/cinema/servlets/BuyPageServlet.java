@@ -98,28 +98,22 @@ public class BuyPageServlet extends HttpServlet {
                     ridotto = allprz.get(1);
                 }
             }
-            
-            
-            
+
             Integer spettacolo_id;
-            try{
+            try {
                 spettacolo_id = Integer.parseInt(spettacolo.trim());
-                
-                
 
-                
-                for(Posto posto: posti){
+                for (Posto posto : posti) {
 
-                    if(psd.isReserved(spettacolo_id,posto.getId())){
+                    if (psd.isReserved(spettacolo_id, posto.getId())) {
                         request.setAttribute("mmessage", "Siamo spiacenti, un utente ha prenotato uno dei suoi posti mentre lei li stava scegliendo, la preghiamo di riprovare.");
-                        
+
                         request.setAttribute("errorcode", "409");
                         request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
                     }
 
-                }   
-                
-                
+                }
+
                 request.setAttribute("selezionati", selezionati);
                 request.setAttribute("spettacolo", spettacolo);
                 request.setAttribute("prezzi", prezzi);
@@ -129,14 +123,13 @@ public class BuyPageServlet extends HttpServlet {
                 request.setAttribute("ridotto", ridotto);
 
                 request.setAttribute("pageCurrent", "buypage");
-                
-                
+
                 request.getRequestDispatcher("JSP/buypage.jsp").forward(request, response);
-                
-            }catch(NumberFormatException nfe){
+
+            } catch (NumberFormatException nfe) {
                 System.err.println("ERRORE! Impossibile convertire in int la stringa spettacolo");
             }
-            
+
         } catch (SQLException ex) {
             System.out.println("Errore, impossibile ottenere la lista dei film");
             ex.printStackTrace();

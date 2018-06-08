@@ -46,7 +46,7 @@ import java.util.List;
  * getBySpettacoloAfter(Integer idSpettacolo, Timestamp time)
  *
  * //No update
-
+ *
  *
  * deletePrenotazione(Integer id);
  *
@@ -161,7 +161,6 @@ public class PrenotazioneDAO {
         }
         return result;
     }
-
 
     public List<Prenotazione> getByUtenteAfter(Integer idUtente, Timestamp time) throws SQLException {
 

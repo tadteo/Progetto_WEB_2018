@@ -55,7 +55,6 @@ public class PostoDAO {
         nel programma.
         La sua unica istanza è una variabile statica al suo interno e può essere ottenuta con Database.getInstance();
      */
-
     Database db = Database.getInstance();   //Questa è l'istanza del database che serve per ottenere la connessione
     Connection conn = db.getConnection();
 
@@ -140,7 +139,6 @@ public class PostoDAO {
         }
         return result;
     }
-
 
     public void deletePosto(Integer id) throws SQLException {
 

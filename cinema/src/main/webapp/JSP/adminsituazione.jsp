@@ -27,17 +27,17 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"  crossorigin="anonymous">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/CSS/cinema.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Zona Admin - programmazioni</title>
-    </head>
-    <jsp:include page='components/header.jsp'/>
+    <title>Zona Admin - programmazioni</title>
+  </head>
+  <jsp:include page='components/header.jsp'/>
 
-    <body class="collage">
+  <body class="collage">
     <div class="card margin-admin">
       <div class="card-body overflow-card">
         SITUAZIONE DELLE PROGRAMMAZIONI
@@ -45,7 +45,7 @@
     </div>
     <div class="card margin-admin">
       <div class="card-body overflow-card">
-       <table class="table  table-striped">
+        <table class="table  table-striped">
           <thead class="thead-dark">
             <tr>
               <th scope="col">ID spettacolo</th>
@@ -75,7 +75,7 @@
                 <td>${requestScope[postiOccupati]}</td>
                 <td>${postiLiberi}</td>
                 <td>${requestScope[incasso]}</td>
-             </tr>
+              </tr>
 
             </c:forEach>
           </tbody>
@@ -83,6 +83,6 @@
       </div>
     </div>
 
-    </body>
-    <jsp:include page='components/footer.jsp'/>
+  </body>
+  <jsp:include page='components/footer.jsp'/>
 </html>

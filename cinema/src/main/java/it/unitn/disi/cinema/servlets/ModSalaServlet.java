@@ -13,7 +13,6 @@
  *
  * See <http://www.gnu.org/licenses/>.
  */
-
 package it.unitn.disi.cinema.servlets;
 
 import it.unitn.disi.cinema.dataaccess.Beans.Posto;
@@ -38,10 +37,10 @@ public class ModSalaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         SalaDAO sld = DAOFactory.getSalaDAO();
         PostoDAO psd = DAOFactory.getPostoDAO();
-        
+
         String idReq_str = request.getPathInfo();
         if (idReq_str == null) {
             request.setAttribute("errorcode", "404");
@@ -52,12 +51,13 @@ public class ModSalaServlet extends HttpServlet {
             request.setAttribute("errorcode", "404");
             request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
         }
-        
+
         Integer idReq = null;
         try {
             idReq = Integer.parseInt(idReq_str);
-            if(idReq <= 0)
+            if (idReq <= 0) {
                 throw new NumberFormatException();
+            }
         } catch (NumberFormatException nfe) {
             request.setAttribute("errorcode", "400");
             request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
@@ -65,10 +65,10 @@ public class ModSalaServlet extends HttpServlet {
 
         try {
             Sala sala = sld.getSalaById(idReq);
-            if(sala != null){
-                
+            if (sala != null) {
+
                 List<Posto> posti = psd.getPostoBySalaId(sala.getId());
-               
+
                 request.setAttribute("sala", sala);
                 request.setAttribute("posti", posti);
                 request.getRequestDispatcher("/JSP/modifysalapage.jsp").forward(request, response);
@@ -78,11 +78,9 @@ public class ModSalaServlet extends HttpServlet {
             request.setAttribute("errorcode", "400");
             request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);
         }
-        
-        
+
     }
 
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
