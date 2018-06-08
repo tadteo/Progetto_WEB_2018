@@ -141,14 +141,20 @@ public class AdminPrenotazioniServlet extends HttpServlet {
         if (idReq_str.substring(1).equals("rimozione")) {
             try {
                 //good, rimuovere
-                double value = 0.0;
+                float value = (float) 0.0;
                 int user = 0;
                 user = (prd.getPrenotazioneById(Integer.parseInt(request.getParameter("delete")))).getUtenteId();
                 value = prz.getPrezzoById(prd.getPrenotazioneById(Integer.parseInt(request.getParameter("delete"))).getPrezzoId()).getPrezzo();
-                value = value * 0.8;
+                value = (float) (value * 0.8);
+                Utente utente = utd.getUtenteById(user);
+
+                utente.setCredito(utente.getCredito()+value);
+                utd.updateUtente(utente);
+
+
+                request.getSession().setAttribute("credito", utd.getUtenteById(user).getCredito());
                 
                 prd.deletePrenotazione(Integer.parseInt(request.getParameter("delete")));
-                //utd.addcredito(value)?
             } catch (SQLException ex) {
                 request.setAttribute("errorcode", "410");
                 request.getRequestDispatcher("/JSP/errorpage.jsp").forward(request, response);   

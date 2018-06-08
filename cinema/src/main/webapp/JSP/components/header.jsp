@@ -113,7 +113,7 @@
               </c:choose>
               
               <h3 class="dropdown-header"><b>Zona Utente</b></h3>
-                     
+              <a class="dropdown-item disabled" href="#">Credito Residuo: €${sessionScope.credito}</a>       
               <form class="form-signin" id="form-logout-instance" action="/cinema/logout.do" method="POST">
                 <a class="dropdown-item text-white bg-danger" href="#" onclick="document.getElementById('form-logout-instance').submit();">Logout</a>
               </form>

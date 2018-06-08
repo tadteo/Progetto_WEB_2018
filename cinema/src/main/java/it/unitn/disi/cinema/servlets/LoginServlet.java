@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
                 if (password.equals(currentUser.getPassword())) {
                     session.setAttribute("email", email);
                     session.setAttribute("ruolo", rud.getRuoloById(currentUser.getRuoloId()).getRuolo());
-
+                    session.setAttribute("credito", currentUser.getCredito());
                     session.removeAttribute("errorMessage");
                     
                     Object filterSavedRequestPage = session.getAttribute("filterSavedRequest");
