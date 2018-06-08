@@ -1,12 +1,22 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Cinema Universe - Reservation System
+ * Copyright (C) 2018 Domenico Stefani, Ivan Martini, Matteo Tadiello
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * See <http://www.gnu.org/licenses/>.
  */
+
 package it.unitn.disi.cinema.servlets;
 
 import it.unitn.disi.cinema.dataaccess.Beans.Film;
-import it.unitn.disi.cinema.dataaccess.Beans.Genere;
 import it.unitn.disi.cinema.dataaccess.Beans.PackagePrenotazione;
 import it.unitn.disi.cinema.dataaccess.Beans.Posto;
 import it.unitn.disi.cinema.dataaccess.Beans.Prenotazione;
@@ -14,15 +24,12 @@ import it.unitn.disi.cinema.dataaccess.Beans.Spettacolo;
 import it.unitn.disi.cinema.dataaccess.Beans.Utente;
 import it.unitn.disi.cinema.dataaccess.DAO.DAOFactory;
 import it.unitn.disi.cinema.dataaccess.DAO.FilmDAO;
-import it.unitn.disi.cinema.dataaccess.DAO.GenereDAO;
 import it.unitn.disi.cinema.dataaccess.DAO.PostoDAO;
 import it.unitn.disi.cinema.dataaccess.DAO.PrenotazioneDAO;
 import it.unitn.disi.cinema.dataaccess.DAO.SpettacoloDAO;
 import it.unitn.disi.cinema.dataaccess.DAO.UtenteDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
